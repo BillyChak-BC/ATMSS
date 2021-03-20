@@ -15,6 +15,7 @@ public class ATMSS extends AppThread {
     private MBox DepositSlotMBox;
     private MBox DispenserSlotMBox;
     private MBox AdvicePrinterMBox;
+    private MBox BuzzerMBox;
 
     //------------------------------------------------------------
     // ATMSS
@@ -36,6 +37,7 @@ public class ATMSS extends AppThread {
 	DepositSlotMBox = appKickstarter.getThread("DepositSlotHandler").getMBox();
 	DispenserSlotMBox = appKickstarter.getThread("DispenserSlotHandler").getMBox();
 	AdvicePrinterMBox = appKickstarter.getThread("AdvicePrinterHandler").getMBox();
+	BuzzerMBox = appKickstarter.getThread("BuzzerHandler").getMBox();
 
 	for (boolean quit = false; !quit;) {
 	    Msg msg = mbox.receive();
@@ -70,6 +72,7 @@ public class ATMSS extends AppThread {
 		    DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
 		    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
 		    AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+		    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
 		    break;
 
 		case PollAck:

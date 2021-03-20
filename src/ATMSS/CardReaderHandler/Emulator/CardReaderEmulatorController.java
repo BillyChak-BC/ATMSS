@@ -29,9 +29,9 @@ public class CardReaderEmulatorController {
     public void initialize(String id, AppKickstarter appKickstarter, Logger log, CardReaderEmulator cardReaderEmulator) {
         this.id = id;
         this.appKickstarter = appKickstarter;
-	this.log = log;
-	this.cardReaderEmulator = cardReaderEmulator;
-	this.cardReaderMBox = appKickstarter.getThread("CardReaderHandler").getMBox();
+		this.log = log;
+		this.cardReaderEmulator = cardReaderEmulator;
+		this.cardReaderMBox = appKickstarter.getThread("CardReaderHandler").getMBox();
     } // initialize
 
 

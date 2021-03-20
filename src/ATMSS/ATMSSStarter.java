@@ -1,8 +1,7 @@
 package ATMSS;
 
-
 import ATMSS.AdvicePrinterHandler.AdvicePrinterHandler;
-import ATMSS.KeypadHandler.Emulator.KeypadEmulator;
+import ATMSS.BuzzerHandler.BuzzerHandler;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.Msg;
 import AppKickstarter.timer.Timer;
@@ -28,6 +27,7 @@ public class ATMSSStarter extends AppKickstarter {
     protected DepositSlotHandler DepositSlotHandler;
     protected DispenserSlotHandler DispenserSlotHandler;
     protected AdvicePrinterHandler AdvicePrinterHandler;
+    protected BuzzerHandler BuzzerHandler;
 
 
     //------------------------------------------------------------
@@ -70,6 +70,7 @@ public class ATMSSStarter extends AppKickstarter {
 			DepositSlotHandler = new DepositSlotHandler("DepositSlotHandler", this); //test
 			DispenserSlotHandler = new DispenserSlotHandler("DispenserSlotHandler", this);
 			AdvicePrinterHandler = new AdvicePrinterHandler("AdvicePrinterHandler", this);
+			BuzzerHandler = new BuzzerHandler("BuzzerHandler", this);
 
 		} catch (Exception e) {
 			System.out.println("AppKickstarter: startApp failed");
@@ -86,6 +87,7 @@ public class ATMSSStarter extends AppKickstarter {
 		new Thread(DepositSlotHandler).start();
 		new Thread(DispenserSlotHandler).start();
 		new Thread(AdvicePrinterHandler).start();
+		new Thread(BuzzerHandler).start();
     } // startHandlers
 
 
@@ -103,6 +105,7 @@ public class ATMSSStarter extends AppKickstarter {
 		DepositSlotHandler.getMBox().send(new Msg(id, null, Msg.Type.Terminate, "Terminate now!"));	//test
 		DispenserSlotHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		AdvicePrinterHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
+		BuzzerHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		timer.getMBox().send(new Msg(id, null, Msg.Type.Terminate, "Terminate now!"));
     } // stopApp
 } // ATM.ATMSSStarter
