@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<?import javafx.scene.shape.Circle?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ATMSS.BuzzerHandler.Emulator.BuzzerEmulatorController"
+            prefHeight="300.0" prefWidth="300.0">
+    <children>
+        <AnchorPane prefHeight="250.0" prefWidth="250.0" AnchorPane.leftAnchor="25" AnchorPane.topAnchor="25">
+            <children>
+                <Circle radius="100" centerX="125" centerY="125" fill="darkred" stroke="black" strokeType="OUTSIDE"/>
+                <Circle radius="75" centerX="125" centerY="125" fill="darkred" stroke="black" strokeType="OUTSIDE" strokeWidth="5"/>
+                <Circle radius="50" centerX="125" centerY="125" fill="darkred" stroke="black" strokeType="OUTSIDE" strokeWidth="5"/>
+                <Circle radius="20" centerX="125" centerY="125" fill="black" stroke="black" strokeType="OUTSIDE"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
