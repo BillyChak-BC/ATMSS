@@ -55,5 +55,6 @@ public class AdvicePrinterEmulator extends AdvicePrinterHandler {
     	super.handleAdvicePrint(msg);
     	AdvicePrinterEmulatorController.appendTextArea("Printing Advice...");
         AdvicePrinterEmulatorController.appendTextArea(msg);
+        AdvicePrinterEmulatorController.clearAdvice();
     }
 }

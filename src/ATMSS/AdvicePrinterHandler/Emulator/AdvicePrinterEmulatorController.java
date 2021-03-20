@@ -66,6 +66,10 @@ public class AdvicePrinterEmulatorController {
     	}
     }
     
+    public void clearAdvice() {
+    	Advice = "";
+    }
+    
     //------------------------------------------------------------
     // appendTextArea
     public void appendTextArea(String status) {
