@@ -45,11 +45,15 @@ public class AdvicePrinterEmulator extends AdvicePrinterHandler {
 
     //------------------------------------------------------------
     // handleCardInsert
-    protected void handleAdvicePrint(String msg) {
+    protected void handleAdvice(String msg) {
         // fixme
-        super.handleAdvicePrint(msg);			//do i read the DepositSlotMBox in super and give the details of msg or read in emulator?
-        AdvicePrinterEmulatorController.appendTextArea("Printing Advice...");
-        AdvicePrinterEmulatorController.appendTextArea(msg);
+        super.handleAdvice(msg);
+        AdvicePrinterEmulatorController.storeAdvice(msg);
     } // handleDepositCash
     
+    protected void handleAdvicePrint(String msg) {
+    	super.handleAdvicePrint(msg);
+    	AdvicePrinterEmulatorController.appendTextArea("Printing Advice...");
+        AdvicePrinterEmulatorController.appendTextArea(msg);
+    }
 }

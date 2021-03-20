@@ -18,6 +18,7 @@ public class AdvicePrinterEmulatorController {
     private Logger log;
     private AdvicePrinterEmulator AdvicePrinterEmulator;
     private MBox AdvicePrinterMBox;
+    private String Advice = "";
 
     public TextArea AdvicePrinterTextArea;
     
@@ -56,6 +57,14 @@ public class AdvicePrinterEmulatorController {
     		break;
     	}
     } // buttonPressed
+    
+    public void storeAdvice(String advice) {
+    	if (Advice.equals("")) {
+    		Advice = advice+"\n";
+    	}else {
+    		Advice = Advice+" "+advice+"\n";
+    	}
+    }
     
     //------------------------------------------------------------
     // appendTextArea

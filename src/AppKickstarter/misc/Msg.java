@@ -98,5 +98,6 @@ public class Msg {
     /**Start Deposit */                Deposit, 
     /**Start Dispense*/               Dispense, 
     /** Send Advice from ATMSS*/        Advice,
+    /** Print out Advice onto GUI*/     Print,
     } // Type
 } // Msg
