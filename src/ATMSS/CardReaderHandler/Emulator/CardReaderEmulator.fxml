@@ -18,7 +18,7 @@
 			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Reset" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
 			</children>
 		</AnchorPane>
-		<HBox layoutX="20.0" layoutY="63.0" prefHeight="30.0" prefWidth="340.0" AnchorPane.topAnchor="70.0">
+		<HBox layoutX="20.0" layoutY="63.0" prefHeight="30.0" prefWidth="310.0" AnchorPane.topAnchor="70.0">
 			<children>
 			<Label text="Card No.: " />
 			<TextField fx:id="cardNumField" prefWidth="258.0" AnchorPane.rightAnchor="20" />
