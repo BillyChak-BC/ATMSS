@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="270.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMSS.KeypadHandler.Emulator.KeypadEmulatorController">
+    <children>
+        <AnchorPane prefHeight="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="120.0" text="Cancel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane prefHeight="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="120.0" text="Erase" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane prefHeight="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="120.0" text="???" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane prefHeight="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="50.0" text="00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+                <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="50.0" prefWidth="120.0" text="Enter" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="0.0"><font><Font size="16.0" /></font></Button>
+            </children>
+        </AnchorPane>
+
+    </children>
+</AnchorPane>

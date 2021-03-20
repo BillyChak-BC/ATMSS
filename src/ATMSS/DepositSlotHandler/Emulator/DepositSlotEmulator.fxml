@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMSS.DepositSlotHandler.Emulator.DepositSlotEmulatorController" >
+    <children>
+	    <HBox layoutX="20.0" layoutY="63.0" prefHeight="30.0" prefWidth="310.0" AnchorPane.topAnchor="30.0">
+		    <children>
+			<Label text="Amount: " />
+			<TextField fx:id="amtField" prefWidth="258.0" AnchorPane.rightAnchor="20" />
+		    </children>
+		</HBox>
+		
+		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+		    <children>
+				<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="90.0" text="\$ 100" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+				<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="90.0" text="\$ 500" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+				<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="90.0" text="\$ 1000" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+		    </children>
+		</AnchorPane>
+		
+		<TextArea fx:id="DepositSlotTextArea" editable="false" layoutX="20.0" layoutY="169.0" AnchorPane.bottomAnchor="120" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="110" />
+		
+		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="70.0">
+		    <children>
+				<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Deposit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+				<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Remove" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+		    </children>
+		</AnchorPane>
+		
+		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+		    <children>
+				<TextField fx:id="DepositSlotStatusField" editable="false" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+		    </children>
+		</AnchorPane>
+	</children>
+</AnchorPane>
