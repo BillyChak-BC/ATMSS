@@ -99,6 +99,7 @@ public class Msg {
     /**Start Dispense*/               Dispense, 
     /** Send Advice from ATMSS*/        Advice,
     /** Print out Advice onto GUI*/     Print, 
-    /**Alert Buzzer*/                   Alert,
+    /**Alert Buzzer*/                   Alert, 
+    /** Verify success or failure of login*/ Verify,
     } // Type
 } // Msg

@@ -22,6 +22,8 @@ public class CardReaderEmulatorController {
     public TextField cardNumField;
     public TextField cardStatusField;
     public TextArea cardReaderTextArea;
+	public Button insertBtn;
+	public Button removeBtn;
 
 
     //------------------------------------------------------------
@@ -57,22 +59,23 @@ public class CardReaderEmulatorController {
 		cardNumField.setText("");
 		break;
 
-	    case "Insert Card":
-		if (cardNumField.getText().length() != 0) {
-		    cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardInserted, cardNumField.getText()));
-		    cardReaderTextArea.appendText("Sending " + cardNumField.getText()+"\n");
-		    cardStatusField.setText("Card Inserted");
-		}
-		break;
+		case "Insert Card":
+			if (cardNumField.getText().length() != 0) {
+				cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardInserted, cardNumField.getText()));
+				cardReaderTextArea.appendText("Sending " + cardNumField.getText()+"\n");
+//		    cardStatusField.setText("Card Inserted");
+			}
+			break;
 
-	    case "Remove Card":
-	        if (cardStatusField.getText().compareTo("Card Ejected") == 0) {
-		    cardReaderTextArea.appendText("Removing card\n");
-		    cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardRemoved, cardNumField.getText()));
-		}
-		break;
+		case "Remove Card":
+			if (cardStatusField.getText().compareTo("Card Ejected") == 0) {
+				cardReaderTextArea.appendText("Removing card\n");
+				cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardRemoved, cardNumField.getText()));
+			}
+			break;
 
-	    default:
+
+		default:
 	        log.warning(id + ": unknown button: [" + btn.getText() + "]");
 		break;
 	}
@@ -81,9 +84,17 @@ public class CardReaderEmulatorController {
 
     //------------------------------------------------------------
     // updateCardStatus
-    public void updateCardStatus(String status) {
-	cardStatusField.setText(status);
-    } // updateCardStatus
+	public void updateCardStatus(String status) {
+		cardStatusField.setText(status);
+		if (status.compareTo("Card Inserted") == 0) {
+			insertBtn.setDisable(true);
+		} else if (status.compareTo("Card Ejected") == 0) {
+			removeBtn.setDisable(false);
+		} else if (status.compareTo("Card Reader Empty") == 0) {
+			insertBtn.setDisable(false);
+			removeBtn.setDisable(true);
+		}
+	} // updateCardStatus
 
 
     //------------------------------------------------------------

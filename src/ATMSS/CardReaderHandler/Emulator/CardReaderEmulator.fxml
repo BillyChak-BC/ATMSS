@@ -27,8 +27,8 @@
 		<TextArea fx:id="cardReaderTextArea" editable="false" layoutX="20.0" layoutY="169.0" AnchorPane.bottomAnchor="120" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="110" />
 		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="70.0">
 			<children>
-			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Insert Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
-			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Remove Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+				<Button fx:id="insertBtn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Insert Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+				<Button fx:id="removeBtn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Remove Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
 			</children>
 		</AnchorPane>
 		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
