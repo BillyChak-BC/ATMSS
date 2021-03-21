@@ -42,7 +42,8 @@ public class BuzzerEmulator extends BuzzerHandler {
         myStage.show();
     }
 
-    protected void alert() {
+    protected void alert(String msg) {
+        super.alert(msg);
         myStage.toFront();//move the stage to the front
         //shake the stage
         for (int i = 0; i < 10; i++) {
@@ -51,5 +52,6 @@ public class BuzzerEmulator extends BuzzerHandler {
             myStage.setX(myStage.getX()-10);
             myStage.setX(myStage.getX()+10);
         }
+        buzzerEmulatorController.appendTextArea(msg);
     }
 }

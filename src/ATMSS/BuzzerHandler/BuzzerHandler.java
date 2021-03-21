@@ -14,7 +14,7 @@ public class BuzzerHandler extends HWHandler {
     protected void processMsg(Msg msg) {
         switch (msg.getType()) {
             case Alert:
-                alert(msg);
+                alert(msg.getDetails());
                 break;
 
             default:
@@ -22,7 +22,7 @@ public class BuzzerHandler extends HWHandler {
         }
     } // processMsg
 
-    protected void alert(Msg msg) {
-        log.info(id + ": alert -- " + msg.getDetails());
+    protected void alert(String msg) {
+        log.info(id + ": alert -- " + msg);
     }
 }
