@@ -100,5 +100,6 @@ public class Msg {
     /** Send Advice from ATMSS*/        Advice,
     /** Print out Advice onto GUI*/     Print, 
     /**Alert Buzzer*/                   Alert,
+        /**Verify Success */            VerifySuccess,
     } // Type
 } // Msg
