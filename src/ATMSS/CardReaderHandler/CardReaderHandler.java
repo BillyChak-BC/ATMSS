@@ -31,6 +31,10 @@ public class CardReaderHandler extends HWHandler {
                 handleCardRemove();
                 break;
 
+            case VerifySuccess:
+                handleCardInsert();
+                break;
+
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
         }
