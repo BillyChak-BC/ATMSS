@@ -57,7 +57,7 @@ public class ATMSS extends AppThread {
 
 		case CR_CardInserted:
 		    log.info("CardInserted: " + msg.getDetails());
-			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.VerifySuccess, ""));     //ignore the password validation temporarily
+			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.Verify, "success"));     //ignore the password validation temporarily
 		    break;
 
 		case Denom_sum:
