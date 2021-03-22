@@ -50,6 +50,7 @@ public class ATMSS extends AppThread {
 		case TD_MouseClicked:
 		    log.info("MouseCLicked: " + msg.getDetails());
 		    processMouseClicked(msg);
+			//after processing click depending on x-y AND loggedin is true, change to different screen for deposit/withdraw/transfer
 		    break;
 
 		case KP_KeyPressed:
@@ -57,12 +58,13 @@ public class ATMSS extends AppThread {
 		    processKeyPressed(msg);
 		    break;
 
-		case CR_CardInserted:
+			case CR_CardInserted:		//if receive card inserted from cardreader, do:
 		    log.info("CardInserted: " + msg.getDetails());
 		    //if card inserted proceed to ask pin
 			//if get pin send cardnum and pin to BAMS
 			//if success login return some boolean variable that enable all methods that need login to be true to act
 			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.Verify, "success"));     //ignore the password validation temporarily
+				//send verification success notification to touchscreen display so that screen is changed
 		    break;
 
 		case Denom_sum:
