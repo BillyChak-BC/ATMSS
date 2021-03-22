@@ -57,6 +57,9 @@ public class ATMSS extends AppThread {
 
 		case CR_CardInserted:
 		    log.info("CardInserted: " + msg.getDetails());
+		    //if card inserted proceed to ask pin
+			//if get pin send cardnum and pin to BAMS
+			//if success login return some boolean variable that enable all methods that need login to be true to act
 			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.Verify, "success"));     //ignore the password validation temporarily
 		    break;
 

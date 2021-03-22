@@ -5,7 +5,7 @@ import AppKickstarter.AppKickstarter;
 
 import java.util.logging.Logger;
 
-public class BAMSHandler extends java.lang.Object {
+public class BAMSHandler {
 
     String myUrl;
     Logger logMessage;
