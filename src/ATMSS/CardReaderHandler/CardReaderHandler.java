@@ -21,6 +21,7 @@ public class CardReaderHandler extends HWHandler {
         switch (msg.getType()) {
             case CR_CardInserted:
                 atmss.send(new Msg(id, mbox, Msg.Type.CR_CardInserted, msg.getDetails()));
+                handleCardInsert();
                 break;
 
             case CR_EjectCard:      //receive msg from ATMSS (write in ATMSS a method to send CR_ejectcard msg to card handler)
@@ -31,12 +32,15 @@ public class CardReaderHandler extends HWHandler {
                 handleCardRemove();
                 break;
 
-            case Verify:
+            case LoggedIn:
 //                if (msg.getDetails().compareTo("success") == 0) {
 //                    handleCardInsert();
 //                } else {
 //                    handleCardEject();
 //                }
+                break;
+
+            case LoggedOut:
                 break;
 
             default:
