@@ -32,11 +32,11 @@ public class CardReaderHandler extends HWHandler {
                 break;
 
             case Verify:
-                if (msg.getDetails().compareTo("success") == 0) {
-                    handleCardInsert();
-                } else {
-                    handleCardEject();
-                }
+//                if (msg.getDetails().compareTo("success") == 0) {
+//                    handleCardInsert();
+//                } else {
+//                    handleCardEject();
+//                }
                 break;
 
             default:
