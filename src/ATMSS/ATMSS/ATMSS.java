@@ -9,7 +9,7 @@ import AppKickstarter.timer.Timer;
 // ATMSS
 public class ATMSS extends AppThread {
     private int pollingTime;
-    //private boolean loggedIn = false;
+    private boolean loggedIn = false;
 
     private MBox cardReaderMBox;
     private MBox keypadMBox;
@@ -63,8 +63,10 @@ public class ATMSS extends AppThread {
 		    //if card inserted proceed to ask pin
 			//if get pin send cardnum and pin to BAMS
 			//if success login return some boolean variable that enable all methods that need login to be true to act
-			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.Verify, "success"));     //ignore the password validation temporarily
-				//send verification success notification to touchscreen display so that screen is changed
+			loggedIn = true;
+			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "success"));
+			//ignore the password validation temporarily
+			//send verification success notification to touchscreen display so that screen is changed
 		    break;
 
 		case Denom_sum:
