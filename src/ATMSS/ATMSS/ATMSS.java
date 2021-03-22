@@ -9,6 +9,8 @@ import AppKickstarter.timer.Timer;
 // ATMSS
 public class ATMSS extends AppThread {
     private int pollingTime;
+    //private boolean loggedIn = false;
+
     private MBox cardReaderMBox;
     private MBox keypadMBox;
     private MBox touchDisplayMBox;
