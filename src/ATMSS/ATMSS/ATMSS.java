@@ -62,9 +62,10 @@ public class ATMSS extends AppThread {
 		    break;
 
 			case CR_CardInserted:		//if receive card inserted from cardreader, do:
-		    log.info("CardInserted: " + msg.getDetails());
-		    cardNum = msg.getDetails();
-		    getPin = true;		//if we are now looking for pin,
+				log.info("CardInserted: " + msg.getDetails());
+				cardNum = msg.getDetails();
+				getPin = true;		//if we are now looking for pin,
+				keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
 		    //if card inserted proceed to ask pin (send msg to ask for PIN)
 		    break;
 			//if get pin send cardnum and pin to BAMS (Keypad send PIN to atmss)
