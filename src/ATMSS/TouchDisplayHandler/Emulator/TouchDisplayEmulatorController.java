@@ -17,6 +17,8 @@ public class TouchDisplayEmulatorController {
     private TouchDisplayEmulator touchDisplayEmulator;
     private MBox touchDisplayMBox;
 
+    //private boolean loggedIn = false;
+
 
     //------------------------------------------------------------
     // initialize

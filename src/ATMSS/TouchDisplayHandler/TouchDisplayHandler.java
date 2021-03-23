@@ -26,6 +26,7 @@ public class TouchDisplayHandler extends HWHandler {
             case TD_UpdateDisplay:
                 handleUpdateDisplay(msg);
                 break;
+                
 
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");

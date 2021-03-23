@@ -100,7 +100,7 @@ public class Msg {
     /** Send Advice from ATMSS*/        Advice,
     /** Print out Advice onto GUI*/     Print, 
     /**Alert Buzzer*/                   Alert, 
-    /** alert components that login is successful*/ LoggedIn,
-    /**alert components that logout is successful*/ LoggedOut,
+//    /** alert components that login is successful*/ LoggedIn,
+//    /**alert components that logout is successful*/ LoggedOut,
     } // Type
 } // Msg

@@ -63,8 +63,8 @@ public class ATMSS extends AppThread {
 		    //if card inserted proceed to ask pin
 			//if get pin send cardnum and pin to BAMS
 			//if success login return some boolean variable that enable all methods that need login to be true to act
-			loggedIn = true;
-			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "success"));
+			//loggedIn = true;
+			//touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "")); //change screen to main menu to select transaction
 			//ignore the password validation temporarily
 			//send verification success notification to touchscreen display so that screen is changed
 		    break;
