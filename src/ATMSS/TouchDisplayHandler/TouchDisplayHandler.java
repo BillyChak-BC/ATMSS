@@ -28,7 +28,7 @@ public class TouchDisplayHandler extends HWHandler {
                 break;
 
             case LoggedIn:
-                handleLogin(msg.getDetails());
+                handleLogin();
                 break;
 
             default:

@@ -27,4 +27,8 @@ public class KeypadHandler extends HWHandler {
                 log.warning(id + ": unknown message type: [" + msg + "]");
         }
     } // processMsg
+
+    protected void alert() {
+        log.info(id + ": alert -- ");
+    }
 } // KeypadHandler
