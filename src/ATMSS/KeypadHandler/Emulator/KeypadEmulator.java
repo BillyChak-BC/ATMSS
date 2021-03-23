@@ -53,13 +53,22 @@ public class KeypadEmulator extends KeypadHandler {
 
 	protected void alert() {
 		super.alert();
-		myStage.toFront();//move the stage to the front
-		//shake the stage
-		for (int i = 0; i < 10; i++) {
-			myStage.setX(myStage.getX()+10);
-			myStage.setX(myStage.getX()-10);
-			myStage.setX(myStage.getX()-10);
-			myStage.setX(myStage.getX()+10);
-		}
+		KeypadEmulator keypadEmulator = this;
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				myStage.toFront();
+				//shake the stage
+				for (int i = 0; i < 10; i++) {
+					myStage.setX(myStage.getX()+10);
+					myStage.setX(myStage.getX()-10);
+					myStage.setX(myStage.getX()-10);
+					myStage.setX(myStage.getX()+10);
+				}
+			}
+		});
+
+
 	}
 } // KeypadEmulator

@@ -33,6 +33,6 @@ public class KeypadHandler extends HWHandler {
     } // processMsg
 
     protected void alert() {
-        log.info(id + ": alert -- ");
+        log.info(id + ": alert user-- ");
     }
 } // KeypadHandler
