@@ -79,8 +79,8 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 	}
     } // handleUpdateDisplay
 
-	protected void handleLogin(String msg){
-    	super.handleLogin(msg);
+	protected void handleLogin(){
+    	super.handleLogin();
     	touchDisplayEmulatorController.setLoginStatus();
 	}
 

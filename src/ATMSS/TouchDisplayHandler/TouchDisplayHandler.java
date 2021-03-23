@@ -43,7 +43,7 @@ public class TouchDisplayHandler extends HWHandler {
 	log.info(id + ": update display -- " + msg.getDetails());
     } // handleUpdateDisplay
 
-    protected void handleLogin(String msg){
+    protected void handleLogin(){
         log.info(id+": changing login status");
     }
 } // TouchDisplayHandler
