@@ -68,12 +68,14 @@ public class ATMSS extends AppThread {
 				keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
 		    //if card inserted proceed to ask pin (send msg to ask for PIN)
 		    break;
-			//if get pin send cardnum and pin to BAMS (Keypad send PIN to atmss)
+			case LoggedIn: //BAMSHandler send msg back and indicate success
 			//if success login return some boolean variable that enable all methods that need login to be true to act
-			//loggedIn = true;
+			loggedIn = true;
+			getPin = false; //on login success, no need pin anymore
 			//touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "")); //change screen to main menu to select transaction
 			//ignore the password validation temporarily
 			//send verification success notification to touchscreen display so that screen is changed
+			break;
 		case Denom_sum:
 			log.info("CashDeposit Denominations: " + msg.getDetails());
 			break;
