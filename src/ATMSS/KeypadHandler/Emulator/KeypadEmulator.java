@@ -60,12 +60,12 @@ public class KeypadEmulator extends KeypadHandler {
 			public void run() {
 				myStage.toFront();
 				//shake the stage
-				for (int i = 0; i < 10; i++) {
-					myStage.setX(myStage.getX()+10);
-					myStage.setX(myStage.getX()-10);
-					myStage.setX(myStage.getX()-10);
-					myStage.setX(myStage.getX()+10);
-				}
+//				for (int i = 0; i < 10; i++) {
+//					myStage.setX(myStage.getX()+10);
+//					myStage.setX(myStage.getX()-10);
+//					myStage.setX(myStage.getX()-10);
+//					myStage.setX(myStage.getX()+10);
+//				}
 			}
 		});
 

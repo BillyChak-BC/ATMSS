@@ -118,6 +118,8 @@ public class ATMSS extends AppThread {
 			pin="";		//if transaction canceled, reset pin variable
 		} else if (msg.getDetails().compareToIgnoreCase("Erase") == 0){
 			pin="";		//if transaction canceled, reset pin variable
+		}else if (getPin && (msg.getDetails().compareToIgnoreCase("Enter") == 0)){
+        	//send variables cardNum and pin to BAMS for login
 		}else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
 		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {
