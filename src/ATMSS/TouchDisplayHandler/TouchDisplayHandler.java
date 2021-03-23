@@ -26,7 +26,10 @@ public class TouchDisplayHandler extends HWHandler {
             case TD_UpdateDisplay:
                 handleUpdateDisplay(msg);
                 break;
-                
+
+            case LoggedIn:
+                handleLogin(msg.getDetails());
+                break;
 
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
@@ -39,4 +42,8 @@ public class TouchDisplayHandler extends HWHandler {
     protected void handleUpdateDisplay(Msg msg) {
 	log.info(id + ": update display -- " + msg.getDetails());
     } // handleUpdateDisplay
+
+    protected void handleLogin(String msg){
+        log.info(id+": changing login status");
+    }
 } // TouchDisplayHandler
