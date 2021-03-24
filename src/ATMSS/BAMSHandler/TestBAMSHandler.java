@@ -1,8 +1,5 @@
 package ATMSS.BAMSHandler;
 
-import ATMSS.BAMSHandler.BAMSHandler;
-import ATMSS.BAMSHandler.BAMSInvalidReplyException;
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.logging.*;
