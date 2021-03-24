@@ -21,6 +21,7 @@ public class ATMSS extends AppThread {
     private MBox DispenserSlotMBox;
     private MBox AdvicePrinterMBox;
     private MBox BuzzerMBox;
+    private MBox bamsThreadMBox;
 
     //------------------------------------------------------------
     // ATMSS
@@ -43,6 +44,7 @@ public class ATMSS extends AppThread {
 	DispenserSlotMBox = appKickstarter.getThread("DispenserSlotHandler").getMBox();
 	AdvicePrinterMBox = appKickstarter.getThread("AdvicePrinterHandler").getMBox();
 	BuzzerMBox = appKickstarter.getThread("BuzzerHandler").getMBox();
+	bamsThreadMBox = appKickstarter.getThread("BAMSThreadHandler").getMBox();
 
 	for (boolean quit = false; !quit;) {
 	    Msg msg = mbox.receive();

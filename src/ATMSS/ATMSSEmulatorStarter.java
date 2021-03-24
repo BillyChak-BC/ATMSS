@@ -18,6 +18,7 @@ import ATMSS.DepositSlotHandler.DepositSlotHandler;
 import ATMSS.DispenserSlotHandler.DispenserSlotHandler;
 import ATMSS.AdvicePrinterHandler.AdvicePrinterHandler;
 import ATMSS.BuzzerHandler.BuzzerHandler;
+import ATMSS.BAMSHandler.bamsThreadHandler;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -66,6 +67,8 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 			AdvicePrinterEmulator AdvicePrinterEmulator = null;
 			BuzzerEmulator BuzzerEmulator = null;
 
+			bamsThreadHandler bamsThreadHandler =null;
+
 			// create emulators
 			try {
 				timer = new Timer("timer", atmssEmulatorStarter);
@@ -77,6 +80,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 				DispenserSlotEmulator = new DispenserSlotEmulator("DispenserSlotHandler", atmssEmulatorStarter);
 				AdvicePrinterEmulator = new AdvicePrinterEmulator("AdvicePrinterHandler", atmssEmulatorStarter);
 				BuzzerEmulator = new BuzzerEmulator("BuzzerHandler", atmssEmulatorStarter);
+				bamsThreadHandler = new bamsThreadHandler("BAMSThreadHandler", atmssEmulatorStarter);
 
 				// start emulator GUIs
 				keypadEmulator.start();
@@ -101,6 +105,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 			atmssEmulatorStarter.setDispenserSlotHandler(DispenserSlotEmulator);
 			atmssEmulatorStarter.setAdvicePrinterHandler(AdvicePrinterEmulator);
 			atmssEmulatorStarter.setBuzzerHandler(BuzzerEmulator);
+			atmssEmulatorStarter.setBAMSThreadHandler(bamsThreadHandler);
 
 	    // start threads
 			new Thread(timer).start();
@@ -112,6 +117,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 			new Thread(DispenserSlotEmulator).start();
 			new Thread(AdvicePrinterEmulator).start();
 			new Thread(BuzzerEmulator).start();
+			new Thread(bamsThreadHandler).start();
 		} // start
     } // Emulators
 
@@ -147,5 +153,9 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 	}
 	private void setBuzzerHandler(BuzzerHandler buzzerHandler){
     	this.BuzzerHandler = buzzerHandler;
+	}
+
+	private void setBAMSThreadHandler(bamsThreadHandler bamsThreadHandler){
+    	this.bamsThreadHandler = bamsThreadHandler;
 	}
 } // ATMSSEmulatorStarter

@@ -1,10 +1,13 @@
 package ATMSS;
 
-import ATMSS.AdvicePrinterHandler.AdvicePrinterHandler;
-import ATMSS.BuzzerHandler.BuzzerHandler;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.Msg;
 import AppKickstarter.timer.Timer;
+
+import ATMSS.AdvicePrinterHandler.AdvicePrinterHandler;
+import ATMSS.BuzzerHandler.BuzzerHandler;
+import ATMSS.BAMSHandler.bamsThreadHandler;
+
 
 import ATMSS.ATMSS.ATMSS;
 import ATMSS.CardReaderHandler.CardReaderHandler;
@@ -28,6 +31,7 @@ public class ATMSSStarter extends AppKickstarter {
     protected DispenserSlotHandler DispenserSlotHandler;
     protected AdvicePrinterHandler AdvicePrinterHandler;
     protected BuzzerHandler BuzzerHandler;
+    protected bamsThreadHandler bamsThreadHandler;
 
 
     //------------------------------------------------------------
@@ -71,6 +75,7 @@ public class ATMSSStarter extends AppKickstarter {
 			DispenserSlotHandler = new DispenserSlotHandler("DispenserSlotHandler", this);
 			AdvicePrinterHandler = new AdvicePrinterHandler("AdvicePrinterHandler", this);
 			BuzzerHandler = new BuzzerHandler("BuzzerHandler", this);
+			bamsThreadHandler = new bamsThreadHandler("BAMSThreadHandler", this);
 
 		} catch (Exception e) {
 			System.out.println("AppKickstarter: startApp failed");
@@ -88,6 +93,7 @@ public class ATMSSStarter extends AppKickstarter {
 		new Thread(DispenserSlotHandler).start();
 		new Thread(AdvicePrinterHandler).start();
 		new Thread(BuzzerHandler).start();
+		new Thread(bamsThreadHandler).start();
     } // startHandlers
 
 
@@ -106,6 +112,7 @@ public class ATMSSStarter extends AppKickstarter {
 		DispenserSlotHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		AdvicePrinterHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		BuzzerHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
+		bamsThreadHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		timer.getMBox().send(new Msg(id, null, Msg.Type.Terminate, "Terminate now!"));
     } // stopApp
 } // ATM.ATMSSStarter
