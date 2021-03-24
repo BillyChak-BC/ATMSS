@@ -55,11 +55,16 @@ public class bamsThreadHandler extends AppThread{
 
     //------------------------------------------------------------
     // testLogin
-    static void testLogin(BAMSHandler bams, String cardNo, String pin) throws BAMSInvalidReplyException, IOException {
+    protected void testLogin(BAMSHandler bams, String cardNo, String pin) throws BAMSInvalidReplyException, IOException {
         System.out.println("Login:");
         String cred = bams.login("12345678-0", "456123789");    //login returns string
         System.out.println("cred: " + cred);
         System.out.println();
+        if (cred.equals("")){
+            atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
+        }else if (cred.equals("ERROR")){
+            atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
+        }
     } // testLogin
 
 
