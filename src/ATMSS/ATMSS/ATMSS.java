@@ -72,7 +72,7 @@ public class ATMSS extends AppThread {
 			//if success login return some boolean variable that enable all methods that need login to be true to act
 			loggedIn = true;
 			getPin = false; //on login success, no need pin anymore
-			//touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "")); //change screen to main menu to select transaction
+			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to main menu to select transaction
 			//ignore the password validation temporarily
 			//send verification success notification to touchscreen display so that screen is changed
 			break;

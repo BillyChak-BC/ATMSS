@@ -41,15 +41,13 @@ public class TouchDisplayEmulatorController {
 	touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
     } // td_mouseClick
 
-    public boolean setLoginStatus() {
-        if(loggedIn == true) {
-            loggedIn = false;
-            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
-        }else if (loggedIn == false) {
-            loggedIn = true;
-            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-        }
+    public void setLoginTrue() {
+        loggedIn = true;
+        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+    }
 
-        return loggedIn;
+    public void setLoginFalse() {
+        loggedIn = false;
+        //touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
     }
 } // TouchDisplayEmulatorController
