@@ -5,6 +5,7 @@ import AppKickstarter.misc.*;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 import java.util.logging.*;
 
 public class bamsThreadHandler extends AppThread{
@@ -31,7 +32,14 @@ public class bamsThreadHandler extends AppThread{
 //                case Poll:
 //                    atmss.send(new Msg(id, mbox, Msg.Type.PollAck, id + " is up!"));
 //                    break;
-//
+                case Verify:
+                    try {
+                        testLogin(bams, msg.getDetails());
+                    } catch (BAMSInvalidReplyException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 case Terminate:
                     quit = true;
                     break;
@@ -55,14 +63,18 @@ public class bamsThreadHandler extends AppThread{
 
     //------------------------------------------------------------
     // testLogin
-    protected void testLogin(BAMSHandler bams, String cardNo, String pin) throws BAMSInvalidReplyException, IOException {
+    protected void testLogin(BAMSHandler bams, String msg) throws BAMSInvalidReplyException, IOException {
+        StringTokenizer tokens = new StringTokenizer(msg);
+        String cardnum = tokens.nextToken();
+        String pin = tokens.nextToken();
+
         System.out.println("Login:");
-        String cred = bams.login("12345678-0", "456123789");    //login returns string
+        String cred = bams.login(cardnum, pin);    //login returns string
         System.out.println("cred: " + cred);
         System.out.println();
-        if (cred.equals("")){
+        if (cred.equals("ERROR")){
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
-        }else if (cred.equals("ERROR")){
+        }else{
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
         }
     } // testLogin
