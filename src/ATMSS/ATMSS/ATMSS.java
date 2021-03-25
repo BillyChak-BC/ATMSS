@@ -68,6 +68,7 @@ public class ATMSS extends AppThread {
 				cardNum = msg.getDetails();
 				getPin = true;		//if we are now looking for pin,
 				keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
 		    //if card inserted proceed to ask pin (send msg to ask for PIN)
 		    break;
 			case LoggedIn: //BAMSHandler send msg back and indicate success
@@ -120,6 +121,8 @@ public class ATMSS extends AppThread {
         if (msg.getDetails().compareToIgnoreCase("Cancel") == 0) {
 			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
 			pin="";		//if transaction canceled, reset pin variable
+            //should be a screen showing thank you first
+			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
 		} else if (msg.getDetails().compareToIgnoreCase("Erase") == 0){
 			pin="";		//if transaction canceled, reset pin variable
 		}else if (getPin && (msg.getDetails().compareToIgnoreCase("Enter") == 0)){
@@ -127,6 +130,10 @@ public class ATMSS extends AppThread {
         	bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Verify, cardNum+" "+pin));
         	//send variables cardNum and pin to BAMS for login
 		}else if (getPin){
+        	//set this up after checking how long is the pin
+//        	if (pin.length() < 6) {
+//
+//			}
         	switch(msg.getDetails()){
 				case "1":
 				case "2":
@@ -143,6 +150,7 @@ public class ATMSS extends AppThread {
 				default:
 					break;
 			}
+			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
 		}else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
 		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {

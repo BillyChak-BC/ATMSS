@@ -3,15 +3,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMSS.TouchDisplayHandler.Emulator.TouchDisplayEmulatorController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0"
+			prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="ATMSS.TouchDisplayHandler.Emulator.TouchDisplayEmulatorController">
     <children>
-	<AnchorPane prefHeight="480.0" prefWidth="640.0" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
-	    <children>
-		<Rectangle arcHeight="5.0" arcWidth="5.0" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="100" fill="white" height="40.0" stroke="BLACK" strokeType="OUTSIDE" width="160.0" />
-		<Rectangle arcHeight="5.0" arcWidth="5.0" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="100" fill="white" height="40.0" stroke="BLACK" strokeType="OUTSIDE" width="160.0" />
-		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0" onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" />
-	    </children>
-	</AnchorPane>
+        <AnchorPane prefHeight="480.0" prefWidth="640.0" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
+            <children>
+                <Rectangle fx:id="noBtn" arcHeight="5.0" arcWidth="5.0" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="100"
+                           fill="white" height="40.0" stroke="BLACK" strokeType="OUTSIDE" width="160.0"/>
+                <Rectangle fx:id="yesBtn" arcHeight="5.0" arcWidth="5.0" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="100"
+                           fill="white" height="40.0" stroke="BLACK" strokeType="OUTSIDE" width="160.0"/>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0"
+                           onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640"
+                           AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0"/>
+				<Label fx:id="confirmationLabel" AnchorPane.topAnchor="100" AnchorPane.leftAnchor="100" maxWidth="440" prefWidth="440" wrapText="true" alignment="CENTER" textAlignment="CENTER">
+					<font>
+						<Font name="System Bold" size="20"/>
+					</font>
+				</Label>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>
 
