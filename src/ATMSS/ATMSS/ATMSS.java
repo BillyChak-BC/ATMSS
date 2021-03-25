@@ -123,6 +123,7 @@ public class ATMSS extends AppThread {
 		} else if (msg.getDetails().compareToIgnoreCase("Erase") == 0){
 			pin="";		//if transaction canceled, reset pin variable
 		}else if (getPin && (msg.getDetails().compareToIgnoreCase("Enter") == 0)){
+            log.info(id+" : verifying cardnum and pin");
         	bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Verify, cardNum+" "+pin));
         	//send variables cardNum and pin to BAMS for login
 		}else if (msg.getDetails().compareToIgnoreCase("1") == 0) {

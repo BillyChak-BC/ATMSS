@@ -73,8 +73,10 @@ public class bamsThreadHandler extends AppThread{
         System.out.println("cred: " + cred);
         System.out.println();
         if (cred.equals("ERROR")){
+            log.info(id+" : incorrect cardnum or pin!");
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
         }else{
+            log.info(id+" : successful login!");
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
         }
     } // testLogin
