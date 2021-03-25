@@ -70,7 +70,7 @@ public class TouchDisplayEmulatorController {
     }
 
     public void enterPINPage() {
-        log.warning(id + ": At this moment, the program will give a lot of errors after sending the PIN for validation");
+        log.warning(id + ": At this moment, the program will give a lot of errors or no respond after sending the PIN for validation");
         blankScreenLabel.setText("Please Enter the PIN: \n\nPlease Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
         passwordField.setVisible(true);
     }
