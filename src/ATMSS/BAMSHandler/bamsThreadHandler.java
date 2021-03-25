@@ -37,9 +37,9 @@ public class bamsThreadHandler extends AppThread{
                     try {
                         testLogin(bams, msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
-                        e.printStackTrace();
+
                     } catch (IOException e) {
-                        e.printStackTrace();
+
                     }
                 case Terminate:
                     quit = true;
@@ -77,10 +77,10 @@ public class bamsThreadHandler extends AppThread{
         System.out.println();
         if (cred.equals("ERROR")){
             log.info(id+" : incorrect cardnum or pin!");
-            atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
+            atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Fail"));
         }else{
             log.info(id+" : successful login!");
-            atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, ""));
+            atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success"));
         }
     } // testLogin
 

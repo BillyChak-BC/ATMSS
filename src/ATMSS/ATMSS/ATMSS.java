@@ -13,6 +13,7 @@ public class ATMSS extends AppThread {
     private String cardNum ="";
     private String pin = "";
     private boolean getPin = false;
+    private int errorCount = 0;
 
     private MBox cardReaderMBox;
     private MBox keypadMBox;
@@ -72,12 +73,21 @@ public class ATMSS extends AppThread {
 		    //if card inserted proceed to ask pin (send msg to ask for PIN)
 		    break;
 			case LoggedIn: //BAMSHandler send msg back and indicate success
-			//if success login return some boolean variable that enable all methods that need login to be true to act
-			loggedIn = true;
-			getPin = false; //on login success, no need pin anymore
-			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to main menu to select transaction
-			//ignore the password validation temporarily
-			//send verification success notification to touchscreen display so that screen is changed
+				if (msg.getDetails().equals("Success")){
+					//if success login return some boolean variable that enable all methods that need login to be true to act
+					loggedIn = true;
+					getPin = false; //on login success, no need pin anymore
+					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to main menu to select transaction
+					//ignore the password validation temporarily
+					//send verification success notification to touchscreen display so that screen is changed
+				}else if (msg.getDetails().equals("Fail")){
+					errorCount++;
+					if (errorCount >=3){
+						//instruct retain
+					}
+
+				}
+
 			break;
 		case Denom_sum:
 			log.info("CashDeposit Denominations: " + msg.getDetails());
