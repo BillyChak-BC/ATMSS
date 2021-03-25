@@ -126,6 +126,23 @@ public class ATMSS extends AppThread {
             log.info(id+" : verifying cardnum and pin");
         	bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Verify, cardNum+" "+pin));
         	//send variables cardNum and pin to BAMS for login
+		}else if (getPin){
+        	switch(msg.getDetails()){
+				case "1":
+				case "2":
+				case "3":
+				case "4":
+				case "5":
+				case "6":
+				case "7":
+				case "8":
+				case "9":
+				case "0":
+					pin = pin+msg.getDetails();
+					break;
+				default:
+					break;
+			}
 		}else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
 		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {

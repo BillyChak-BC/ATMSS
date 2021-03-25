@@ -12,6 +12,7 @@ public class bamsThreadHandler extends AppThread{
     protected MBox atmss = null;
     private BAMSHandler bams = null;
     private final String urlPrefix = "http://cslinux0.comp.hkbu.edu.hk/comp4107_20-21_grp11/";
+    private String credential = "";
 
     public bamsThreadHandler(String id, AppKickstarter appKickstarter) {
         super(id, appKickstarter);
@@ -64,12 +65,14 @@ public class bamsThreadHandler extends AppThread{
     //------------------------------------------------------------
     // testLogin
     protected void testLogin(BAMSHandler bams, String msg) throws BAMSInvalidReplyException, IOException {
+        System.out.println(msg);
         StringTokenizer tokens = new StringTokenizer(msg);
         String cardnum = tokens.nextToken();
         String pin = tokens.nextToken();
 
         System.out.println("Login:");
-        String cred = bams.login(cardnum, pin);    //login returns string
+        String cred = bams.login("12345678-0", "456123789");
+        //String cred = bams.login(cardnum, pin);    //login returns string
         System.out.println("cred: " + cred);
         System.out.println();
         if (cred.equals("ERROR")){
