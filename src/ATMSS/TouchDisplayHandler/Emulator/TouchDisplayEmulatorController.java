@@ -75,6 +75,10 @@ public class TouchDisplayEmulatorController {
         passwordField.setVisible(true);
     }
 
+    public void erasePIN(){
+        passwordField.setText("");
+    }
+
     public void changePIN() {
         //it is not a matter what text it is going to append on the touchscreen
         //the pin will be all masked

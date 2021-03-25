@@ -11,7 +11,7 @@ import java.util.logging.*;
 public class bamsThreadHandler extends AppThread{
     protected MBox atmss = null;
     private BAMSHandler bams = null;
-    private final String urlPrefix = "http://cslinux0.comp.hkbu.edu.hk/comp4107_20-21_grp11/";
+    private final String urlPrefix = "http://cslinux0.comp.hkbu.edu.hk/~comp4107/test/";
     private String credential = "";
 
     public bamsThreadHandler(String id, AppKickstarter appKickstarter) {
