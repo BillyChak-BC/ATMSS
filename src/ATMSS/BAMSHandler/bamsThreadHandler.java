@@ -72,7 +72,7 @@ public class bamsThreadHandler extends AppThread{
 
         System.out.println("Login:");
         //String cred = bams.login("12345678-0", "456123789");
-        String cred = bams.login(cardnum, pin);    //login returns string
+        String cred = bams.login(cardnum, pin);    //login returns string //456123789
         System.out.println("cred: " + cred);
         System.out.println();
         if (cred.equals("ERROR")){
