@@ -137,37 +137,42 @@ public class ATMSS extends AppThread {
 			pin="";		//if transaction canceled, reset pin variable
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
 		}else if (getPin && (msg.getDetails().compareToIgnoreCase("Enter") == 0)){
-        	// Set maximum 9
+        	// Prevent entering "00" at the end
 			if (pin.length() > 9) {
 				pin = pin.substring(0,9);
 			}
+
             log.info(id+" : verifying cardnum and pin");
         	bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Verify, cardNum+" "+pin));
 
         	log.info("pin: " + pin);
         	//send variables cardNum and pin to BAMS for login
 		}else if (getPin){
-        	//set this up after checking how long is the pin
-//        	if (pin.length() < 6) {
-//
-//			}
-        	switch(msg.getDetails()){
-				case "1":
-				case "2":
-				case "3":
-				case "4":
-				case "5":
-				case "6":
-				case "7":
-				case "8":
-				case "9":
-				case "0":
-					pin += msg.getDetails();
-					break;
-				default:
-					break;
+			// Set maximum password length to 9
+        	if (pin.length() < 9) {
+				switch(msg.getDetails()){
+					case "1":
+					case "2":
+					case "3":
+					case "4":
+					case "5":
+					case "6":
+					case "7":
+					case "8":
+					case "9":
+					case "00":
+					case "0":
+						pin += msg.getDetails();
+						break;
+					default:
+						break;
+				}
+				if (msg.getDetails().equals("00")) {
+					// Run two times if entering "00"
+					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
+				}
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
 			}
-			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
 		}else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
 		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {
