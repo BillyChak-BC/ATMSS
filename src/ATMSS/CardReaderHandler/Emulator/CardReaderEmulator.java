@@ -82,7 +82,4 @@ public class CardReaderEmulator extends CardReaderHandler {
 	cardReaderEmulatorController.updateCardStatus("Card Reader Empty");
     } // handleCardRemove
 
-	protected void clearCardNum(){
-    	cardReaderEmulatorController.clearCardNum();
-	}
 } // CardReaderEmulator

@@ -103,6 +103,5 @@ public class Msg {
     /** alert components that login is successful*/ LoggedIn,
     /**alert components that logout is successful*/ LoggedOut,
      /**Verify cardNum and pin*/   Verify,
-      /**Send instruction to erase either cardnum or pin*/  Erase,
     } // Type
 } // Msg

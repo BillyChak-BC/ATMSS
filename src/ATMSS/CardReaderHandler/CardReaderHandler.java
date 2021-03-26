@@ -32,9 +32,6 @@ public class CardReaderHandler extends HWHandler {
                 handleCardRemove();
                 break;
 
-            case Erase:
-                clearCardNum();
-                break;
 
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
@@ -62,7 +59,4 @@ public class CardReaderHandler extends HWHandler {
 	log.info(id + ": card removed");
     } // handleCardRemove
 
-    protected void clearCardNum(){
-        log.info(id +": clear cardNum");
-    }
 } // CardReaderHandler
