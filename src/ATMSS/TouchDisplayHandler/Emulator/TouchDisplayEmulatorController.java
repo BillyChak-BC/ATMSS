@@ -82,6 +82,8 @@ public class TouchDisplayEmulatorController {
     public void changePIN() {
         //it is not a matter what text it is going to append on the touchscreen
         //the pin will be all masked
-        passwordField.appendText("0");
+        if (passwordField.getText().length() < 9) {
+            passwordField.appendText("0");
+        }
     }
 } // TouchDisplayEmulatorController
