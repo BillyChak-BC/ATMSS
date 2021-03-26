@@ -53,16 +53,16 @@ public class ATMSS extends AppThread {
 	    log.fine(id + ": message received: [" + msg + "].");
 
 	    switch (msg.getType()) {
-		case TD_MouseClicked:
-		    log.info("MouseCLicked: " + msg.getDetails());
-		    processMouseClicked(msg);
-			//after processing click depending on x-y AND loggedin is true, change to different screen for deposit/withdraw/transfer
-		    break;
+            case TD_MouseClicked:
+                log.info("MouseCLicked: " + msg.getDetails());
+                processMouseClicked(msg);
+                //after processing click depending on x-y AND loggedin is true, change to different screen for deposit/withdraw/transfer
+                break;
 
-		case KP_KeyPressed:
-		    log.info("KeyPressed: " + msg.getDetails());
-		    processKeyPressed(msg);
-		    break;
+            case KP_KeyPressed:
+                log.info("KeyPressed: " + msg.getDetails());
+                processKeyPressed(msg);
+                break;
 
 			case CR_CardInserted:		//if receive card inserted from cardreader, do:
 				log.info("CardInserted: " + msg.getDetails());
@@ -131,6 +131,7 @@ public class ATMSS extends AppThread {
         if (msg.getDetails().compareToIgnoreCase("Cancel") == 0) {
 			cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
 			pin="";		//if transaction canceled, reset pin variable
+			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
             //should be a screen showing thank you first
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
 		} else if (msg.getDetails().compareToIgnoreCase("Erase") == 0){
