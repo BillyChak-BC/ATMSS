@@ -13,6 +13,7 @@ public class ATMSS extends AppThread {
     private String cardNum ="";
     private String pin = "";
     private boolean getPin = false;
+    private boolean getCard = true;
     private int errorCount = 0;
 
     private MBox cardReaderMBox;
@@ -68,6 +69,7 @@ public class ATMSS extends AppThread {
 				log.info("CardInserted: " + msg.getDetails());
 				cardNum = msg.getDetails();
 				getPin = true;		//if we are now looking for pin,
+				getCard = false;
 				keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
 		    //if card inserted proceed to ask pin (send msg to ask for PIN)
@@ -134,7 +136,7 @@ public class ATMSS extends AppThread {
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
             //should be a screen showing thank you first
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
-		} else if (msg.getDetails().compareToIgnoreCase("Erase") == 0){
+		}else if (getPin && msg.getDetails().compareToIgnoreCase("Erase") == 0){
 			pin="";		//if transaction canceled, reset pin variable
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
 		}else if (getPin && (msg.getDetails().compareToIgnoreCase("Enter") == 0)){
@@ -174,13 +176,18 @@ public class ATMSS extends AppThread {
 				}
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
 			}
-		}else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
-			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
-		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {
-			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-		} else if (msg.getDetails().compareToIgnoreCase("3") == 0) {
-			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Confirmation"));
+		}else if (getCard && msg.getDetails().compareToIgnoreCase("Erase") == 0){
+
 		}
+
+
+//        else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
+//			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
+//		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {
+//			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+//		} else if (msg.getDetails().compareToIgnoreCase("3") == 0) {
+//			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Confirmation"));
+//		}
     } // processKeyPressed
 
 
