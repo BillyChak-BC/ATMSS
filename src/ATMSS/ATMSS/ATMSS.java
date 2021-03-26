@@ -13,7 +13,6 @@ public class ATMSS extends AppThread {
     private String cardNum ="";
     private String pin = "";
     private boolean getPin = false;
-    private boolean getCard = true;
     private int errorCount = 0;
 
     private MBox cardReaderMBox;
@@ -69,7 +68,6 @@ public class ATMSS extends AppThread {
 				log.info("CardInserted: " + msg.getDetails());
 				cardNum = msg.getDetails();
 				getPin = true;		//if we are now looking for pin,
-				getCard = false;
 				keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
 		    //if card inserted proceed to ask pin (send msg to ask for PIN)
@@ -176,8 +174,6 @@ public class ATMSS extends AppThread {
 				}
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
 			}
-		}else if (getCard && msg.getDetails().compareToIgnoreCase("Erase") == 0){
-
 		}
 
 
