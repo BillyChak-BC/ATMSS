@@ -96,6 +96,10 @@ public class CardReaderEmulatorController {
 		}
 	} // updateCardStatus
 
+	public void clearCardNum(){
+    	cardNumField.setText("");
+	}
+
 
     //------------------------------------------------------------
     // appendTextArea

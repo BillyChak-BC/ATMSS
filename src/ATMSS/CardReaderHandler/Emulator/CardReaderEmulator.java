@@ -77,7 +77,12 @@ public class CardReaderEmulator extends CardReaderHandler {
     protected void handleCardRemove() {
 	// fixme
 	super.handleCardRemove();
+	cardReaderEmulatorController.clearCardNum();
 	cardReaderEmulatorController.appendTextArea("Card Removed");
 	cardReaderEmulatorController.updateCardStatus("Card Reader Empty");
     } // handleCardRemove
+
+	protected void clearCardNum(){
+    	cardReaderEmulatorController.clearCardNum();
+	}
 } // CardReaderEmulator

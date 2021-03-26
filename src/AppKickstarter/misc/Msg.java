@@ -101,6 +101,8 @@ public class Msg {
     /** Print out Advice onto GUI*/     Print, 
     /**Alert Buzzer*/                   Alert, 
     /** alert components that login is successful*/ LoggedIn,
-    /**alert components that logout is successful*/ LoggedOut, Verify,
+    /**alert components that logout is successful*/ LoggedOut,
+     /**Verify cardNum and pin*/   Verify,
+      /**Send instruction to erase either cardnum or pin*/  Erase,
     } // Type
 } // Msg
