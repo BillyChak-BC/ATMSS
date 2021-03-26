@@ -21,6 +21,12 @@
 					</font>
 				</Label>
 
+				<Label text="Transfer" AnchorPane.bottomAnchor="160" AnchorPane.rightAnchor="110" wrapText="true" alignment="CENTER" textAlignment="CENTER">
+					<font>
+						<Font name="System Bold" size="24"/>
+					</font>
+				</Label>
+
 				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0" onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" />
 			</children>
 		</AnchorPane>
