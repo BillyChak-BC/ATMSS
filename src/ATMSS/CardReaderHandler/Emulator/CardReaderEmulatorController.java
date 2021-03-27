@@ -29,8 +29,6 @@ public class CardReaderEmulatorController {
 	public TextArea cardReaderTextArea;
 	public Button insertBtn;
 	public Button removeBtn;
-	public TextField nothing = new TextField();
-	public StackPane root = new StackPane(nothing);
 
 	//------------------------------------------------------------
 	// initialize
