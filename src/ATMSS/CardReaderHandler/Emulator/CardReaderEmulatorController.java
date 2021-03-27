@@ -48,8 +48,6 @@ public class CardReaderEmulatorController {
         TextField tf = (TextField) keyEvent.getSource();
         if (tf.getLength() == 4 && cardNumField2.getLength() != 4) {
             cardNumField2.requestFocus();
-        }else if (tf.getLength() == 4 && cardNumField2.getLength() == 4){
-            insertBtn.requestFocus();
         }
     }
 
@@ -58,7 +56,7 @@ public class CardReaderEmulatorController {
         TextField tf = (TextField) keyEvent.getSource();
         if (tf.getLength() == 4 && cardNumField1.getLength() == 4) {
             insertBtn.requestFocus();
-        }else if (tf.getLength() == 4 && cardNumField1.getLength() != 4){
+        }else if (cardNumField1.getLength() != 4 && cardNumField2.isFocused()){
             cardNumField1.requestFocus();
         }
         log.info(tf.getText());
