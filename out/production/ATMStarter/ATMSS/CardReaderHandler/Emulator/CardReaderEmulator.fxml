@@ -21,7 +21,9 @@
 		<HBox layoutX="20.0" layoutY="63.0" prefHeight="30.0" prefWidth="340.0" AnchorPane.topAnchor="70.0">
 			<children>
 			<Label text="Card No.: " />
-			<TextField fx:id="cardNumField" prefWidth="258.0" AnchorPane.rightAnchor="20" />
+			<TextField fx:id="cardNumField1" prefWidth="80.0" AnchorPane.rightAnchor="20" onKeyPressed="#textFieldPress1" />
+			<Label text=" – " />
+			<TextField fx:id="cardNumField2" prefWidth="80.0" AnchorPane.rightAnchor="20" onKeyPressed="#textFieldPress2" />
 			</children>
 		</HBox>
 		<TextArea fx:id="cardReaderTextArea" editable="false" layoutX="20.0" layoutY="169.0" AnchorPane.bottomAnchor="120" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="110" />
