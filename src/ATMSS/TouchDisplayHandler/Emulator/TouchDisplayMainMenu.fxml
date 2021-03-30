@@ -5,43 +5,70 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.Label?>
 
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ATMSS.TouchDisplayHandler.Emulator.TouchDisplayEmulatorController">
-    <children>
-		<AnchorPane prefHeight="480.0" prefWidth="640.0" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
-			<children>
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" />
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="70" AnchorPane.leftAnchor="0" />
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="70" AnchorPane.rightAnchor="0" />
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="140" AnchorPane.leftAnchor="0" />
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="140" AnchorPane.rightAnchor="0" />
-				<Label text="Deposit" AnchorPane.bottomAnchor="160" AnchorPane.leftAnchor="110" wrapText="true" alignment="CENTER" textAlignment="CENTER">
-					<font>
-						<Font name="System Bold" size="24"/>
-					</font>
-				</Label>
+	<children>
+		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0" onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
+		<VBox AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" prefWidth="640" prefHeight="480">
+			<Label fx:id="menuLabel" prefWidth="640" prefHeight="180" alignment="CENTER" textAlignment="CENTER">
+				<font>
+					<Font name="System Bold" size="24"/>
+				</font>
+			</Label>
+			<HBox maxWidth="640" maxHeight="300" prefWidth="640" prefHeight="300" alignment="BOTTOM_CENTER">
+				<VBox fx:id="vboxLeft" prefWidth="320" prefHeight="300">
+					<!--					<Rectangle fill="red" arcWidth="5" arcHeight="5" width="320" height="100" stroke="red"/>-->
+					<!--					<Rectangle fill="orange" arcWidth="5" arcHeight="5" width="320" height="100" stroke="orange"/>-->
+					<!--					<Rectangle fill="yellow" arcWidth="5" arcHeight="5" width="320" height="100" stroke="yellow"/>-->
+				</VBox>
+				<VBox fx:id="vboxRight" prefWidth="320" prefHeight="300">
+					<!--					<Rectangle fill="green" arcHeight="5" arcWidth="5" width="320" height="100" stroke="green"/>-->
+					<!--					<Rectangle fill="blue" arcWidth="5" arcHeight="5" width="320" height="100" stroke="blue"/>-->
+					<!--					<Rectangle fill="purple" arcHeight="5" arcWidth="5" width="320" height="100" stroke="purple"/>-->
+				</VBox>
+			</HBox>
+		</VBox>
 
-				<Label text="Transfer" AnchorPane.bottomAnchor="160" AnchorPane.rightAnchor="110" wrapText="true" alignment="CENTER" textAlignment="CENTER">
-					<font>
-						<Font name="System Bold" size="24"/>
-					</font>
-				</Label>
+		<!--		<AnchorPane prefHeight="480.0" prefWidth="640.0" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">-->
+		<!--			<children>-->
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" />-->
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />-->
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="70" AnchorPane.leftAnchor="0" />-->
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="70" AnchorPane.rightAnchor="0" />-->
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="140" AnchorPane.leftAnchor="0" />-->
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="70.0" stroke="BLACK" strokeType="OUTSIDE" width="300.0" AnchorPane.bottomAnchor="140" AnchorPane.rightAnchor="0" />-->
+		<!--				<Label text="Deposit" AnchorPane.bottomAnchor="160" AnchorPane.leftAnchor="110" wrapText="true" alignment="CENTER" textAlignment="CENTER">-->
+		<!--					<font>-->
+		<!--						<Font name="System Bold" size="24"/>-->
+		<!--					</font>-->
+		<!--				</Label>-->
 
-				<Label text="Withdraw" AnchorPane.bottomAnchor="90" AnchorPane.leftAnchor="95" wrapText="true" alignment="CENTER" textAlignment="CENTER">
-					<font>
-						<Font name="System Bold" size="24"/>
-					</font>
-				</Label>
+		<!--				<Label text="Transfer" AnchorPane.bottomAnchor="160" AnchorPane.rightAnchor="110" wrapText="true" alignment="CENTER" textAlignment="CENTER">-->
+		<!--					<font>-->
+		<!--						<Font name="System Bold" size="24"/>-->
+		<!--					</font>-->
+		<!--				</Label>-->
 
-				<Label text="Check Balance" AnchorPane.bottomAnchor="90" AnchorPane.rightAnchor="75" wrapText="true" alignment="CENTER" textAlignment="CENTER">
-					<font>
-						<Font name="System Bold" size="24"/>
-					</font>
-				</Label>
+		<!--				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0" onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" />-->
+		<!--			</children>-->
+		<!--		</AnchorPane>-->
 
-				<Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0" onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" />
-			</children>
-		</AnchorPane>
-    </children>
+
+		<!--		<BorderPane prefHeight="480" prefWidth="640" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">-->
+		<!--			<top>-->
+		<!--				<Label fx:id="menuLabel" prefWidth="640" prefHeight="180" text="Card Number" alignment="CENTER" textAlignment="CENTER">-->
+		<!--					<font>-->
+		<!--						<Font size="24"/>-->
+		<!--					</font>-->
+		<!--				</Label>-->
+		<!--			</top>-->
+		<!--			<bottom>-->
+		<!--				<FlowPane fx:id="menuListPane" AnchorPane.leftAnchor="20" prefWidth="640" prefHeight="300" alignment="CENTER"/>-->
+		<!--			</bottom>-->
+		<!--		</BorderPane>-->
+	</children>
 </AnchorPane>
-

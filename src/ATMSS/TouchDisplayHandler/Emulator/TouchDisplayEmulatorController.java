@@ -3,10 +3,17 @@ package ATMSS.TouchDisplayHandler.Emulator;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.MBox;
 import AppKickstarter.misc.Msg;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextBoundsType;
 
 import java.util.logging.Logger;
 
@@ -21,11 +28,16 @@ public class TouchDisplayEmulatorController {
     private MBox touchDisplayMBox;
     public Label blankScreenLabel;
     public Label confirmationLabel;
+    public Label menuLabel;
     public Rectangle noBtn;
     public Rectangle yesBtn;
     public PasswordField passwordField;
+    public FlowPane menuListPane;
+    public VBox vboxLeft;
+    public VBox vboxRight;
+    public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
-    private boolean loggedIn = false;
+    private static boolean loggedIn = false;
 
 
     //------------------------------------------------------------
@@ -46,12 +58,30 @@ public class TouchDisplayEmulatorController {
         int y = (int) mouseEvent.getY();
 
         log.fine(id + ": mouse clicked: -- (" + x + ", " + y + ")");
-        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
+        //touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
+        if (loggedIn) {
+            //use Java Switch to send diff message types depending on x-y coord
+            switch (mouseEvent.getSource().getClass().getSimpleName()) {
+                case "StackPane":
+                    StackPane targetPane = (StackPane) mouseEvent.getSource();
+                    Label targetLabel = (Label) targetPane.getChildren().get(0);
+                    touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, targetLabel.getText()));
+                default:
+                    touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y + " Logged In: " + loggedIn));
+                    break;
+            }
+
+        } else {
+            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y + " Logged In: " + loggedIn));
+        }
     } // td_mouseClick
 
-    //may be replaced, it is stupid to send msg twice
+    public boolean getLoggedIn() {
+        return loggedIn;
+    }
+
     public void setLoginTrue() {
-        loggedIn = true;        //this boolean might not be necessary
+        loggedIn = true;
         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
     }
 
@@ -60,7 +90,10 @@ public class TouchDisplayEmulatorController {
         //touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
     }
 
+    //regard welcomePage as a default layout
     public void welcomePage() {
+        passwordField.setVisible(false);
+        passwordField.setText("");
         blankScreenLabel.setText("Welcome to ATM system emulator\n\n\n\n\nPlease Insert ATM Card");
     }
 
@@ -81,4 +114,99 @@ public class TouchDisplayEmulatorController {
             passwordField.appendText("0");
         }
     }
+
+    public void mainMenuBox() {
+        menuLabel.setText("Welcome back, (Name)\n\nPlease select ...");
+        int rectEachSide = 3;
+        Rectangle[] rectLeft = new Rectangle[rectEachSide];
+        Rectangle[] rectRight = new Rectangle[rectEachSide];
+        for (int i = 0; i < rectEachSide; i++) {
+            rectLeft[i] = rectangleInit(rectLeft[i]);
+            rectRight[i] = rectangleInit(rectRight[i]);
+        }
+        Label[] leftLabel = new Label[rectEachSide];
+        Label[] rightLabel = new Label[rectEachSide];
+        //if less than 6 functions on one menu page, those no function part will be blank
+        //if more than 6 functions on one menu page, rightLabel[2] will be for the next page
+        //if only 6 functions on one menu page, rightLabel[2] will be normal
+        int notSetFunc = funcAry.length;
+        int menuPageNum = 0;
+        int funcPerPage = rectEachSide * 2 - 1;
+        for (int i = 0; i < rectEachSide; i++) {
+            leftLabel[i] = labelInit(leftLabel[i]);
+            rightLabel[i] = labelInit(rightLabel[i]);
+            //this does not include more than 6 cases
+            if (notSetFunc > 2 && i == rectEachSide - 1) {      //if more than 6, not finish
+                leftLabel[i].setText(funcAry[i * 2 + menuPageNum * funcPerPage]);
+                rightLabel[i].setText("Next Page");
+                menuPageNum++;      //may change later
+            } else if (notSetFunc > 1) {            //normal
+                leftLabel[i].setText(funcAry[i * 2 + menuPageNum * funcPerPage]);
+                rightLabel[i].setText(funcAry[i * 2 + 1 + menuPageNum * funcPerPage]);
+                notSetFunc -= 2;
+            } else if (notSetFunc > 0) {            //less than 6
+                leftLabel[i].setText(funcAry[i * 2]);
+                notSetFunc--;
+            }
+//            leftLabel[i].setText("Number" + i * 2);
+//            rightLabel[i].setText("Number" + (i * 2 + 1));
+//            leftLabel[i].setOnMousePressed(this::td_mouseClick);
+//            rightLabel[i].setOnMousePressed(this::td_mouseClick);
+        }
+        StackPane[] stack = new StackPane[rectEachSide * 2];
+        for (int i = 0; i < stack.length; i++) {
+            stack[i] = new StackPane();
+            int j = i / 2;
+            if (i % 2 == 0) {
+                stack[i].getChildren().addAll(leftLabel[j], rectLeft[j]);
+                vboxLeft.getChildren().add(stack[i]);
+            } else {
+                stack[i].getChildren().addAll(rightLabel[j], rectRight[j]);
+                vboxRight.getChildren().add(stack[i]);
+            }
+            stack[i].setOnMousePressed(this::td_mouseClick);
+        }
+    }
+
+    //    public void mainMenu() {
+//        int numOfFun = 6;
+//        Rectangle[] rectangles = new Rectangle[numOfFun];
+//        for (int i = 0; i < rectangles.length; i++) {
+//            rectangles[i] = rectangleInit(rectangles[i]);
+//        }
+//        Label[] labels = new Label[numOfFun];
+//        for (int i = 0; i < labels.length; i++) {
+//            labels[i] = labelInit(labels[i]);
+//            labels[i].setText("Number " + i);
+//        }
+//        StackPane[] stack = new StackPane[numOfFun];
+//        for (int i = 0; i < stack.length; i++) {
+//            stack[i] = new StackPane();
+//            stack[i].getChildren().addAll(rectangles[i], labels[i]);
+//        }
+//        menuListPane.getChildren().addAll(stack);
+//    }
+//
+    private Rectangle rectangleInit(Rectangle target) {
+        target = new Rectangle();
+        target.setStroke(Color.BLACK);
+        target.setFill(Color.TRANSPARENT);
+        target.setArcWidth(5);
+        target.setArcHeight(5);
+        target.setWidth(320);
+        target.setHeight(100);
+        return target;
+    }
+
+    private Label labelInit(Label target) {
+        target = new Label();
+        target.setWrapText(true);
+        target.setAlignment(Pos.CENTER);
+        target.setMaxSize(320, 100);
+        target.setTextAlignment(TextAlignment.CENTER);
+        target.setPrefSize(320, 100);
+        target.setFont(new Font(20));
+        return target;
+    }
+
 } // TouchDisplayEmulatorController
