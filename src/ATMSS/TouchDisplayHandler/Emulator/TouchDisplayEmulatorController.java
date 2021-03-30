@@ -16,6 +16,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextBoundsType;
 
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 //======================================================================
@@ -38,6 +40,7 @@ public class TouchDisplayEmulatorController {
     public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
     private static boolean loggedIn = false;
+    private static String selectedAcc = "";
 
 
     //------------------------------------------------------------
@@ -65,7 +68,14 @@ public class TouchDisplayEmulatorController {
                 case "StackPane":
                     StackPane targetPane = (StackPane) mouseEvent.getSource();
                     Label targetLabel = (Label) targetPane.getChildren().get(0);
-                    touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, targetLabel.getText()));
+                    Pattern accPattern = Pattern.compile("\\d{3}-\\d{3}-\\d{3}");
+                    Matcher accMatcher = accPattern.matcher(targetLabel.getText());
+                    if (accMatcher.matches()) {
+                        selectedAcc = targetLabel.getText();
+                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                    } else {
+                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, targetLabel.getText()));
+                    }
                 default:
                     touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y + " Logged In: " + loggedIn));
                     break;
@@ -82,7 +92,8 @@ public class TouchDisplayEmulatorController {
 
     public void setLoginTrue() {
         loggedIn = true;
-        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+//        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.GetAccount, ""));
     }
 
     public void setLoginFalse() {
@@ -116,7 +127,7 @@ public class TouchDisplayEmulatorController {
     }
 
     public void mainMenuBox() {
-        menuLabel.setText("Welcome back, (Name)\n\nPlease select ...");
+        menuLabel.setText("Welcome back, "+ selectedAcc +"\n\nPlease select ...");
         int rectEachSide = 3;
         Rectangle[] rectLeft = new Rectangle[rectEachSide];
         Rectangle[] rectRight = new Rectangle[rectEachSide];
@@ -162,6 +173,47 @@ public class TouchDisplayEmulatorController {
                 vboxLeft.getChildren().add(stack[i]);
             } else {
                 stack[i].getChildren().addAll(rightLabel[j], rectRight[j]);
+                vboxRight.getChildren().add(stack[i]);
+            }
+            stack[i].setOnMousePressed(this::td_mouseClick);
+        }
+    }
+
+    public void accountSelectGUI(String acc) {
+        menuLabel.setText("Please select an account you want to operate");
+        int maxAccNumEachSide = 2;
+        String[] accounts = acc.split("/");
+        int accNum = accounts.length;
+        int remainingAcc = accNum;
+        Rectangle[] leftAcc = new Rectangle[maxAccNumEachSide];
+        Rectangle[] rightAcc = new Rectangle[maxAccNumEachSide];
+        for (int i = 0; i < maxAccNumEachSide; i++) {
+            leftAcc[i] = rectangleInit(leftAcc[i]);
+            rightAcc[i] = rectangleInit(rightAcc[i]);
+        }
+        Label[] leftLabel = new Label[maxAccNumEachSide];
+        Label[] rightLabel = new Label[maxAccNumEachSide];
+        for (int i = 0; i < maxAccNumEachSide; i++) {
+            leftLabel[i] = labelInit(leftLabel[i]);
+            rightLabel[i] = labelInit(rightLabel[i]);
+            if (remainingAcc == 1) {
+                leftLabel[i].setText(accounts[i * 2]);
+                remainingAcc--;
+            } else {
+                leftLabel[i].setText(accounts[i * 2]);
+                rightLabel[i].setText(accounts[i * 2 + 1]);
+                remainingAcc -= 2;
+            }
+        }
+        StackPane[] stack = new StackPane[maxAccNumEachSide * 2];
+        for (int i = 0; i < stack.length; i++) {
+            stack[i] = new StackPane();
+            int j = i / 2;
+            if (i % 2 == 0) {
+                stack[i].getChildren().addAll(leftLabel[j], leftAcc[j]);
+                vboxLeft.getChildren().add(stack[i]);
+            } else {
+                stack[i].getChildren().addAll(rightLabel[j], rightAcc[j]);
                 vboxRight.getChildren().add(stack[i]);
             }
             stack[i].setOnMousePressed(this::td_mouseClick);

@@ -12,7 +12,7 @@ public class bamsThreadHandler extends AppThread{
     protected MBox atmss = null;
     private BAMSHandler bams = null;
     private final String urlPrefix = "http://cslinux0.comp.hkbu.edu.hk/comp4107_20-21_grp11/";    //http://cslinux0.comp.hkbu.edu.hk/~comp4107/test/
-    private String credential = "";
+    private static String credential = "";
 
     public bamsThreadHandler(String id, AppKickstarter appKickstarter) {
         super(id, appKickstarter);
@@ -41,6 +41,16 @@ public class bamsThreadHandler extends AppThread{
                     } catch (IOException e) {
 
                     }
+
+                case GetAccount:
+                    try {
+                        getAcc(msg.getDetails());
+                    } catch (BAMSInvalidReplyException e) {
+
+                    } catch (IOException e) {
+
+                    }
+
                 case Terminate:
                     quit = true;
                     break;
@@ -72,10 +82,10 @@ public class bamsThreadHandler extends AppThread{
 
         System.out.println("Login:");
         //String cred = bams.login("12345678-0", "456123789");
-        String cred = bams.login(cardnum, pin);    //login returns string //456123789
-        System.out.println("cred: " + cred);
+        credential = bams.login(cardnum, pin);    //login returns string //456123789
+        System.out.println("cred: " + credential);
         System.out.println();
-        if (cred.equals("ERROR")){
+        if (credential.equals("ERROR")){
             log.info(id+" : incorrect cardnum or pin!");
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Fail"));
         }else{
@@ -87,13 +97,20 @@ public class bamsThreadHandler extends AppThread{
 
     //------------------------------------------------------------
     // testGetAcc
-    static void testGetAcc(BAMSHandler bams) throws BAMSInvalidReplyException, IOException {
-        System.out.println("GetAcc:");
-        String accounts = bams.getAccounts("12345678-1", "cred-1");
-        System.out.println("accounts: " + accounts);
-        System.out.println();
+    static String testGetAcc(BAMSHandler bams, String cardNum) throws BAMSInvalidReplyException, IOException {
+
+//        System.out.println("GetAcc:");
+//        String accounts = bams.getAccounts("12345678-1", "cred-1");
+//        System.out.println("accounts: " + accounts);
+//        System.out.println();
+        return bams.getAccounts(cardNum, credential);
     } // testGetAcc
 
+    private void getAcc(String cardNum) throws IOException, BAMSInvalidReplyException {
+        String result = testGetAcc(bams, cardNum);
+        //error
+        atmss.send(new Msg(id, mbox, Msg.Type.ReceiveAccount, result));
+    }
 
     //------------------------------------------------------------
     // testWithdraw

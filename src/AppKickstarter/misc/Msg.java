@@ -90,6 +90,7 @@ public class Msg {
 	/** Health poll acknowledgement */	PollAck,
 	/** Update Display */			TD_UpdateDisplay,
 	/** Mouse Clicked */			TD_MouseClicked,
+        /**Select Account*/         TD_SelectAccount,
 	/** Card inserted */			CR_CardInserted,
 	/** Card removed */			CR_CardRemoved,
 	/** Eject card */			CR_EjectCard,
@@ -103,5 +104,7 @@ public class Msg {
     /** alert components that login is successful*/ LoggedIn,
     /**alert components that logout is successful*/ LoggedOut,
      /**Verify cardNum and pin*/   Verify,
+        /**Get card accounts*/          GetAccount,
+        /**Receive card accounts*/      ReceiveAccount,
     } // Type
 } // Msg

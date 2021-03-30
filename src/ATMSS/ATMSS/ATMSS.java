@@ -13,7 +13,7 @@ public class ATMSS extends AppThread {
     private int pollingTime;
     private boolean loggedIn = false;
     private boolean transaction = false;
-    private String cardNum ="";
+    private static String cardNum ="";
     private String pin = "";
     private boolean getPin = false;
     private int errorCount = 0;
@@ -80,6 +80,8 @@ public class ATMSS extends AppThread {
 					//if success login return some boolean variable that enable all methods that need login to be true to act
 					loggedIn = true;
 					getPin = false; //on login success, no need pin anymore
+//					bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.GetAccount, cardNum));
+					//not yet
 					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to main menu to select transaction
 					//ignore the password validation temporarily
 					//send verification success notification to touchscreen display so that screen is changed
@@ -92,6 +94,16 @@ public class ATMSS extends AppThread {
 				}
 
 			break;
+
+			case GetAccount:
+				bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.GetAccount, cardNum));
+//				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, msg.getDetails()));
+				break;
+
+			case ReceiveAccount:
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, msg.getDetails()));
+				break;
+
 		case Denom_sum:
 			log.info("CashDeposit Denominations: " + msg.getDetails());
 			break;
