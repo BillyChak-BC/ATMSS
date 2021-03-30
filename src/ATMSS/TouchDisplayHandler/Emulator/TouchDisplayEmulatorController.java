@@ -46,17 +46,12 @@ public class TouchDisplayEmulatorController {
         int y = (int) mouseEvent.getY();
 
         log.fine(id + ": mouse clicked: -- (" + x + ", " + y + ")");
-        //touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
-        if (loggedIn == true) {
-            //use Java Switch to send diff message types depending on x-y coord
-        } else {
-            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
-        }
+        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
     } // td_mouseClick
 
     //may be replaced, it is stupid to send msg twice
     public void setLoginTrue() {
-        loggedIn = true;
+        loggedIn = true;        //this boolean might not be necessary
         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
     }
 
