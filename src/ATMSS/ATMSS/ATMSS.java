@@ -4,12 +4,15 @@ import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.*;
 import AppKickstarter.timer.Timer;
 
+import java.util.StringTokenizer;
+
 
 //======================================================================
 // ATMSS
 public class ATMSS extends AppThread {
     private int pollingTime;
     private boolean loggedIn = false;
+    private boolean transaction = false;
     private String cardNum ="";
     private String pin = "";
     private boolean getPin = false;
@@ -191,5 +194,32 @@ public class ATMSS extends AppThread {
     // processMouseClicked
     private void processMouseClicked(Msg msg) {
 	// *** process mouse click here!!! ***
+		if (loggedIn && !transaction){
+			StringTokenizer tokens = new StringTokenizer(msg.getDetails());
+			int x = Integer.parseInt(tokens.nextToken());
+			int y = Integer.parseInt(tokens.nextToken());
+
+			if ((x>=0 && x<=300) && (y>=270 && y< 340)){ //deposit
+				//set transaction to true
+				//set timer
+				//change touch screen display to ask how much to deposit
+				//alert deposit slot
+				//open deposit slot
+			}else if ((x>= 340 && x <=640) && (y>= 270 && y<340)){
+				//set transaction to true
+				//change touch screen display to choose which acc to transfer from
+				//choose which acc to transfer to
+				//send msg to bams to transfer
+			}else if ((x>=0 && x<=300) && (y>=340 && y<410)){
+				//set transaction to true
+				//set timer
+				//change touch screen display to ask how much to withdraw
+				//alert keypad
+			}else if ((x>= 340 && x <=640) && (y>=340 && y<410)){
+				//set transaction to true
+				//check balance
+			}
+
+		}
     } // processMouseClicked
 } // CardReaderHandler
