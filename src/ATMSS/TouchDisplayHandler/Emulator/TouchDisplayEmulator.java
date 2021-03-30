@@ -73,6 +73,16 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                 reloadStage("TouchDisplayMainMenu.fxml", msg.getDetails());
                 break;
 
+//            case "Cash Deposit":
+//
+//            case "Money Transfer":
+//
+//            case "Cash Withdrawal":
+//
+//            case "Account Balance Enquiry":
+//
+//            case "Account selection":
+
             case "Confirmation":
                 reloadStage("TouchDisplayConfirmation.fxml", msg.getDetails());
                 break;
@@ -91,7 +101,6 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         }
     } // handleUpdateDisplay
 
-    //may be replaced, it is stupid to send msg twice
     protected void handleLogin() {
         super.handleLogin();
         touchDisplayEmulatorController.setLoginTrue();
@@ -122,6 +131,10 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
                         case "PIN Required":
                             touchDisplayEmulatorController.enterPINPage();
+                            break;
+
+                        case "MainMenu":
+                            touchDisplayEmulatorController.mainMenuBox();
                             break;
 
                         default:
