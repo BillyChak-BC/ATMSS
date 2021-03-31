@@ -19,6 +19,10 @@ public class DepositSlotHandler extends HWHandler {
         	case Deposit:
         		handleDeposit(msg.getDetails());
         		break;
+
+            case Alert:
+                alert();
+                break;
 //            case CR_CardInserted:
 //                //atmss.send(new Msg(id, mbox, Msg.Type.CR_CardInserted, msg.getDetails()));
 //                break;
@@ -36,15 +40,14 @@ public class DepositSlotHandler extends HWHandler {
         }
     } // processMsg
 
-    //------------------------------------------------------------
-    //slot open/close status field ; moneyreceived; moneyremoved status field and buttons;
-    //
 
+    //------------------------------------------------------------
     // handleDepositCash
     protected void handleDepositCash() {
         log.info(id + ": cash deposited");
     } // handleCardInsert
-    
+
+    //------------------------------------------------------------
     protected void handleDeposit(String msg) {
     	if (msg.equals("OpenSlot")) {
     		log.info(id + "Opening Deposit Slot");			//atmss sends open command
@@ -52,18 +55,9 @@ public class DepositSlotHandler extends HWHandler {
     		log.info(id + "Closing Deposit Slot");			//emulator or the hardware sends the close command
     	}
     }
-    
-    
-//    //------------------------------------------------------------
-//    // handleCardEject
-//    protected void handleCardEject() {
-//        log.info(id + ": card ejected");
-//    } // handleCardEject
-//
-//
-//    //------------------------------------------------------------
-//    // handleCardRemove
-//    protected void handleCardRemove() {
-//        log.info(id + ": card removed");
-//    } // handleCardRemove
+
+    //------------------------------------------------------------
+    protected void alert() {
+        log.info(id + ": alert user-- ");
+    }
 }
