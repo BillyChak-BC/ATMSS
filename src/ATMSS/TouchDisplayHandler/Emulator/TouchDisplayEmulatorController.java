@@ -76,7 +76,9 @@ public class TouchDisplayEmulatorController {
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Selected_Acc, selectedAcc));
                     } else {
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, targetLabel.getText()));
+                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, targetLabel.getText()));
                     }
+                    break;
                 default:
                     touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y + " Logged In: " + loggedIn));
                     break;
