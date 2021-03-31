@@ -106,5 +106,6 @@ public class Msg {
      /**Verify cardNum and pin*/   Verify,
         /**Get card accounts*/          GetAccount,
         /**Receive card accounts*/      ReceiveAccount,
+        /**Informs what is selected Acc*/   Selected_Acc,
     } // Type
 } // Msg
