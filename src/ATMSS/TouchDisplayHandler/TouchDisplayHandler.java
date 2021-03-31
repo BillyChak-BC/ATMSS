@@ -27,6 +27,14 @@ public class TouchDisplayHandler extends HWHandler {
                 handleUpdateDisplay(msg);
                 break;
 
+            case TD_SelectAccount:
+                accountSelect(msg.getDetails());
+                break;
+
+            case GetAccount:
+                atmss.send(new Msg(id, mbox, Msg.Type.GetAccount, ""));
+                break;
+
             case LoggedIn:
                 if (msg.getDetails().equals("Success")){
                     handleLogin();
@@ -47,5 +55,9 @@ public class TouchDisplayHandler extends HWHandler {
 
     protected void handleLogin(){
         log.info(id+": changing login status");
+    }
+
+    protected void accountSelect(String acc) {
+        log.info(id + "select account");
     }
 } // TouchDisplayHandler

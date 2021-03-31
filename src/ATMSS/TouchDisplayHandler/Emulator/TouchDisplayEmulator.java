@@ -80,8 +80,6 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 //            case "Cash Withdrawal":
 //
 //            case "Account Balance Enquiry":
-//
-//            case "Account selection":
 
             case "Confirmation":
                 reloadStage("TouchDisplayConfirmation.fxml", msg.getDetails());
@@ -106,6 +104,10 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         touchDisplayEmulatorController.setLoginTrue();
     }
 
+    protected void accountSelect(String acc) {
+        super.accountSelect(acc);
+        reloadStage("TouchDisplayMainMenu.fxml", acc);
+    }
 
     //------------------------------------------------------------
     // reloadStage
@@ -124,22 +126,52 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                     root = loader.load();
                     touchDisplayEmulatorController = (TouchDisplayEmulatorController) loader.getController();
                     touchDisplayEmulatorController.initialize(id, atmssStarter, log, touchDisplayEmulator);
-                    switch (detail) {
-                        case "Welcome":
-                            touchDisplayEmulatorController.welcomePage();
+                    switch (fxmlFName) {
+                        case "TouchDisplayEmulator.fxml":
+                            switch (detail) {
+                                case "Welcome":
+                                    touchDisplayEmulatorController.welcomePage();
+                                    break;
+
+                                case "PIN Required":
+                                    touchDisplayEmulatorController.enterPINPage();
+                                    break;
+
+                                default:
+                                    break;
+                            }
                             break;
 
-                        case "PIN Required":
-                            touchDisplayEmulatorController.enterPINPage();
+                        case "TouchDisplayMainMenu.fxml":
+                            if (detail.equals("MainMenu")) {
+                                touchDisplayEmulatorController.mainMenuBox();
+                            } else {
+                                touchDisplayEmulatorController.accountSelectGUI(detail);
+                            }
                             break;
 
-                        case "MainMenu":
-                            touchDisplayEmulatorController.mainMenuBox();
+                        case "TouchDisplayConfirmation.fxml":
                             break;
 
                         default:
                             break;
                     }
+//                    switch (detail) {
+//                        case "Welcome":
+//                            touchDisplayEmulatorController.welcomePage();
+//                            break;
+//
+//                        case "PIN Required":
+//                            touchDisplayEmulatorController.enterPINPage();
+//                            break;
+//
+//                        case "MainMenu":
+//                            touchDisplayEmulatorController.mainMenuBox();
+//                            break;
+//
+//                        default:
+//                            break;
+//                    }
                     myStage.setScene(new Scene(root, WIDTH, HEIGHT));
                 } catch (Exception e) {
                     log.severe(id + ": failed to load " + fxmlFName);
