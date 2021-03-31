@@ -221,8 +221,8 @@ public class ATMSS extends AppThread {
 				//set transaction to true
 				//set timer
 				//change touch screen display to ask how much to deposit
-				//alert deposit slot
-				//open deposit slot
+				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
+				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
 			}else if ((x>= 340 && x <=640) && (y>= 270 && y<340)){
 				//set transaction to true
 				//change touch screen display to choose which acc to transfer from
