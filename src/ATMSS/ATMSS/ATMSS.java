@@ -14,6 +14,8 @@ public class ATMSS extends AppThread {
     private boolean loggedIn = false;
     private boolean transaction = false;
     private static String cardNum ="";
+    private static String selectedAcc ="";
+    private static String transferAcc = "";
     private String pin = "";
     private boolean getPin = false;
     private int errorCount = 0;
@@ -102,6 +104,10 @@ public class ATMSS extends AppThread {
 
 			case ReceiveAccount:
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, msg.getDetails()));
+				break;
+
+			case Selected_Acc:
+				selectedAcc = msg.getDetails();		//on logout please clear this value
 				break;
 
 		case Denom_sum:
