@@ -115,14 +115,12 @@ public class DepositSlotEmulatorController {
     	DepositSlotTextArea.appendText(status+"\n");
     } // appendTextArea
     
-    public boolean setTransactionStatus() {
-    	if(deposit) {
+    public void setTransactionStatus(String msg) {
+    	if(msg.equals("CloseSlot")) {
     		deposit = false;
-    	}else {
+    	}else if (msg.equals("OpenSlot")){
     		deposit = true;
     	}
-    	
-    	return deposit;
     }
     
 }

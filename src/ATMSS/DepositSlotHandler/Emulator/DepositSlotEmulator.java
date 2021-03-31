@@ -56,16 +56,39 @@ public class DepositSlotEmulator extends DepositSlotHandler{
     } // handleDepositCash
 
     protected void handleDeposit(String msg) {
-    	if (DepositSlotEmulatorController.setTransactionStatus()) { 		//if is set to true, means deposit slot open
-    		super.handleDeposit(msg);
+        super.handleDeposit(msg);
+        DepositSlotEmulatorController.setTransactionStatus(msg);
+
+    	if (msg.equals("OpenSlot")) { 		//if is set to true, means deposit slot open
     		DepositSlotEmulatorController.updateCardStatus("Deposit Slot is open");
-    	}else if (!DepositSlotEmulatorController.setTransactionStatus()) {
-    		super.handleDeposit(msg);
+    	}else if (msg.equals("CloseSlot")) {
     		DepositSlotEmulatorController.updateCardStatus("Deposit Slot is closed");
     	}
     }
 
-//    //------------------------------------------------------------
+    //------------------------------------------------------------
+    //Handle alert and repositions GUI
+    @Override
+    protected void alert() {
+        super.alert();
+        DepositSlotEmulator depositSlotEmulator = this;
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                myStage.toFront();
+                //shake the stage
+//				for (int i = 0; i < 10; i++) {
+//					myStage.setX(myStage.getX()+10);
+//					myStage.setX(myStage.getX()-10);
+//					myStage.setX(myStage.getX()-10);
+//					myStage.setX(myStage.getX()+10);
+//				}
+            }
+        });
+    }
+
+    //    //------------------------------------------------------------
 //    // handleCardEject
 //    protected void handleCardEject() {
 //        // fixme
