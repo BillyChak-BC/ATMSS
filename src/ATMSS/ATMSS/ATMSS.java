@@ -214,26 +214,25 @@ public class ATMSS extends AppThread {
 	// *** process mouse click here!!! ***
 		if (loggedIn && !transaction){
 			StringTokenizer tokens = new StringTokenizer(msg.getDetails());
-			int x = Integer.parseInt(tokens.nextToken());
-			int y = Integer.parseInt(tokens.nextToken());
+			String eventLabel = tokens.nextToken("");
 
-			if ((x>=0 && x<=300) && (y>=270 && y< 340)){ //deposit
+			if (eventLabel.equals("Cash Deposit")){ //deposit
 				//set transaction to true
 				//set timer
 				//change touch screen display to ask how much to deposit
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
-			}else if ((x>= 340 && x <=640) && (y>= 270 && y<340)){
+			}else if (eventLabel.equals("Money Transfer")){
 				//set transaction to true
 				//change touch screen display to choose which acc to transfer from
 				//choose which acc to transfer to
 				//send msg to bams to transfer
-			}else if ((x>=0 && x<=300) && (y>=340 && y<410)){
+			}else if (eventLabel.equals("Cash Withdrawal")){
 				//set transaction to true
 				//set timer
 				//change touch screen display to ask how much to withdraw
 				//alert keypad
-			}else if ((x>= 340 && x <=640) && (y>=340 && y<410)){
+			}else if (eventLabel.equals("Account Balance Enquiry")){
 				//set transaction to true
 				//check balance
 			}
