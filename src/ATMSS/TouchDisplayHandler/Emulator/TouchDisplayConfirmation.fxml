@@ -19,11 +19,28 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0"
                            onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640"
                            AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0"/>
-				<Label fx:id="confirmationLabel" AnchorPane.topAnchor="100" AnchorPane.leftAnchor="100" maxWidth="440" prefWidth="440" wrapText="true" alignment="CENTER" textAlignment="CENTER">
+				<Label fx:id="confirmationLabel" AnchorPane.topAnchor="50" AnchorPane.leftAnchor="100" maxHeight="100" prefHeight="50" maxWidth="440" prefWidth="440" wrapText="true" alignment="CENTER" textAlignment="CENTER">
 					<font>
 						<Font name="System Bold" size="20"/>
 					</font>
 				</Label>
+                <Label fx:id="confirmationInformationLabel" AnchorPane.topAnchor="150" AnchorPane.leftAnchor="100" maxHeight="190" prefHeight="190" prefWidth="440" maxWidth="440" wrapText="true" alignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Label>
+                <Label fx:id="noLabel" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="100" prefHeight="40"
+                       prefWidth="160" alignment="CENTER" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="12"/>
+                    </font>
+                </Label>
+                <Label fx:id="yesLabel" AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="100" prefHeight="40"
+                       prefWidth="160" alignment="CENTER" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="12"/>
+                    </font>
+                </Label>
             </children>
         </AnchorPane>
     </children>

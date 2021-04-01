@@ -82,10 +82,7 @@ public class ATMSS extends AppThread {
 					//if success login return some boolean variable that enable all methods that need login to be true to act
 					loggedIn = true;
 					getPin = false; //on login success, no need pin anymore
-//					bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.GetAccount, cardNum));
-					//not yet
-					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to main menu to select transaction
-					//ignore the password validation temporarily
+					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to menu to select account
 					//send verification success notification to touchscreen display so that screen is changed
 				}else if (msg.getDetails().equals("Fail")){
 					errorCount++;
@@ -112,6 +109,7 @@ public class ATMSS extends AppThread {
 
 		case Denom_sum:
 			log.info("CashDeposit Denominations: " + msg.getDetails());
+			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));
 			break;
 
 		case TimesUp:
@@ -219,6 +217,7 @@ public class ATMSS extends AppThread {
 				//set transaction to true
 				//set timer
 				//change touch screen display to ask how much to deposit
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
 			}else if (transaction.equals("Money Transfer")){

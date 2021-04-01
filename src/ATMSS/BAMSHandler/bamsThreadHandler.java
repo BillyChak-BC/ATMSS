@@ -37,7 +37,8 @@ public class bamsThreadHandler extends AppThread{
                     try {
                         testLogin(bams, msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
-
+                        log.severe(id + ": " + e.getMessage());
+                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
@@ -46,7 +47,8 @@ public class bamsThreadHandler extends AppThread{
                     try {
                         getAcc(msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
-
+                        log.severe(id + ": " + e.getMessage());
+                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }

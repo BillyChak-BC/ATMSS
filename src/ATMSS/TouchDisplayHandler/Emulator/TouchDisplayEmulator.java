@@ -73,12 +73,9 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                 reloadStage("TouchDisplayMainMenu.fxml", msg.getDetails());
                 break;
 
-//            case "Cash Deposit":
-//
+            case "Cash Deposit":
 //            case "Money Transfer":
-//
 //            case "Cash Withdrawal":
-//
 //            case "Account Balance Enquiry":
 
             case "Confirmation":
@@ -109,9 +106,18 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         reloadStage("TouchDisplayMainMenu.fxml", acc);
     }
 
+    protected void cashDeposit(String amount) {
+        super.cashDeposit(amount);
+        reloadStage("TouchDisplayConfirmation.fxml", "Cash Deposit with money", amount);
+    }
+
     //------------------------------------------------------------
     // reloadStage
     private void reloadStage(String fxmlFName, String detail) {
+        reloadStage(fxmlFName, detail, "");
+    }
+
+    private void reloadStage(String fxmlFName, String detail, String money) {
         TouchDisplayEmulator touchDisplayEmulator = this;
 
         Platform.runLater(new Runnable() {
@@ -151,6 +157,18 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                             break;
 
                         case "TouchDisplayConfirmation.fxml":
+                            switch (detail) {
+                                case "Cash Deposit":
+                                    touchDisplayEmulatorController.cashDepositPage();
+                                    break;
+
+                                case "Cash Deposit with money":
+                                    touchDisplayEmulatorController.cashDepositPage(money);
+                                    break;
+
+                                default:
+                                    break;
+                            }
                             break;
 
                         default:
