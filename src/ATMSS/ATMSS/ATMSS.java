@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 public class ATMSS extends AppThread {
     private int pollingTime;
     private boolean loggedIn = false;
-    private boolean transaction = false;
+    private String transaction = "";		//would it be better to store as a String compared to boolean?
     private static String cardNum ="";
     private static String selectedAcc ="";
     private static String transferAcc = "";
@@ -212,27 +212,26 @@ public class ATMSS extends AppThread {
     // processMouseClicked
     private void processMouseClicked(Msg msg) {
 	// *** process mouse click here!!! ***
-		if (loggedIn && !transaction){
-			StringTokenizer tokens = new StringTokenizer(msg.getDetails());
-			String eventLabel = tokens.nextToken("");
+		if (loggedIn && transaction.equals("")){
+			transaction = msg.getDetails();
 
-			if (eventLabel.equals("Cash Deposit")){ //deposit
+			if (transaction.equals("Cash Deposit")){ //deposit
 				//set transaction to true
 				//set timer
 				//change touch screen display to ask how much to deposit
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
-			}else if (eventLabel.equals("Money Transfer")){
+			}else if (transaction.equals("Money Transfer")){
 				//set transaction to true
 				//change touch screen display to choose which acc to transfer from
 				//choose which acc to transfer to
 				//send msg to bams to transfer
-			}else if (eventLabel.equals("Cash Withdrawal")){
+			}else if (transaction.equals("Cash Withdrawal")){
 				//set transaction to true
 				//set timer
 				//change touch screen display to ask how much to withdraw
 				//alert keypad
-			}else if (eventLabel.equals("Account Balance Enquiry")){
+			}else if (transaction.equals("Account Balance Enquiry")){
 				//set transaction to true
 				//check balance
 			}
