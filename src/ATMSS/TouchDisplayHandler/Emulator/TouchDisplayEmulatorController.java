@@ -37,6 +37,9 @@ public class TouchDisplayEmulatorController {
     public FlowPane menuListPane;
     public VBox vboxLeft;
     public VBox vboxRight;
+    public Label noLabel;
+    public Label yesLabel;
+    public Label confirmationInformationLabel;
     public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
     private static boolean loggedIn = false;
@@ -75,7 +78,6 @@ public class TouchDisplayEmulatorController {
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Selected_Acc, selectedAcc));
                     } else {
-                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, targetLabel.getText()));
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, targetLabel.getText()));
                     }
                     break;
@@ -220,6 +222,29 @@ public class TouchDisplayEmulatorController {
                 vboxRight.getChildren().add(stack[i]);
             }
             stack[i].setOnMousePressed(this::td_mouseClick);
+        }
+    }
+
+    public void cashDepositPage() {
+        cashDepositPage("");
+    }
+
+    protected void cashDepositPage(String amount) {
+        confirmationLabel.setText("Operating Account Number: " + selectedAcc);
+        if (amount.equals("")) {
+            yesBtn.setVisible(false);
+            noBtn.setVisible(false);
+            yesLabel.setVisible(false);
+            noLabel.setVisible(false);
+            confirmationInformationLabel.setText("Please insert money in cash deposit collector");
+        } else {
+            yesLabel.setVisible(true);
+            noLabel.setVisible(true);
+            yesBtn.setVisible(true);
+            noBtn.setVisible(true);
+            yesLabel.setText("Confirm Amount");
+            noLabel.setText("Cancel");
+            confirmationInformationLabel.setText("Show total amount of money and the amount of each money denominations");
         }
     }
 

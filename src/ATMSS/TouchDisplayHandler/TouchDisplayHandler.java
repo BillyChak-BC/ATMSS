@@ -35,6 +35,10 @@ public class TouchDisplayHandler extends HWHandler {
                 atmss.send(new Msg(id, mbox, Msg.Type.GetAccount, ""));
                 break;
 
+            case Denom_sum:
+                cashDeposit(msg.getDetails());
+                break;
+
             case LoggedIn:
                 if (msg.getDetails().equals("Success")){
                     handleLogin();
@@ -58,6 +62,10 @@ public class TouchDisplayHandler extends HWHandler {
     }
 
     protected void accountSelect(String acc) {
-        log.info(id + "select account");
+        log.info(id + ": select account");
+    }
+
+    protected void cashDeposit(String amount) {
+        log.info(id + ": cash deposit");
     }
 } // TouchDisplayHandler
