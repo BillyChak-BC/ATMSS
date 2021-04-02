@@ -1,78 +1,69 @@
-210401-20:47:13 [INFO] -- 
-210401-20:47:13 [INFO] -- 
-210401-20:47:13 [INFO] -- ============================================================
-210401-20:47:13 [INFO] -- ATMSSStarter: Application Starting...
-210401-20:47:15 [INFO] -- BAMSThreadHandler: starting...
-210401-20:47:15 [INFO] -- DispenserSlotHandler: starting...
-210401-20:47:15 [INFO] -- KeypadHandler: starting...
-210401-20:47:15 [INFO] -- timer: starting...
-210401-20:47:15 [INFO] -- CardReaderHandler: starting...
-210401-20:47:15 [INFO] -- DepositSlotHandler: starting...
-210401-20:47:15 [INFO] -- TouchDisplayHandler: starting...
-210401-20:47:15 [INFO] -- BuzzerHandler: starting...
-210401-20:47:15 [INFO] -- AdvicePrinterHandler: starting...
-210401-20:47:15 [INFO] -- ATMSS: starting...
-210401-20:47:16 [INFO] -- MouseCLicked: 63 345 Logged In: false
-210401-20:47:19 [INFO] -- CardReaderHandler: card inserted
-210401-20:47:19 [INFO] -- CardInserted: 4107-7014
-210401-20:47:19 [INFO] -- TouchDisplayHandler: update display -- PIN Required
-210401-20:47:19 [INFO] -- KeypadHandler: alert user-- 
-210401-20:47:19 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210401-20:47:19 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210401-20:47:20 [INFO] -- KeyPressed: 00
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- KeyPressed: 00
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- KeyPressed: 00
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- KeyPressed: 00
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:20 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:21 [INFO] -- KeyPressed: 00
-210401-20:47:21 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:21 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210401-20:47:21 [INFO] -- KeyPressed: Enter
-210401-20:47:21 [INFO] -- ATMSS : verifying cardnum and pin
-210401-20:47:21 [INFO] -- pin: 000000000
-210401-20:47:22 [INFO] -- BAMSThreadHandler : successful login!
-210401-20:47:22 [INFO] -- TouchDisplayHandler: changing login status
-210401-20:47:22 [INFO] -- BAMSThreadHandler: terminating...
-210401-20:47:22 [INFO] -- TouchDisplayHandler: select account
-210401-20:47:22 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210401-20:47:24 [INFO] -- TouchDisplayHandler: update display -- MainMenu
-210401-20:47:24 [WARNING] -- TouchDisplayHandler: unknown message type: [TouchDisplayHandler (Selected_Acc) -- 111-222-333]
-210401-20:47:24 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210401-20:47:24 [INFO] -- MouseCLicked: Cash Deposit
-210401-20:47:24 [INFO] -- TouchDisplayHandler: update display -- Cash Deposit
-210401-20:47:24 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
-210401-20:47:24 [INFO] -- DepositSlotHandler: alert user-- 
-210401-20:47:24 [INFO] -- DepositSlotHandlerOpening Deposit Slot
-210401-20:47:28 [INFO] -- DepositSlotHandlerClosing Deposit Slot
-210401-20:47:28 [INFO] -- CashDeposit Denominations: 0 0 1
-210401-20:47:28 [INFO] -- TouchDisplayHandler: cash deposit
-210401-20:47:28 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
-210401-20:48:15 [INFO] -- Poll: TimesUp 48670 0
-210401-20:48:15 [INFO] -- PollAck: CardReaderHandler is up!
-210401-20:48:15 [INFO] -- PollAck: KeypadHandler is up!
-210401-20:48:15 [INFO] -- PollAck: TouchDisplayHandler is up!
-210401-20:48:15 [INFO] -- PollAck: DispenserSlotHandler is up!
-210401-20:48:15 [INFO] -- PollAck: DepositSlotHandler is up!
-210401-20:48:15 [INFO] -- PollAck: AdvicePrinterHandler is up!
-210401-20:48:15 [INFO] -- PollAck: BuzzerHandler is up!
-210401-20:48:56 [INFO] -- 
-210401-20:48:56 [INFO] -- 
-210401-20:48:56 [INFO] -- ============================================================
-210401-20:48:56 [INFO] -- ATMSSStarter: Application Stopping...
-210401-20:48:56 [INFO] -- CardReaderHandler: terminating...
-210401-20:48:56 [INFO] -- DepositSlotHandler: terminating...
-210401-20:48:56 [INFO] -- timer: received terminate!
-210401-20:48:56 [INFO] -- ATMSS: terminating...
-210401-20:48:56 [INFO] -- TouchDisplayHandler: terminating...
-210401-20:48:56 [INFO] -- KeypadHandler: terminating...
-210401-20:48:56 [INFO] -- BuzzerHandler: terminating...
-210401-20:48:56 [INFO] -- AdvicePrinterHandler: terminating...
-210401-20:48:56 [INFO] -- DispenserSlotHandler: terminating...
-210401-20:48:56 [INFO] -- timer: terminating...
+210402-12:59:52 [INFO] -- 
+210402-12:59:52 [INFO] -- 
+210402-12:59:52 [INFO] -- ============================================================
+210402-12:59:52 [INFO] -- ATMSSStarter: Application Starting...
+210402-13:00:01 [INFO] -- timer: starting...
+210402-13:00:01 [INFO] -- AdvicePrinterHandler: starting...
+210402-13:00:01 [INFO] -- BuzzerHandler: starting...
+210402-13:00:01 [INFO] -- KeypadHandler: starting...
+210402-13:00:01 [INFO] -- BAMSThreadHandler: starting...
+210402-13:00:01 [INFO] -- TouchDisplayHandler: starting...
+210402-13:00:01 [INFO] -- DepositSlotHandler: starting...
+210402-13:00:01 [INFO] -- CardReaderHandler: starting...
+210402-13:00:01 [INFO] -- DispenserSlotHandler: starting...
+210402-13:00:02 [INFO] -- ATMSS: starting...
+210402-13:00:03 [INFO] -- MouseCLicked: 577 248 Logged In: false
+210402-13:00:07 [INFO] -- CardReaderHandler: card inserted
+210402-13:00:07 [INFO] -- CardInserted: 4107-7014
+210402-13:00:07 [INFO] -- TouchDisplayHandler: update display -- PIN Required
+210402-13:00:07 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210402-13:00:07 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210402-13:00:07 [INFO] -- KeypadHandler: alert user-- 
+210402-13:00:08 [INFO] -- KeyPressed: 00
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- KeyPressed: 00
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- KeyPressed: 00
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- KeyPressed: 00
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- KeyPressed: 00
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:08 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210402-13:00:09 [INFO] -- KeyPressed: Enter
+210402-13:00:09 [INFO] -- ATMSS : verifying cardnum and pin
+210402-13:00:09 [INFO] -- pin: 000000000
+210402-13:00:11 [INFO] -- BAMSThreadHandler : successful login!
+210402-13:00:11 [INFO] -- TouchDisplayHandler: changing login status
+210402-13:00:11 [INFO] -- TouchDisplayHandler: select account
+210402-13:00:11 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210402-13:00:12 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210402-13:00:12 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210402-13:00:14 [INFO] -- MouseCLicked: Account Balance Enquiry
+210402-13:00:14 [INFO] -- TouchDisplayHandler: update display -- Account Balance Enquiry
+210402-13:00:14 [SEVERE] -- TouchDisplayHandler: update display with unknown display type -- Account Balance Enquiry
+210402-13:00:14 [INFO] -- TouchDisplayHandler: account enquiry
+210402-13:00:14 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
+210402-13:00:17 [INFO] -- MouseCLicked: 431 418 Logged In: true
+210402-13:00:18 [INFO] -- MouseCLicked: 170 438 Logged In: true
+210402-13:00:18 [INFO] -- MouseCLicked: 171 439 Logged In: true
+210402-13:00:18 [INFO] -- MouseCLicked: 186 417 Logged In: true
+210402-13:00:20 [INFO] -- 
+210402-13:00:20 [INFO] -- 
+210402-13:00:20 [INFO] -- ============================================================
+210402-13:00:20 [INFO] -- ATMSSStarter: Application Stopping...
+210402-13:00:20 [INFO] -- ATMSS: terminating...
+210402-13:00:20 [INFO] -- DepositSlotHandler: terminating...
+210402-13:00:20 [INFO] -- KeypadHandler: terminating...
+210402-13:00:20 [INFO] -- CardReaderHandler: terminating...
+210402-13:00:20 [INFO] -- timer: received terminate!
+210402-13:00:20 [INFO] -- AdvicePrinterHandler: terminating...
+210402-13:00:20 [INFO] -- TouchDisplayHandler: terminating...
+210402-13:00:20 [INFO] -- BAMSThreadHandler: terminating...
+210402-13:00:20 [INFO] -- DispenserSlotHandler: terminating...
+210402-13:00:20 [INFO] -- timer: terminating...
+210402-13:00:20 [INFO] -- BuzzerHandler: terminating...

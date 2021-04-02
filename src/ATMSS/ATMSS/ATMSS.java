@@ -107,6 +107,10 @@ public class ATMSS extends AppThread {
 				selectedAcc = msg.getDetails();		//on logout please clear this value
 				break;
 
+			case EnquiryResult:
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.EnquiryResult, msg.getDetails()));
+				break;
+
 		case Denom_sum:
 			log.info("CashDeposit Denominations: " + msg.getDetails());
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));
@@ -233,6 +237,9 @@ public class ATMSS extends AppThread {
 			}else if (transaction.equals("Account Balance Enquiry")){
 				//set transaction to true
 				//check balance
+				String enquiryDetails = cardNum + " " + selectedAcc;
+				bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.AccountEnquiry, enquiryDetails));
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
 			}
 
 		}

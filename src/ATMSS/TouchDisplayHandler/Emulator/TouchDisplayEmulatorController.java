@@ -231,6 +231,8 @@ public class TouchDisplayEmulatorController {
 
     protected void cashDepositPage(String amount) {
         confirmationLabel.setText("Operating Account Number: " + selectedAcc);
+        yesLabel.setPrefSize(yesBtn.getWidth(), yesBtn.getHeight());
+        noLabel.setPrefSize(noBtn.getWidth(), noBtn.getHeight());
         if (amount.equals("")) {
             yesBtn.setVisible(false);
             noBtn.setVisible(false);
@@ -244,8 +246,25 @@ public class TouchDisplayEmulatorController {
             noBtn.setVisible(true);
             yesLabel.setText("Confirm Amount");
             noLabel.setText("Cancel");
-            confirmationInformationLabel.setText("Show total amount of money and the amount of each money denominations");
+            String[] amounts = amount.split(" ");
+            int total100 = Integer.parseInt(amounts[0]) * 100;
+            int total500 = Integer.parseInt(amounts[1]) * 500;
+            int total1000 = Integer.parseInt(amounts[2]) * 1000;
+            confirmationInformationLabel.setText("Number of $100 money notes: " + amounts[0] + "= $100 x " + amounts[0] + " = " + "$" + total100 + "\n" + "Number of $500 money notes: " + amounts[1] + "= $500 x " + amounts[1] + " = " + "$" + total500 + "\n" + "Number of $1000 money notes: " + amounts[2] + "= $1000 x " + amounts[2] + " = " + "$" + total1000 + "\n\n" + "Total amount: $" + (total100 + total500 + total1000));
         }
+    }
+
+    protected void accountEnquiryPage(String amount) {
+        confirmationLabel.setText("Operating Account Number: " + selectedAcc);
+        yesLabel.setPrefSize(yesBtn.getWidth(), yesBtn.getHeight());
+        noLabel.setPrefSize(noBtn.getWidth(), noBtn.getHeight());
+        yesLabel.setVisible(true);
+        noLabel.setVisible(true);
+        yesBtn.setVisible(true);
+        noBtn.setVisible(true);
+        yesLabel.setText("End Transaction");        //eject card
+        noLabel.setText("Continue Transaction");    //return to main menu
+        confirmationInformationLabel.setText("Amount in this account: $" + amount);
     }
 
     //    public void mainMenu() {
