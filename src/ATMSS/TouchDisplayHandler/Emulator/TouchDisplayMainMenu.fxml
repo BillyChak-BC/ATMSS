@@ -14,12 +14,17 @@
 	<children>
 		<Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="480.0" onMouseClicked="#td_mouseClick" stroke="BLACK" strokeType="OUTSIDE" width="640" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
 		<VBox AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" prefWidth="640" prefHeight="480">
-			<Label fx:id="menuLabel" prefWidth="640" prefHeight="180" alignment="CENTER" textAlignment="CENTER">
+			<Label fx:id="menuTopLabel" prefWidth="640" prefHeight="50" wrapText="true" alignment="CENTER" textAlignment="CENTER">
+				<font>
+					<Font name="System Bold" size="20"/>
+				</font>
+			</Label>
+			<Label fx:id="menuLabel" prefWidth="640" prefHeight="130" wrapText="true" alignment="TOP_CENTER" textAlignment="CENTER">
 				<font>
 					<Font name="System Bold" size="24"/>
 				</font>
 			</Label>
-			<HBox maxWidth="640" maxHeight="300" prefWidth="640" prefHeight="300" alignment="BOTTOM_CENTER">
+			<HBox fx:id="buttonHBox" maxWidth="640" maxHeight="300" prefWidth="640" prefHeight="300" alignment="BOTTOM_CENTER">
 				<VBox fx:id="vboxLeft" prefWidth="320" prefHeight="300">
 					<!--					<Rectangle fill="red" arcWidth="5" arcHeight="5" width="320" height="100" stroke="red"/>-->
 					<!--					<Rectangle fill="orange" arcWidth="5" arcHeight="5" width="320" height="100" stroke="orange"/>-->
@@ -57,18 +62,5 @@
 		<!--			</children>-->
 		<!--		</AnchorPane>-->
 
-
-		<!--		<BorderPane prefHeight="480" prefWidth="640" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">-->
-		<!--			<top>-->
-		<!--				<Label fx:id="menuLabel" prefWidth="640" prefHeight="180" text="Card Number" alignment="CENTER" textAlignment="CENTER">-->
-		<!--					<font>-->
-		<!--						<Font size="24"/>-->
-		<!--					</font>-->
-		<!--				</Label>-->
-		<!--			</top>-->
-		<!--			<bottom>-->
-		<!--				<FlowPane fx:id="menuListPane" AnchorPane.leftAnchor="20" prefWidth="640" prefHeight="300" alignment="CENTER"/>-->
-		<!--			</bottom>-->
-		<!--		</BorderPane>-->
 	</children>
 </AnchorPane>
