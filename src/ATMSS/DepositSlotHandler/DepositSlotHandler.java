@@ -15,6 +15,7 @@ public class DepositSlotHandler extends HWHandler {
         switch (msg.getType()) {                    //Sean: change msg types to ones i need (dont forget to add to enums type in Msg Class!!)
         	case Denom_sum:
         		atmss.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));
+        		handleDeposit("CloseSlot");
         		break;
         	case Deposit:
         		handleDeposit(msg.getDetails());
