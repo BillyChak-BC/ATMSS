@@ -107,5 +107,7 @@ public class Msg {
         /**Get card accounts*/          GetAccount,
         /**Receive card accounts*/      ReceiveAccount,
         /**Informs what is selected Acc*/   Selected_Acc,
+        /** Specific Account Enquiry*/      AccountEnquiry,
+        /** Receive Account Enquiry Result*/        EnquiryResult,
     } // Type
 } // Msg

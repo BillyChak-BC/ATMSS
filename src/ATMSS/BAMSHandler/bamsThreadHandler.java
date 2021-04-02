@@ -42,6 +42,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (IOException e) {
 
                     }
+                    break;
 
                 case GetAccount:
                     try {
@@ -52,6 +53,18 @@ public class bamsThreadHandler extends AppThread{
                     } catch (IOException e) {
 
                     }
+                    break;
+
+                case AccountEnquiry:
+                    try {
+                        accEnquiry(msg.getDetails());
+                    } catch (BAMSInvalidReplyException e) {
+                        log.severe(id + ": " + e.getMessage());
+                        //pop up window talk about whats wrong
+                    } catch (IOException e) {
+
+                    }
+                    break;
 
                 case Terminate:
                     quit = true;
@@ -59,6 +72,7 @@ public class bamsThreadHandler extends AppThread{
 
                 default:
                     processMsg(msg);
+                    break;
             }
         }
 
@@ -136,13 +150,15 @@ public class bamsThreadHandler extends AppThread{
 
     //------------------------------------------------------------
     // testEnquiry
-    static void testEnquiry(BAMSHandler bams) throws BAMSInvalidReplyException, IOException {
-        System.out.println("Enquiry:");
-        double amount = bams.enquiry("12345678-4", "111-222-334","cred-4");
-        System.out.println("amount: " + amount);
-        System.out.println();
+    static double testEnquiry(BAMSHandler bams, String cardNo, String accNo) throws BAMSInvalidReplyException, IOException {
+        return bams.enquiry(cardNo, accNo, credential);
     } // testEnquiry
 
+    private void accEnquiry(String details) throws IOException, BAMSInvalidReplyException {
+        String[] info = details.split(" ");
+        double result = testEnquiry(bams, info[0], info[1]);
+        atmss.send(new Msg(id, mbox, Msg.Type.EnquiryResult, result + ""));
+    }
 
     //------------------------------------------------------------
     // testTransfer

@@ -111,6 +111,11 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         reloadStage("TouchDisplayConfirmation.fxml", "Cash Deposit with money", amount);
     }
 
+    protected void accountEnquiry(String amount) {
+        super.accountEnquiry(amount);
+        reloadStage("TouchDisplayConfirmation.fxml", "Account Enquiry", amount);
+    }
+
     //------------------------------------------------------------
     // reloadStage
     private void reloadStage(String fxmlFName, String detail) {
@@ -164,6 +169,10 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
                                 case "Cash Deposit with money":
                                     touchDisplayEmulatorController.cashDepositPage(money);
+                                    break;
+
+                                case "Account Enquiry":
+                                    touchDisplayEmulatorController.accountEnquiryPage(money);
                                     break;
 
                                 default:

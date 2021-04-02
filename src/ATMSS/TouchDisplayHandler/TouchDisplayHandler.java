@@ -35,6 +35,14 @@ public class TouchDisplayHandler extends HWHandler {
                 atmss.send(new Msg(id, mbox, Msg.Type.GetAccount, ""));
                 break;
 
+            case Selected_Acc:
+                atmss.send(new Msg(id, mbox, Msg.Type.Selected_Acc, msg.getDetails()));
+                break;
+
+            case EnquiryResult:
+                accountEnquiry(msg.getDetails());
+                break;
+
             case Denom_sum:
                 cashDeposit(msg.getDetails());
                 break;
@@ -67,5 +75,9 @@ public class TouchDisplayHandler extends HWHandler {
 
     protected void cashDeposit(String amount) {
         log.info(id + ": cash deposit");
+    }
+
+    protected void accountEnquiry(String amount) {
+        log.info(id + ": account enquiry");
     }
 } // TouchDisplayHandler
