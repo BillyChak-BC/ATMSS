@@ -124,6 +124,7 @@ public class ATMSS extends AppThread {
 
 		case Denom_sum:
 			log.info("CashDeposit Denominations: " + msg.getDetails());
+			Timer.cancelTimer(id, mbox, depositTimerID);//remove deposit slot timer
 			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));
 			break;
 
@@ -142,6 +143,9 @@ public class ATMSS extends AppThread {
 				DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
 				AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
 				BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+			}else if (timerID == depositTimerID){
+				depositTimerID = -1;
+				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
 			}
 
 		    break;
@@ -270,7 +274,7 @@ public class ATMSS extends AppThread {
 
 			if (transaction.equals("Cash Deposit")){ //deposit
 				//set transaction to true
-				//set timer
+				depositTimerID = Timer.setTimer(id, mbox, 15000);
 				//change touch screen display to ask how much to deposit
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
