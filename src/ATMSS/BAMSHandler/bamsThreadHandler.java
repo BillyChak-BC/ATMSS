@@ -55,6 +55,17 @@ public class bamsThreadHandler extends AppThread{
                     }
                     break;
 
+                case CashWithdraw:
+                    try {
+                        cashWithdraw(msg.getDetails());
+                    } catch (BAMSInvalidReplyException e) {
+                        log.severe(id + ": " + e.getMessage());
+                        //pop up window talk about whats wrong
+                    } catch (IOException e) {
+
+                    }
+                    break;
+
                 case AccountEnquiry:
                     try {
                         accEnquiry(msg.getDetails());
@@ -130,13 +141,18 @@ public class bamsThreadHandler extends AppThread{
 
     //------------------------------------------------------------
     // testWithdraw
-    static void testWithdraw(BAMSHandler bams) throws BAMSInvalidReplyException, IOException {
-        System.out.println("Withdraw:");
-        int outAmount = bams.withdraw("12345678-2", "111-222-332","cred-2", "109702");
-        System.out.println("outAmount: " + outAmount);
-        System.out.println();
+    static int testWithdraw(BAMSHandler bams, String cardNo, String accNo, String amount) throws BAMSInvalidReplyException, IOException {
+        return bams.withdraw(cardNo, accNo, credential, amount);
+//        int outAmount = bams.withdraw("12345678-2", "111-222-332","cred-2", "109702");
+//        System.out.println("outAmount: " + outAmount);
+//        System.out.println();
     } // testWithdraw
 
+    private void cashWithdraw(String details) throws IOException, BAMSInvalidReplyException {
+        String[] info = details.split(" ");
+        int outAmount = testWithdraw(bams, info[0], info[1], info[2]);
+        atmss.send(new Msg(id, mbox, Msg.Type.CashWithdraw, outAmount + ""));
+    }
 
     //------------------------------------------------------------
     // testDeposit

@@ -63,9 +63,11 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         switch (msg.getDetails()) {
             case "BlankScreen":
 
-            case "Welcome":             //touchDisplayEmulatorController.welcomePage();
+            case "Welcome":
 
-            case "PIN Required":            //touchDisplayEmulatorController.enterPINPage();
+            case "PIN Required":
+
+            case "Cash Withdrawal":
                 reloadStage("TouchDisplayEmulator.fxml", msg.getDetails());
                 break;
 
@@ -86,8 +88,9 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                 touchDisplayEmulatorController.changePIN();
                 break;
 
+            case "eraseAmount":
             case "erasePIN":
-                touchDisplayEmulatorController.erasePIN();
+                touchDisplayEmulatorController.eraseText();
                 break;
 
             default:
@@ -113,7 +116,12 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
     protected void accountEnquiry(String amount) {
         super.accountEnquiry(amount);
-        reloadStage("TouchDisplayConfirmation.fxml", "Account Enquiry", amount);
+        reloadStage("TouchDisplayMainMenu.fxml", "Account Enquiry", amount);
+    }
+
+    protected void amountFieldChange(String typed) {
+        super.amountFieldChange(typed);
+        touchDisplayEmulatorController.changeAmount(typed);
     }
 
     //------------------------------------------------------------
@@ -148,16 +156,33 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     touchDisplayEmulatorController.enterPINPage();
                                     break;
 
+                                case "Cash Withdrawal":
+                                    touchDisplayEmulatorController.cashWithdrawalPage();
+                                    break;
+
                                 default:
                                     break;
                             }
                             break;
 
                         case "TouchDisplayMainMenu.fxml":
-                            if (detail.equals("MainMenu")) {
-                                touchDisplayEmulatorController.mainMenuBox();
-                            } else {
-                                touchDisplayEmulatorController.accountSelectGUI(detail);
+//                            if (detail.equals("MainMenu")) {
+//                                touchDisplayEmulatorController.mainMenuBox();
+//                            } else {
+//                                touchDisplayEmulatorController.accountSelectGUI(detail);
+//                            }
+                            switch (detail) {
+                                case "MainMenu":
+                                    touchDisplayEmulatorController.mainMenuBox();
+                                    break;
+
+                                case "Account Enquiry":
+                                    touchDisplayEmulatorController.accountEnquiryMenu(money);
+                                    break;
+
+                                default:
+                                    touchDisplayEmulatorController.accountSelectGUI(detail);
+                                    break;
                             }
                             break;
 

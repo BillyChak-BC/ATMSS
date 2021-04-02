@@ -109,5 +109,7 @@ public class Msg {
         /**Informs what is selected Acc*/   Selected_Acc,
         /** Specific Account Enquiry*/      AccountEnquiry,
         /** Receive Account Enquiry Result*/        EnquiryResult,
+        /** Send Cash Withdraw Request*/        CashWithdraw,
+        /** Typed text*/            TextTyped,
     } // Type
 } // Msg

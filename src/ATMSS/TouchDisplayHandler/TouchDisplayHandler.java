@@ -31,6 +31,10 @@ public class TouchDisplayHandler extends HWHandler {
                 accountSelect(msg.getDetails());
                 break;
 
+            case TextTyped:
+                amountFieldChange(msg.getDetails());
+                break;
+
             case GetAccount:
                 atmss.send(new Msg(id, mbox, Msg.Type.GetAccount, ""));
                 break;
@@ -62,7 +66,7 @@ public class TouchDisplayHandler extends HWHandler {
     //------------------------------------------------------------
     // handleUpdateDisplay
     protected void handleUpdateDisplay(Msg msg) {
-	log.info(id + ": update display -- " + msg.getDetails());
+        log.info(id + ": update display -- " + msg.getDetails());
     } // handleUpdateDisplay
 
     protected void handleLogin(){
@@ -79,5 +83,9 @@ public class TouchDisplayHandler extends HWHandler {
 
     protected void accountEnquiry(String amount) {
         log.info(id + ": account enquiry");
+    }
+
+    protected void amountFieldChange(String typed) {
+        log.info(id + ": Amount Field Change");
     }
 } // TouchDisplayHandler
