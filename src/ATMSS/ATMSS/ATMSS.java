@@ -11,6 +11,9 @@ import java.util.StringTokenizer;
 // ATMSS
 public class ATMSS extends AppThread {
     private int pollingTime;
+    private int atmssTimerID = -1;
+    private int depositTimerID = -1;
+
     private boolean loggedIn = false;
     private String transaction = "";		//would it be better to store as a String compared to boolean?
     private static String cardNum ="";
@@ -40,7 +43,7 @@ public class ATMSS extends AppThread {
     //------------------------------------------------------------
     // run
     public void run() {
-	Timer.setTimer(id, mbox, pollingTime);
+	atmssTimerID = Timer.setTimer(id, mbox, pollingTime);
 	log.info(id + ": starting...");
 
 	cardReaderMBox = appKickstarter.getThread("CardReaderHandler").getMBox();
@@ -117,15 +120,22 @@ public class ATMSS extends AppThread {
 			break;
 
 		case TimesUp:
-		    Timer.setTimer(id, mbox, pollingTime);
-		    log.info("Poll: " + msg.getDetails());
-		    cardReaderMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-		    keypadMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-		    touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-		    DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-		    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-		    AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-		    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+			StringTokenizer tokens = new StringTokenizer(msg.getDetails());
+			String msgtype = tokens.nextToken();
+			int timerID = Integer.parseInt(tokens.nextToken());
+
+			if (timerID == atmssTimerID){
+				atmssTimerID = Timer.setTimer(id, mbox, pollingTime);
+				log.info("Poll: " + msg.getDetails());
+				cardReaderMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+				keypadMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+				DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+				AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+				BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+			}
+
 		    break;
 
 		case PollAck:
