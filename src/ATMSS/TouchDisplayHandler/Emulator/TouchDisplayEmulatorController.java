@@ -128,7 +128,7 @@ public class TouchDisplayEmulatorController {
 
     public void eraseText(){
         passwordField.setText("");
-        blankAmountField.setText("");
+        blankAmountField.setText("0");
     }
 
     public void changePIN() {
@@ -140,7 +140,7 @@ public class TouchDisplayEmulatorController {
     }
 
     public void changeAmount(String typed) {
-        if (blankAmountField.getText().equals("0")) {
+        if (blankAmountField.getText().equals("0") && !typed.equals(".")) {
             blankAmountField.setText(typed);
         } else {
             blankAmountField.appendText(typed);
