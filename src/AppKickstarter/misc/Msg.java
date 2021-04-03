@@ -111,5 +111,7 @@ public class Msg {
         /** Receive Account Enquiry Result*/        EnquiryResult,
         /** Send Cash Withdraw Request*/        CashWithdraw,
         /** Typed text*/            TextTyped,
+        /** Send Money Transfer Request*/       MoneyTransferRequest,
+        /** Receive Money Transfer Result*/     MoneyTransferResult,
     } // Type
 } // Msg

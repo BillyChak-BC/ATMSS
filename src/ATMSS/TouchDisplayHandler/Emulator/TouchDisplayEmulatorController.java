@@ -46,7 +46,7 @@ public class TouchDisplayEmulatorController {
     public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
     private static boolean loggedIn = false;
-    private static String selectedAcc = "";
+    private static String operatingAcc = "";
     private static int currentPage = 0;         //0: welcome, 1: enter PIN, 2: initial account select, 3: main menu, 4: cash deposit, 5: money transfer, 6: cash withdraw, 7: account enquiry
 
 
@@ -78,9 +78,11 @@ public class TouchDisplayEmulatorController {
                     Pattern accPattern = Pattern.compile("\\d{3}-\\d{3}-\\d{3}");
                     Matcher accMatcher = accPattern.matcher(targetLabel.getText());
                     if (accMatcher.matches()) {
-                        selectedAcc = targetLabel.getText();
-                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Selected_Acc, selectedAcc));
+                        if (currentPage == 2) {
+                            operatingAcc = targetLabel.getText();
+                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                        }
+                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Selected_Acc, targetLabel.getText()));
                     } else {
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, targetLabel.getText()));
                     }
@@ -111,6 +113,8 @@ public class TouchDisplayEmulatorController {
 
     public void welcomePage() {
         currentPage = 0;
+        loggedIn = false;
+        operatingAcc = "";
         passwordField.setVisible(false);
         passwordField.setText("");
         blankAmountField.setVisible(false);
@@ -149,7 +153,7 @@ public class TouchDisplayEmulatorController {
 
     public void mainMenuBox() {
         currentPage = 3;
-        menuLabel.setText("Welcome back, "+ selectedAcc +"\n\nPlease select ...");
+        menuLabel.setText("Welcome back, "+ operatingAcc +"\n\nPlease select ...");
         mainMenuReset();
         int rectEachSide = 3;
         Rectangle[] rectLeft = new Rectangle[rectEachSide];
@@ -185,14 +189,25 @@ public class TouchDisplayEmulatorController {
     }
 
     public void accountSelectGUI(String acc, boolean transfer) {
-        if (!transfer) {
+        String[] accounts = acc.split("/");
+        if (!transfer) {        //initial account select
             currentPage = 2;
             menuLabel.setText("Please select an account you want to operate");
-        } else {
+        } else {                //money transfer account select
+            menuTopLabel.setText("Operating Account Number: " + operatingAcc);
             currentPage = 5;
             menuLabel.setText("Please select an account you want to transfer to");
+            String[] remainingAccounts = new String[accounts.length - 1];
+            int j = 0;
+            for (String account : accounts) {
+                if (!operatingAcc.equals(account)) {
+                    remainingAccounts[j] = account;
+                    j++;
+                }
+            }
+            accounts = remainingAccounts;
         }
-        String[] accounts = acc.split("/");
+        //need to remove or disable the button for the operating account in money transfer part
         int accNum = accounts.length;
         int remainingAcc = accNum;
         int maxAccNumEachSide = 2;
@@ -208,6 +223,8 @@ public class TouchDisplayEmulatorController {
             if (remainingAcc == 1) {
                 leftLabel[i].setText(accounts[i * 2]);
                 remainingAcc--;
+            } else if (remainingAcc <= 0) {
+                break;
             } else {
                 leftLabel[i].setText(accounts[i * 2]);
                 rightLabel[i].setText(accounts[i * 2 + 1]);
@@ -215,6 +232,7 @@ public class TouchDisplayEmulatorController {
             }
         }
         menuFourButtons(leftAcc, rightAcc, leftLabel, rightLabel);
+
     }
 
     public void cashDepositPage() {
@@ -223,7 +241,7 @@ public class TouchDisplayEmulatorController {
 
     protected void cashDepositPage(String amount) {
         currentPage = 4;
-        confirmationLabel.setText("Operating Account Number: " + selectedAcc);
+        confirmationLabel.setText("Operating Account Number: " + operatingAcc);
         yesLabel.setPrefSize(yesBtn.getWidth(), yesBtn.getHeight());
         noLabel.setPrefSize(noBtn.getWidth(), noBtn.getHeight());
         if (amount.equals("")) {
@@ -247,19 +265,29 @@ public class TouchDisplayEmulatorController {
         }
     }
 
+    protected void moneyTransferPage(String transferAcc) {
+        currentPage = 5;
+        passwordField.setVisible(false);
+        passwordField.setText("");
+        blankAmountField.setVisible(true);
+        blankAmountField.setText("0");
+        blankTopLabel.setText("Operating Account Number: " + operatingAcc +"\n\n Selected Transfer Account Number: " + transferAcc);
+        blankScreenLabel.setText("Please enter the amount you want to transfer\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
+    }
+
     protected void cashWithdrawalPage() {
         currentPage = 6;
         passwordField.setVisible(false);
         passwordField.setText("");
         blankAmountField.setVisible(true);
         blankAmountField.setText("0");
-        blankTopLabel.setText("Operating Account Number: " + selectedAcc);
+        blankTopLabel.setText("Operating Account Number: " + operatingAcc);
         blankScreenLabel.setText("Please enter the amount you want to withdraw\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
     }
 
     protected void accountEnquiryMenu(String amount) {
         currentPage = 7;
-        menuTopLabel.setText("Operating Account Number: " + selectedAcc);
+        menuTopLabel.setText("Operating Account Number: " + operatingAcc);
         menuLabel.setText("Amount in this account: $" + amount);
         String[] labelText = {"Continue Transaction and Print Advice", "End Transaction and Print Advice", "Continue Transaction", "End Transaction"};
         int maxEachSide = 2;
@@ -320,9 +348,15 @@ public class TouchDisplayEmulatorController {
             int j = i / 2;
             if (i % 2 == 0) {
                 stack[i].getChildren().addAll(leftLabel[j], leftRect[j]);
+                if (leftLabel[j].getText().equals("")) {
+                    stack[i].setDisable(true);
+                }
                 vboxLeft.getChildren().add(stack[i]);
             } else {
                 stack[i].getChildren().addAll(rightLabel[j], rightRect[j]);
+                if (rightLabel[j].getText().equals("")) {
+                    stack[i].setDisable(true);
+                }
                 vboxRight.getChildren().add(stack[i]);
             }
             stack[i].setOnMousePressed(this::td_mouseClick);

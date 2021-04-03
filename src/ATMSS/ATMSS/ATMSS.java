@@ -105,11 +105,24 @@ public class ATMSS extends AppThread {
 				break;
 
 			case ReceiveAccount:
-				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, msg.getDetails()));
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, transaction + "_" + msg.getDetails()));
 				break;
 
 			case Selected_Acc:
-				selectedAcc = msg.getDetails();		//on logout please clear this value
+				if (transaction.equals("")) {
+					selectedAcc = msg.getDetails();		//on logout please clear this value
+				} else {
+					if (!selectedAcc.equals("")) {
+						transferAcc = msg.getDetails();
+						getAmount = true;
+						//update touchdisplay
+						touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Money Transfer_" + selectedAcc));
+					}
+				}
+				break;
+
+			case MoneyTransferResult:
+				log.info(id +": Money Transfer from " + selectedAcc + " to " +transferAcc +": $" +msg.getDetails());
 				break;
 
 			case CashWithdraw:
@@ -232,7 +245,11 @@ public class ATMSS extends AppThread {
 				if (amountTyped.equals("")) {
 					amountTyped = "0";
 				}
-				bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.CashWithdraw, cardNum + " " + selectedAcc + " " + amountTyped));
+				if (transaction.equals("Cash Withdrawal")) {
+					bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.CashWithdraw, cardNum + " " + selectedAcc + " " + amountTyped));
+				} else if (transaction.equals("Money Transfer")) {
+					bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferRequest, cardNum + " " + selectedAcc + " " + transferAcc + " " + amountTyped));
+				}
 			} else {
 				switch(msg.getDetails()){
 					case "1":
@@ -289,6 +306,7 @@ public class ATMSS extends AppThread {
 					//change touch screen display to choose which acc to transfer from
 					//choose which acc to transfer to
 					//send msg to bams to transfer
+					bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.GetAccount, cardNum));
 					break;
 				case "Cash Withdrawal":
 					//set transaction to true

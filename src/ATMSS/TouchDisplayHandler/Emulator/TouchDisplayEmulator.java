@@ -59,8 +59,9 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
     // handleUpdateDisplay
     protected void handleUpdateDisplay(Msg msg) {
         log.info(id + ": update display -- " + msg.getDetails());
+        String[] msgDetails = msg.getDetails().split("_");
 
-        switch (msg.getDetails()) {
+        switch (msgDetails[0]) {
             case "BlankScreen":
 
             case "Welcome":
@@ -68,11 +69,15 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
             case "PIN Required":
 
             case "Cash Withdrawal":
-                reloadStage("TouchDisplayEmulator.fxml", msg.getDetails());
+                reloadStage("TouchDisplayEmulator.fxml", msgDetails[0]);
+                break;
+
+            case "Money Transfer":
+                reloadStage("TouchDisplayEmulator.fxml", msgDetails[0], msgDetails[1]);
                 break;
 
             case "MainMenu":
-                reloadStage("TouchDisplayMainMenu.fxml", msg.getDetails());
+                reloadStage("TouchDisplayMainMenu.fxml", msgDetails[0]);
                 break;
 
             case "Cash Deposit":
@@ -81,7 +86,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 //            case "Account Balance Enquiry":
 
             case "Confirmation":
-                reloadStage("TouchDisplayConfirmation.fxml", msg.getDetails());
+                reloadStage("TouchDisplayConfirmation.fxml", msgDetails[0]);
                 break;
 
             case "enterPIN":
@@ -106,14 +111,23 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
     protected void accountSelect(String acc) {
         super.accountSelect(acc);
-        reloadStage("TouchDisplayMainMenu.fxml", acc);
+        String[] details = acc.split("_");
+        if (details[0].equals("")) {
+            //account selection before main menu
+            reloadStage("TouchDisplayMainMenu.fxml", "Initial Account Select", details[1]);
+        } else {
+            //account select in money transfer
+            reloadStage("TouchDisplayMainMenu.fxml", details[0], details[1]);
+        }
     }
 
+    //may be combined to update display
     protected void cashDeposit(String amount) {
         super.cashDeposit(amount);
         reloadStage("TouchDisplayConfirmation.fxml", "Cash Deposit with money", amount);
     }
 
+    //may be combined to update display
     protected void accountEnquiry(String amount) {
         super.accountEnquiry(amount);
         reloadStage("TouchDisplayMainMenu.fxml", "Account Enquiry", amount);
@@ -130,7 +144,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         reloadStage(fxmlFName, detail, "");
     }
 
-    private void reloadStage(String fxmlFName, String detail, String money) {
+    private void reloadStage(String fxmlFName, String page, String detail) {
         TouchDisplayEmulator touchDisplayEmulator = this;
 
         Platform.runLater(new Runnable() {
@@ -147,7 +161,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                     touchDisplayEmulatorController.initialize(id, atmssStarter, log, touchDisplayEmulator);
                     switch (fxmlFName) {
                         case "TouchDisplayEmulator.fxml":
-                            switch (detail) {
+                            switch (page) {
                                 case "Welcome":
                                     touchDisplayEmulatorController.welcomePage();
                                     break;
@@ -160,35 +174,46 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     touchDisplayEmulatorController.cashWithdrawalPage();
                                     break;
 
+                                case "Money Transfer":
+                                    touchDisplayEmulatorController.moneyTransferPage(detail);
+                                    break;
+
                                 default:
                                     break;
                             }
                             break;
 
                         case "TouchDisplayMainMenu.fxml":
-                            switch (detail) {
+                            switch (page) {
                                 case "MainMenu":
                                     touchDisplayEmulatorController.mainMenuBox();
                                     break;
 
                                 case "Account Enquiry":
-                                    touchDisplayEmulatorController.accountEnquiryMenu(money);
+                                    touchDisplayEmulatorController.accountEnquiryMenu(detail);
+                                    break;
+
+                                case "Money Transfer":
+                                    touchDisplayEmulatorController.accountSelectGUI(detail, true);
+                                    break;
+
+                                case "Initial Account Select":
+                                    touchDisplayEmulatorController.accountSelectGUI(detail, false);
                                     break;
 
                                 default:
-                                    touchDisplayEmulatorController.accountSelectGUI(detail, false);
                                     break;
                             }
                             break;
 
                         case "TouchDisplayConfirmation.fxml":
-                            switch (detail) {
+                            switch (page) {
                                 case "Cash Deposit":
                                     touchDisplayEmulatorController.cashDepositPage();
                                     break;
 
                                 case "Cash Deposit with money":
-                                    touchDisplayEmulatorController.cashDepositPage(money);
+                                    touchDisplayEmulatorController.cashDepositPage(detail);
                                     break;
 
                                 default:
