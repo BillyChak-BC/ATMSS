@@ -55,6 +55,17 @@ public class bamsThreadHandler extends AppThread{
                     }
                     break;
 
+                case Deposit:
+                    try {
+                        cashDeposit(msg.getDetails());
+                    } catch (BAMSInvalidReplyException e) {
+                        log.severe(id + ": " + e.getMessage());
+                        //pop up window talk about whats wrong
+                    } catch (IOException e) {
+
+                    }
+                    break;
+
                 case CashWithdraw:
                     try {
                         cashWithdraw(msg.getDetails());
@@ -162,17 +173,24 @@ public class bamsThreadHandler extends AppThread{
     private void cashWithdraw(String details) throws IOException, BAMSInvalidReplyException {
         String[] info = details.split(" ");
         int outAmount = testWithdraw(bams, info[0], info[1], info[2]);
-        atmss.send(new Msg(id, mbox, Msg.Type.CashWithdraw, outAmount + ""));
+        atmss.send(new Msg(id, mbox, Msg.Type.Dispense, outAmount + ""));
     }
 
     //------------------------------------------------------------
     // testDeposit
-    static void testDeposit(BAMSHandler bams) throws BAMSInvalidReplyException, IOException {
-        System.out.println("Deposit:");
-        double depAmount = bams.deposit("12345678-3", "111-222-333","cred-3", "109703");
-        System.out.println("depAmount: " + depAmount);
-        System.out.println();
+    static double testDeposit(BAMSHandler bams, String cardNo, String accNo, String amount) throws BAMSInvalidReplyException, IOException {
+        return bams.deposit(cardNo, accNo, credential, amount);
+//        System.out.println("Deposit:");
+//        double depAmount = bams.deposit("12345678-3", "111-222-333","cred-3", "109703");
+//        System.out.println("depAmount: " + depAmount);
+//        System.out.println();
     } // testDeposit
+
+    private void cashDeposit(String details) throws IOException, BAMSInvalidReplyException {
+        String[] info = details.split(" ");
+        double result = testDeposit(bams, info[0], info[1], info[2]);
+        atmss.send(new Msg(id, mbox, Msg.Type.DepositResult, result + ""));
+    }
 
 
     //------------------------------------------------------------

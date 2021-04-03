@@ -107,6 +107,7 @@ public class Msg {
         /**Get card accounts*/          GetAccount,
         /**Receive card accounts*/      ReceiveAccount,
         /**Informs what is selected Acc*/   Selected_Acc,
+        /** Receive Cash Deposit Result*/   DepositResult,
         /** Specific Account Enquiry*/      AccountEnquiry,
         /** Receive Account Enquiry Result*/        EnquiryResult,
         /** Send Cash Withdraw Request*/        CashWithdraw,
