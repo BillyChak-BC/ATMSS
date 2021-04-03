@@ -66,6 +66,17 @@ public class bamsThreadHandler extends AppThread{
                     }
                     break;
 
+                case MoneyTransferRequest:
+                    try {
+                        moneyTransfer(msg.getDetails());
+                    } catch (BAMSInvalidReplyException e) {
+                        log.severe(id + ": " + e.getMessage());
+                        //pop up window talk about whats wrong
+                    } catch (IOException e) {
+
+                    }
+                    break;
+
                 case AccountEnquiry:
                     try {
                         accEnquiry(msg.getDetails());
@@ -178,12 +189,19 @@ public class bamsThreadHandler extends AppThread{
 
     //------------------------------------------------------------
     // testTransfer
-    static void testTransfer(BAMSHandler bams) throws BAMSInvalidReplyException, IOException {
-        System.out.println("Transfer:");
-        double transAmount = bams.transfer("12345678-5", "cred-5","111-222-335", "11-222-336", "109705");
-        System.out.println("transAmount: " + transAmount);
-        System.out.println();
+    static double testTransfer(BAMSHandler bams, String cardNo, String fromAcc, String toAcc, String amount) throws BAMSInvalidReplyException, IOException {
+        return bams.transfer(cardNo, credential, fromAcc, toAcc, amount);
+//        System.out.println("Transfer:");
+//        double transAmount = bams.transfer("12345678-5", "cred-5","111-222-335", "11-222-336", "109705");
+//        System.out.println("transAmount: " + transAmount);
+//        System.out.println();
     } // testTransfer
+
+    private void moneyTransfer(String details) throws IOException, BAMSInvalidReplyException {
+        String[] info = details.split(" ");
+        double result = testTransfer(bams, info[0], info[1], info[2], info[3]);
+        atmss.send(new Msg(id, mbox, Msg.Type.MoneyTransferResult, result + ""));
+    }
 
 
     //------------------------------------------------------------
