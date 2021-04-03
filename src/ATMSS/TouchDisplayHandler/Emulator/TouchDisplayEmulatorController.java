@@ -47,6 +47,7 @@ public class TouchDisplayEmulatorController {
 
     private static boolean loggedIn = false;
     private static String selectedAcc = "";
+    private static int currentPage = 0;         //0: welcome, 1: enter PIN, 2: initial account select, 3: main menu, 4: cash deposit, 5: money transfer, 6: cash withdraw, 7: account enquiry
 
 
     //------------------------------------------------------------
@@ -109,6 +110,7 @@ public class TouchDisplayEmulatorController {
     }
 
     public void welcomePage() {
+        currentPage = 0;
         passwordField.setVisible(false);
         passwordField.setText("");
         blankAmountField.setVisible(false);
@@ -117,6 +119,7 @@ public class TouchDisplayEmulatorController {
     }
 
     public void enterPINPage() {
+        currentPage = 1;
         log.warning(id + ": At this moment, the program will give a lot of errors or no respond after sending the PIN for validation");
         blankTopLabel.setText("Please Enter the PIN:");
         blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
@@ -137,10 +140,15 @@ public class TouchDisplayEmulatorController {
     }
 
     public void changeAmount(String typed) {
-        blankAmountField.appendText(typed);
+        if (blankAmountField.getText().equals("0")) {
+            blankAmountField.setText(typed);
+        } else {
+            blankAmountField.appendText(typed);
+        }
     }
 
     public void mainMenuBox() {
+        currentPage = 3;
         menuLabel.setText("Welcome back, "+ selectedAcc +"\n\nPlease select ...");
         mainMenuReset();
         int rectEachSide = 3;
@@ -173,23 +181,17 @@ public class TouchDisplayEmulatorController {
                 notSetFunc--;
             }
         }
-        StackPane[] stack = new StackPane[rectEachSide * 2];
-        for (int i = 0; i < stack.length; i++) {
-            stack[i] = new StackPane();
-            int j = i / 2;
-            if (i % 2 == 0) {
-                stack[i].getChildren().addAll(leftLabel[j], rectLeft[j]);
-                vboxLeft.getChildren().add(stack[i]);
-            } else {
-                stack[i].getChildren().addAll(rightLabel[j], rectRight[j]);
-                vboxRight.getChildren().add(stack[i]);
-            }
-            stack[i].setOnMousePressed(this::td_mouseClick);
-        }
+        menuStackPaneSetting(rectLeft, rectRight, leftLabel, rightLabel, rectEachSide * 2);
     }
 
-    public void accountSelectGUI(String acc) {
-        menuLabel.setText("Please select an account you want to operate");
+    public void accountSelectGUI(String acc, boolean transfer) {
+        if (!transfer) {
+            currentPage = 2;
+            menuLabel.setText("Please select an account you want to operate");
+        } else {
+            currentPage = 5;
+            menuLabel.setText("Please select an account you want to transfer to");
+        }
         String[] accounts = acc.split("/");
         int accNum = accounts.length;
         int remainingAcc = accNum;
@@ -220,6 +222,7 @@ public class TouchDisplayEmulatorController {
     }
 
     protected void cashDepositPage(String amount) {
+        currentPage = 4;
         confirmationLabel.setText("Operating Account Number: " + selectedAcc);
         yesLabel.setPrefSize(yesBtn.getWidth(), yesBtn.getHeight());
         noLabel.setPrefSize(noBtn.getWidth(), noBtn.getHeight());
@@ -245,15 +248,17 @@ public class TouchDisplayEmulatorController {
     }
 
     protected void cashWithdrawalPage() {
+        currentPage = 6;
         passwordField.setVisible(false);
         passwordField.setText("");
         blankAmountField.setVisible(true);
-        blankAmountField.setText("");
+        blankAmountField.setText("0");
         blankTopLabel.setText("Operating Account Number: " + selectedAcc);
         blankScreenLabel.setText("Please enter the amount you want to withdraw\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
     }
 
     protected void accountEnquiryMenu(String amount) {
+        currentPage = 7;
         menuTopLabel.setText("Operating Account Number: " + selectedAcc);
         menuLabel.setText("Amount in this account: $" + amount);
         String[] labelText = {"Continue Transaction and Print Advice", "End Transaction and Print Advice", "Continue Transaction", "End Transaction"};
@@ -271,19 +276,6 @@ public class TouchDisplayEmulatorController {
             rightLabels[i].setText(labelText[i * 2 + 1]);
         }
         menuFourButtons(leftButtons, rightButtons, leftLabels, rightLabels);
-    }
-
-    protected void accountEnquiryPage(String amount) {
-        confirmationLabel.setText("Operating Account Number: " + selectedAcc);
-        yesLabel.setPrefSize(yesBtn.getWidth(), yesBtn.getHeight());
-        noLabel.setPrefSize(noBtn.getWidth(), noBtn.getHeight());
-        yesLabel.setVisible(true);
-        noLabel.setVisible(true);
-        yesBtn.setVisible(true);
-        noBtn.setVisible(true);
-        yesLabel.setText("End Transaction");        //eject card
-        noLabel.setText("Continue Transaction");    //return to main menu
-        confirmationInformationLabel.setText("Amount in this account: $" + amount);
     }
 
     private Rectangle rectangleInit(Rectangle target) {
@@ -318,7 +310,11 @@ public class TouchDisplayEmulatorController {
         menuLabel.setAlignment(Pos.CENTER);
         menuLabel.setPrefHeight(230);
         buttonHBox.setPrefHeight(200);
-        StackPane[] stack = new StackPane[4];
+        menuStackPaneSetting(leftRect, rightRect, leftLabel, rightLabel, 4);
+    }
+
+    private void menuStackPaneSetting(Rectangle[] leftRect, Rectangle[] rightRect, Label[] leftLabel, Label[] rightLabel, int numButton) {
+        StackPane[] stack = new StackPane[numButton];
         for (int i = 0; i < stack.length; i++) {
             stack[i] = new StackPane();
             int j = i / 2;

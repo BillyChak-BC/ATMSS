@@ -166,11 +166,6 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                             break;
 
                         case "TouchDisplayMainMenu.fxml":
-//                            if (detail.equals("MainMenu")) {
-//                                touchDisplayEmulatorController.mainMenuBox();
-//                            } else {
-//                                touchDisplayEmulatorController.accountSelectGUI(detail);
-//                            }
                             switch (detail) {
                                 case "MainMenu":
                                     touchDisplayEmulatorController.mainMenuBox();
@@ -181,7 +176,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     break;
 
                                 default:
-                                    touchDisplayEmulatorController.accountSelectGUI(detail);
+                                    touchDisplayEmulatorController.accountSelectGUI(detail, false);
                                     break;
                             }
                             break;
@@ -194,10 +189,6 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
                                 case "Cash Deposit with money":
                                     touchDisplayEmulatorController.cashDepositPage(money);
-                                    break;
-
-                                case "Account Enquiry":
-                                    touchDisplayEmulatorController.accountEnquiryPage(money);
                                     break;
 
                                 default:

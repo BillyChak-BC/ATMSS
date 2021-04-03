@@ -146,6 +146,8 @@ public class ATMSS extends AppThread {
 			}else if (timerID == depositTimerID){
 				depositTimerID = -1;
 				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
+				//touchdisplay update
+				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, "0 0 0"));
 			}
 
 		    break;
@@ -227,6 +229,9 @@ public class ATMSS extends AppThread {
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "eraseAmount"));
 			} else if (msg.getDetails().compareToIgnoreCase("Enter") == 0) {
 				//send amountTyped to BAMS
+				if (amountTyped.equals("")) {
+					amountTyped = "0";
+				}
 				bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.CashWithdraw, cardNum + " " + selectedAcc + " " + amountTyped));
 			} else {
 				switch(msg.getDetails()){
@@ -246,10 +251,6 @@ public class ATMSS extends AppThread {
 					default:
 						break;
 				}
-//				if (msg.getDetails().equals("00")) {
-//					// Run two times if entering "00"
-//					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TextTyped, msg.getDetails()));
-//				}
 				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TextTyped, msg.getDetails()));
 			}
 		}
@@ -272,31 +273,38 @@ public class ATMSS extends AppThread {
 		if (loggedIn && transaction.equals("")){
 			transaction = msg.getDetails();
 
-			if (transaction.equals("Cash Deposit")){ //deposit
-				//set transaction to true
-				depositTimerID = Timer.setTimer(id, mbox, 15000);
-				//change touch screen display to ask how much to deposit
-				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
-				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
-				DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
-			} else if (transaction.equals("Money Transfer")){
-				//set transaction to true
-				//change touch screen display to choose which acc to transfer from
-				//choose which acc to transfer to
-				//send msg to bams to transfer
-			} else if (transaction.equals("Cash Withdrawal")){
-				//set transaction to true
-				//set timer
-				//change touch screen display to ask how much to withdraw
-				//alert keypad
-				getAmount = true;
-				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
-			} else if (transaction.equals("Account Balance Enquiry")){
-				//set transaction to true
-				//check balance
-				String enquiryDetails = cardNum + " " + selectedAcc;
-				bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.AccountEnquiry, enquiryDetails));
-				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
+			switch (transaction) {
+				case "Cash Deposit":  //deposit
+					//set transaction to true
+					depositTimerID = Timer.setTimer(id, mbox, 15000);
+					//change touch screen display to ask how much to deposit
+					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
+					DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
+
+					DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
+
+					break;
+				case "Money Transfer":
+					//set transaction to true
+					//change touch screen display to choose which acc to transfer from
+					//choose which acc to transfer to
+					//send msg to bams to transfer
+					break;
+				case "Cash Withdrawal":
+					//set transaction to true
+					//set timer
+					//change touch screen display to ask how much to withdraw
+					//alert keypad
+					getAmount = true;
+					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
+					break;
+				case "Account Balance Enquiry":
+					//set transaction to true
+					//check balance
+					String enquiryDetails = cardNum + " " + selectedAcc;
+					bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.AccountEnquiry, enquiryDetails));
+					touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
+					break;
 			}
 
 		}
