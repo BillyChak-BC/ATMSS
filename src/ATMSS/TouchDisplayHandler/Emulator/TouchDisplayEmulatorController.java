@@ -39,10 +39,8 @@ public class TouchDisplayEmulatorController {
     public VBox vboxRight;
     public Label confirmationLabel;
     public Label confirmationInformationLabel;
-    public Rectangle noBtn;
-    public Rectangle yesBtn;
-    public Label noLabel;
-    public Label yesLabel;
+    public HBox confirmationHBox;
+
     public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
     private static boolean loggedIn = false;
@@ -87,6 +85,7 @@ public class TouchDisplayEmulatorController {
                         touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, targetLabel.getText()));
                     }
                     break;
+
                 default:
                     touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y + " Logged In: " + loggedIn));
                     break;
@@ -242,27 +241,47 @@ public class TouchDisplayEmulatorController {
     protected void cashDepositPage(String amount) {
         currentPage = 4;
         confirmationLabel.setText("Operating Account Number: " + operatingAcc);
-        yesLabel.setPrefSize(yesBtn.getWidth(), yesBtn.getHeight());
-        noLabel.setPrefSize(noBtn.getWidth(), noBtn.getHeight());
+        int buttonNum = 2;
+        Rectangle[] rectangles = new Rectangle[buttonNum];
+        Label[] labels = new Label[buttonNum];
+        StackPane[] stackPanes = new StackPane[buttonNum];
+        for (int i = 0; i < buttonNum; i++) {
+            rectangles[i] = rectangleInit(rectangles[i]);
+            labels[i] = labelInit(labels[i]);
+            if (i % 2 == 0) {
+                labels[i].setText("Cancel");
+            } else {
+                labels[i].setText("Confirm Amount");
+            }
+            stackPanes[i] = new StackPane();
+            stackPanes[i].getChildren().addAll(labels[i], rectangles[i]);
+            stackPanes[i].setOnMousePressed(this::td_mouseClick);
+            confirmationHBox.getChildren().add(stackPanes[i]);
+        }
         if (amount.equals("")) {
-            yesBtn.setVisible(false);
-            noBtn.setVisible(false);
-            yesLabel.setVisible(false);
-            noLabel.setVisible(false);
+            stackPanes[0].setVisible(false);
+            stackPanes[0].setDisable(true);
+            stackPanes[1].setVisible(false);
+            stackPanes[1].setDisable(true);
             confirmationInformationLabel.setText("Please insert money in cash deposit collector");
         } else {
-            yesLabel.setVisible(true);
-            noLabel.setVisible(true);
-            yesBtn.setVisible(true);
-            noBtn.setVisible(true);
-            yesLabel.setText("Confirm Amount");     //after deposit success, jump to deposit success page (main menu template with four buttons)
-            noLabel.setText("Cancel");
+            stackPanes[0].setVisible(true);
+            stackPanes[0].setDisable(false);
+            stackPanes[1].setVisible(true);
+            stackPanes[1].setDisable(false);
             String[] amounts = amount.split(" ");
             int total100 = Integer.parseInt(amounts[0]) * 100;
             int total500 = Integer.parseInt(amounts[1]) * 500;
             int total1000 = Integer.parseInt(amounts[2]) * 1000;
             confirmationInformationLabel.setText("Number of $100 money notes: " + amounts[0] + "= $100 x " + amounts[0] + " = " + "$" + total100 + "\n" + "Number of $500 money notes: " + amounts[1] + "= $500 x " + amounts[1] + " = " + "$" + total500 + "\n" + "Number of $1000 money notes: " + amounts[2] + "= $1000 x " + amounts[2] + " = " + "$" + total1000 + "\n\n" + "Total amount: $" + (total100 + total500 + total1000));
         }
+    }
+
+    protected void cashDepositFinish(String amount) {
+        currentPage = 4;
+        menuTopLabel.setText("Operating Account Number: " + operatingAcc);
+        menuLabel.setText("Total amount deposit to " + operatingAcc + ": $" + amount);
+        transactionFinalPage();
     }
 
     protected void moneyTransferPage(String transferAcc) {
@@ -275,6 +294,14 @@ public class TouchDisplayEmulatorController {
         blankScreenLabel.setText("Please enter the amount you want to transfer\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
     }
 
+    protected void moneyTransferFinish(String details) {
+        currentPage = 5;
+        String[] detail = details.split("_");
+        menuTopLabel.setText("Operating Account Number: " + operatingAcc);
+        menuLabel.setText("Total amount transferred from " + operatingAcc + " to " +detail[0] + ": $" + detail[1]);
+        transactionFinalPage();
+    }
+
     protected void cashWithdrawalPage() {
         currentPage = 6;
         passwordField.setVisible(false);
@@ -285,25 +312,18 @@ public class TouchDisplayEmulatorController {
         blankScreenLabel.setText("Please enter the amount you want to withdraw\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
     }
 
+    protected void cashDispensePage(String amount) {
+        currentPage = 6;
+        menuTopLabel.setText("Operating Account Number: " + operatingAcc);
+        menuLabel.setText("Total amount dispensed: $" + amount);
+        transactionFinalPage();
+    }
+
     protected void accountEnquiryMenu(String amount) {
         currentPage = 7;
         menuTopLabel.setText("Operating Account Number: " + operatingAcc);
         menuLabel.setText("Amount in this account: $" + amount);
-        String[] labelText = {"Continue Transaction and Print Advice", "End Transaction and Print Advice", "Continue Transaction", "End Transaction"};
-        int maxEachSide = 2;
-        Rectangle[] leftButtons = new Rectangle[maxEachSide];
-        Rectangle[] rightButtons = new Rectangle[maxEachSide];
-        Label[] leftLabels = new Label[maxEachSide];
-        Label[] rightLabels = new Label[maxEachSide];
-        for (int i = 0; i < maxEachSide; i++) {
-            leftButtons[i] = rectangleInit(leftButtons[i]);
-            rightButtons[i] = rectangleInit(rightButtons[i]);
-            leftLabels[i] = labelInit(leftLabels[i]);
-            rightLabels[i] = labelInit(rightLabels[i]);
-            leftLabels[i].setText(labelText[i * 2]);
-            rightLabels[i].setText(labelText[i * 2 + 1]);
-        }
-        menuFourButtons(leftButtons, rightButtons, leftLabels, rightLabels);
+        transactionFinalPage();
     }
 
     private Rectangle rectangleInit(Rectangle target) {
@@ -361,6 +381,25 @@ public class TouchDisplayEmulatorController {
             }
             stack[i].setOnMousePressed(this::td_mouseClick);
         }
+    }
+
+    private void transactionFinalPage() {
+        String[] labelText = {"Continue Transaction and Print Advice", "End Transaction and Print Advice", "Continue Transaction", "End Transaction"};
+        int maxEachSide = 2;
+        Rectangle[] leftButtons = new Rectangle[maxEachSide];
+        Rectangle[] rightButtons = new Rectangle[maxEachSide];
+        Label[] leftLabels = new Label[maxEachSide];
+        Label[] rightLabels = new Label[maxEachSide];
+        for (int i = 0; i < maxEachSide; i++) {
+            leftButtons[i] = rectangleInit(leftButtons[i]);
+            rightButtons[i] = rectangleInit(rightButtons[i]);
+            leftLabels[i] = labelInit(leftLabels[i]);
+            rightLabels[i] = labelInit(rightLabels[i]);
+            leftLabels[i].setText(labelText[i * 2]);
+            rightLabels[i].setText(labelText[i * 2 + 1]);
+        }
+        menuFourButtons(leftButtons, rightButtons, leftLabels, rightLabels);
+
     }
 
 } // TouchDisplayEmulatorController
