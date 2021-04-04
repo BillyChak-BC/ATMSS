@@ -206,7 +206,7 @@ public class TouchDisplayEmulatorController {
                 }
             }
             accounts = remainingAccounts;
-            //if accounts.length <= 0 pop error
+            //if accounts.length <= 0 pop error (or do the operating account elimination in ATMSS)
         }
         //need to remove or disable the button for the operating account in money transfer part
         int accNum = accounts.length;
