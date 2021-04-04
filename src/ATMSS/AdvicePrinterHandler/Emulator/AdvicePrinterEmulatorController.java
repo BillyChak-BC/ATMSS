@@ -12,15 +12,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class AdvicePrinterEmulatorController {
-	
-	private String id;
+
+    private String id;
     private AppKickstarter appKickstarter;
     private Logger log;
     private AdvicePrinterEmulator AdvicePrinterEmulator;
     private MBox AdvicePrinterMBox;
     private String Advice = "";
 
-    public TextArea AdvicePrinterTextArea;
+    public TextArea DispenserSlotTextArea;
     
     public void initialize(String id, AppKickstarter appKickstarter, Logger log, AdvicePrinterEmulator AdvicePrinterEmulator) {
         this.id = id;
@@ -35,7 +35,7 @@ public class AdvicePrinterEmulatorController {
 
     	switch (btn.getText()) {
 	    	 case "Take Advice":
-	    		 AdvicePrinterTextArea.setText("");
+                 DispenserSlotTextArea.setText("");
 	 	    break;
 //    	    case "Insert Card":
 //    		if (cardNumField.getText().length() != 0) {
@@ -73,8 +73,8 @@ public class AdvicePrinterEmulatorController {
     //------------------------------------------------------------
     // appendTextArea
     public void appendTextArea(String status) {
-    	AdvicePrinterTextArea.appendText(status+"\n");
+        //things to print: date, operating acc, transaction type (e.g. cash deposit, money transaction), transaction acc (if any), amount (if any), transaction status(success, failure)
+        DispenserSlotTextArea.appendText(status+"\n");
     } // appendTextArea
     
-
 }

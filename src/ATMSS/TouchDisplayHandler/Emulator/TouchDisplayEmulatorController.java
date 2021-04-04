@@ -117,7 +117,7 @@ public class TouchDisplayEmulatorController {
         passwordField.setVisible(false);
         passwordField.setText("");
         blankAmountField.setVisible(false);
-        blankAmountField.setText("");
+        blankAmountField.setText("0");
         blankScreenLabel.setText("Welcome to ATM system emulator\n\n\n\n\nPlease Insert ATM Card");
     }
 
@@ -126,6 +126,7 @@ public class TouchDisplayEmulatorController {
         log.warning(id + ": At this moment, the program will give a lot of errors or no respond after sending the PIN for validation");
         blankTopLabel.setText("Please Enter the PIN:");
         blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
+        passwordField.setText("");
         passwordField.setVisible(true);
     }
 
@@ -205,6 +206,7 @@ public class TouchDisplayEmulatorController {
                 }
             }
             accounts = remainingAccounts;
+            //if accounts.length <= 0 pop error (or do the operating account elimination in ATMSS)
         }
         //need to remove or disable the button for the operating account in money transfer part
         int accNum = accounts.length;

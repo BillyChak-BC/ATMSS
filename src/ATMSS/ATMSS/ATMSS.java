@@ -82,6 +82,7 @@ public class ATMSS extends AppThread {
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
                     //if card inserted proceed to ask pin (send msg to ask for PIN)
                     break;
+
                 case LoggedIn: //BAMSHandler send msg back and indicate success
                     if (msg.getDetails().equals("Success")) {
                         //if success login return some boolean variable that enable all methods that need login to be true to act
@@ -93,10 +94,12 @@ public class ATMSS extends AppThread {
                         errorCount++;
                         if (errorCount >= 3) {
                             //instruct retain
+                        } else {
+                            pin = "";
+                            keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
                         }
-
                     }
-
                     break;
 
                 case GetAccount:
@@ -197,9 +200,9 @@ public class ATMSS extends AppThread {
         // *** The following is an example only!! ***
         if (msg.getDetails().compareToIgnoreCase("Cancel") == 0) {
             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
-            pin = "";        //if transaction canceled, reset pin variable
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
             //should be a screen showing thank you first
+            allReset();        //if transaction canceled, reset pin variable
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
         } else if (getPin) {
             // Set maximum password length to 9
@@ -355,21 +358,74 @@ public class ATMSS extends AppThread {
                         default:
                             break;
                     }
-                    break;
 
                 case "Money Transfer":
-                    break;
 
                 case "Cash Withdrawal":
-                    break;
 
                 case "Account Balance Enquiry":
-                    break;
 
                 default:
+                    switch (msg.getDetails()) {
+                        case "Continue Transaction and Print Advice":
+                            //print advice
+                            //reset the things and back to main menu
+                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" +amountTyped + "_" + "Success"));
+                            halfRest();
+                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                            break;
+
+                        case "Continue Transaction":
+                            //reset the things and back to main menu
+                            halfRest();
+                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                            break;
+
+                        case "End Transaction and Print Advice":
+                            //print advice
+                            //eject card
+                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" +amountTyped + "_" + "Success"));
+                            cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
+                            //should be a screen showing thank you first
+                            allReset();        //if transaction canceled, reset pin variable
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                            break;
+
+                        case "End Transaction":
+                            //eject card
+                            cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
+                            //should be a screen showing thank you first
+                            allReset();        //if transaction canceled, reset pin variable
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                            break;
+
+                        default:
+                            break;
+                    }
                     break;
             }
 
         }
     } // processMouseClicked
+
+    private void allReset() {
+        loggedIn = false;
+        cardNum = "";
+        pin = "";
+        errorCount = 0;
+        selectedAcc = "";
+        transaction = "";
+        transferAcc = "";
+        amountTyped = "";
+        getPin = false;
+        getAmount = false;
+    }
+
+    private void halfRest() {
+        transaction = "";
+        transferAcc = "";
+        amountTyped = "";
+        getPin = false;
+        getAmount = false;
+    }
 } // CardReaderHandler
