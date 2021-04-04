@@ -6,7 +6,11 @@ cardNo   VARCHAR(255) NOT NULL
 amount   DOUBLE           
 username VARCHAR(255)
 accNo    VARCHAR(255) NOT NULL PRIMARY_KEY
-pin_code VARCHAR(255)
+FK: fk_Card_cardNo cardNo REFERENCES Card(cardNo)
+
+Card
+cardNo   VARCHAR(255) NOT NULL PRIMARY_KEY
+pin_code VARCHAR(255) NOT NULL
 ```
 Trigger:
 ```
