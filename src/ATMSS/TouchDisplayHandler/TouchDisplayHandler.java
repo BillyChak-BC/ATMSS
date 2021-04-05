@@ -48,7 +48,7 @@ public class TouchDisplayHandler extends HWHandler {
                 break;
 
             case MoneyTransferResult:
-                moneyTransfer(msg.getDetails());
+                moneyTransferResult(msg.getDetails());
                 break;
 
             case Dispense:
@@ -97,7 +97,7 @@ public class TouchDisplayHandler extends HWHandler {
         log.info(id + "Cash Deposit Result");
     }
 
-    protected void moneyTransfer(String details) {
+    protected void moneyTransferResult(String details) {
         log.info(id + "money transfer");
     }
 

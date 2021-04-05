@@ -128,8 +128,8 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         reloadStage("TouchDisplayMainMenu.fxml", "Deposit Result", amount);
     }
 
-    protected void moneyTransfer(String details) {
-        super.moneyTransfer(details);
+    protected void moneyTransferResult(String details) {
+        super.moneyTransferResult(details);
         reloadStage("TouchDisplayMainMenu.fxml", "Money Transfer Finish", details);
     }
 

@@ -119,7 +119,7 @@ public class ATMSS extends AppThread {
                             transferAcc = msg.getDetails();
                             getAmount = true;
                             //update touchdisplay
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Money Transfer_" + selectedAcc));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Money Transfer_" + transferAcc));
                         }
                     }
                     break;
@@ -198,6 +198,7 @@ public class ATMSS extends AppThread {
     // processKeyPressed
     private void processKeyPressed(Msg msg) {
         // *** The following is an example only!! ***
+        log.info(id + ": " + msg.getDetails() + " is pressed");
         if (msg.getDetails().compareToIgnoreCase("Cancel") == 0) {
             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
@@ -334,6 +335,9 @@ public class ATMSS extends AppThread {
                             String enquiryDetails = cardNum + " " + selectedAcc;
                             bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.AccountEnquiry, enquiryDetails));
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
+                            break;
+                        default:
+                            transaction = "";
                             break;
                     }
                     break;
