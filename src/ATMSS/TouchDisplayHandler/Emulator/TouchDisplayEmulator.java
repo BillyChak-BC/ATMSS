@@ -68,7 +68,15 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
             case "PIN Required":
 
+            case "enterPIN":
+
             case "Cash Withdrawal":
+
+//            case "enterPIN":
+//                touchDisplayEmulatorController.changePIN();
+//                break;
+
+            case "erasePIN":
                 reloadStage("TouchDisplayEmulator.fxml", msgDetails[0]);
                 break;
 
@@ -84,15 +92,6 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
             case "Confirmation":
                 reloadStage("TouchDisplayConfirmation.fxml", msgDetails[0]);
-                break;
-
-            case "enterPIN":
-                touchDisplayEmulatorController.changePIN();
-                break;
-
-            case "eraseAmount":
-            case "erasePIN":
-                touchDisplayEmulatorController.eraseText();
                 break;
 
             default:
@@ -145,6 +144,11 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
     protected void amountFieldChange(String typed) {
         super.amountFieldChange(typed);
+        if (TouchDisplayEmulatorController.getCurrentPage() == 5) {
+            reloadStage("TouchDisplayEmulator.fxml", "Money Transfer", typed);
+        } else if (TouchDisplayEmulatorController.getCurrentPage() == 6) {
+            reloadStage("TouchDisplayEmulator.fxml", "Cash Withdrawal", typed);
+        }
         touchDisplayEmulatorController.changeAmount(typed);
     }
 
@@ -176,16 +180,28 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     touchDisplayEmulatorController.welcomePage();
                                     break;
 
+//                                case "eraseAmount":
+                                case "erasePIN":
+
                                 case "PIN Required":
-                                    touchDisplayEmulatorController.enterPINPage();
+                                    touchDisplayEmulatorController.enterPINPage(false);
+                                    break;
+
+                                case "enterPIN":
+                                    touchDisplayEmulatorController.enterPINPage(true);
                                     break;
 
                                 case "Cash Withdrawal":
-                                    touchDisplayEmulatorController.cashWithdrawalPage();
+                                    touchDisplayEmulatorController.cashWithdrawalPage(detail);
                                     break;
 
                                 case "Money Transfer":
-                                    touchDisplayEmulatorController.moneyTransferPage(detail);
+                                    String[] details = detail.split("_");
+                                    if (details.length > 1) {
+                                        touchDisplayEmulatorController.moneyTransferPage(details[0], details[1]);
+                                    } else {
+                                        touchDisplayEmulatorController.moneyTransferPage(details[0], "");
+                                    }
                                     break;
 
                                 default:

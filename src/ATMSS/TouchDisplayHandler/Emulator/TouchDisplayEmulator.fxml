@@ -22,9 +22,14 @@
 						<Font name="System Bold" size="24"/>
 					</font>
 				</Label>
-				<PasswordField fx:id="passwordField" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100"
-							   maxWidth="440" prefWidth="440" alignment="CENTER" disable="true" visible="false"/>
-				<TextField fx:id="blankAmountField" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" maxWidth="440" prefWidth="440" alignment="CENTER" editable="false" visible="false"/>
+				<Label fx:id="blankAmountLabel" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" prefWidth="440" alignment="BOTTOM_CENTER" textAlignment="CENTER">
+					<font>
+						<Font name="System Bold" size="30"/>
+					</font>
+				</Label>
+<!--				<PasswordField fx:id="passwordField" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100"-->
+<!--							   maxWidth="440" prefWidth="440" alignment="CENTER" disable="true" visible="false"/>-->
+<!--				<TextField fx:id="blankAmountField" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" maxWidth="440" prefWidth="440" alignment="CENTER" editable="false" visible="false"/>-->
 			</children>
 		</AnchorPane>
 	</children>
