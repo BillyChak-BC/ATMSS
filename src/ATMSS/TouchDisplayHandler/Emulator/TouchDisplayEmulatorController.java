@@ -5,14 +5,11 @@ import AppKickstarter.misc.MBox;
 import AppKickstarter.misc.Msg;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 import java.util.logging.Logger;
@@ -71,6 +68,7 @@ public class TouchDisplayEmulatorController {
         //touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_MouseClicked, x + " " + y));
         if (loggedIn) {
             //use Java Switch to send diff message types depending on x-y coord
+            //not sending x-y coord anymore, we just send text
             switch (mouseEvent.getSource().getClass().getSimpleName()) {
                 case "StackPane":
                     StackPane targetPane = (StackPane) mouseEvent.getSource();
@@ -124,8 +122,9 @@ public class TouchDisplayEmulatorController {
 //        passwordField.setText("");
 //        blankAmountField.setVisible(false);
 //        blankAmountField.setText("0");
-        blankAmountLabel.setText("");
-        blankScreenLabel.setText("Welcome to ATM system emulator\n\n\n\n\nPlease Insert ATM Card");
+        eraseText();
+        blankTopLabel.setText("Welcome to ATM system emulator");
+        blankScreenLabel.setText("Please Insert ATM Card");
     }
 
     public void enterPINPage(boolean enterPIN) {
@@ -137,8 +136,7 @@ public class TouchDisplayEmulatorController {
             blankAmountStringBuild.append("*");
             blankAmountLabel.setText(blankAmountStringBuild.toString());
         } else {
-            blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
-            blankAmountLabel.setText("");
+            eraseText();
         }
 //        passwordField.setText("");
 //        passwordField.setVisible(true);
@@ -147,24 +145,25 @@ public class TouchDisplayEmulatorController {
     public void eraseText(){
 //        passwordField.setText("");
 //        blankAmountField.setText("0");
+        blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
         blankAmountLabel.setText("");
     }
 
-    public void changePIN() {
-        //it is not a matter what text it is going to append on the touchscreen
-        //the pin will be all masked
+//    public void changePIN() {
+//        //it is not a matter what text it is going to append on the touchscreen
+//        //the pin will be all masked
 //        if (passwordField.getText().length() < 9) {
 //            passwordField.appendText("0");
 //        }
-    }
+//    }
 
-    public void changeAmount(String typed) {
+//    public void changeAmount(String typed) {
 //        if (blankAmountField.getText().equals("0") && !typed.equals(".")) {
 //            blankAmountField.setText(typed);
 //        } else {
 //            blankAmountField.appendText(typed);
 //        }
-    }
+//    }
 
     public void mainMenuBox() {
         blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
@@ -312,8 +311,7 @@ public class TouchDisplayEmulatorController {
             blankAmountStringBuild.append(typed);
             blankAmountLabel.setText(blankAmountStringBuild.toString());
         } else {
-            blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
-            blankAmountLabel.setText("");
+            eraseText();
         }
         blankTopLabel.setText("Operating Account Number: " + operatingAcc +"\n\n Selected Transfer Account Number: " + transferAcc);
         blankScreenLabel.setText("Please enter the amount you want to transfer\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
@@ -337,8 +335,7 @@ public class TouchDisplayEmulatorController {
             blankAmountStringBuild.append(amount);
             blankAmountLabel.setText(blankAmountStringBuild.toString());
         } else {
-            blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
-            blankAmountLabel.setText("");
+            eraseText();
         }
         blankTopLabel.setText("Operating Account Number: " + operatingAcc);
         blankScreenLabel.setText("Please enter the amount you want to withdraw\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");

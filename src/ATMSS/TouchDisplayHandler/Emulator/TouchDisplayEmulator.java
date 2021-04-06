@@ -149,7 +149,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         } else if (TouchDisplayEmulatorController.getCurrentPage() == 6) {
             reloadStage("TouchDisplayEmulator.fxml", "Cash Withdrawal", typed);
         }
-        touchDisplayEmulatorController.changeAmount(typed);
+//        touchDisplayEmulatorController.changeAmount(typed);
     }
 
     //------------------------------------------------------------
