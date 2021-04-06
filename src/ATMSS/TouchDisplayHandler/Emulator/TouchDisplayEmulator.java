@@ -81,6 +81,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                 break;
 
             case "Money Transfer":
+                //reloadStage("TouchDisplayEmulator.fxml", "Money Transfer", transfer account number)
                 reloadStage("TouchDisplayEmulator.fxml", msgDetails[0], msgDetails[1]);
                 break;
 
@@ -110,9 +111,11 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         String[] details = acc.split("_");
         if (details[0].equals("")) {
             //account selection before main menu
+            //reloadStage("TouchDisplayMainMenu.fxml", "Initial Account Select", list of accounts);
             reloadStage("TouchDisplayMainMenu.fxml", "Initial Account Select", details[1]);
         } else {
             //account select in money transfer
+            //reloadStage("TouchDisplayMainMenu.fxml", "Money Transfer", list of accounts);
             reloadStage("TouchDisplayMainMenu.fxml", details[0], details[1]);
         }
     }
@@ -129,6 +132,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 
     protected void moneyTransferResult(String details) {
         super.moneyTransferResult(details);
+        //reloadStage("TouchDisplayMainMenu.fxml", "Money Transfer Finish", (transfer account number)_(amount transferred));
         reloadStage("TouchDisplayMainMenu.fxml", "Money Transfer Finish", details);
     }
 
@@ -188,18 +192,23 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     break;
 
                                 case "enterPIN":
+                                    //button is pressed to enter PIN
                                     touchDisplayEmulatorController.enterPINPage(true);
                                     break;
 
                                 case "Cash Withdrawal":
+                                    //touchDisplayEmulatorController.cashWithdrawalPage(amount withdraw);
                                     touchDisplayEmulatorController.cashWithdrawalPage(detail);
                                     break;
 
                                 case "Money Transfer":
                                     String[] details = detail.split("_");
                                     if (details.length > 1) {
+                                        //touchDisplayEmulatorController.moneyTransferPage(transfer account, typed);
                                         touchDisplayEmulatorController.moneyTransferPage(details[0], details[1]);
                                     } else {
+                                        //just after transfer account selection
+                                        //touchDisplayEmulatorController.moneyTransferPage(transfer account, "");
                                         touchDisplayEmulatorController.moneyTransferPage(details[0], "");
                                     }
                                     break;
@@ -216,26 +225,32 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     break;
 
                                 case "Account Enquiry":
+                                    //touchDisplayEmulatorController.accountEnquiryMenu(account amount);
                                     touchDisplayEmulatorController.accountEnquiryMenu(detail);
                                     break;
 
                                 case "Initial Account Select":
+                                    //touchDisplayEmulatorController.accountSelectGUI(list of accounts, not for money transfer);
                                     touchDisplayEmulatorController.accountSelectGUI(detail, false);
                                     break;
 
                                 case "Money Transfer":
+                                    //touchDisplayEmulatorController.accountSelectGUI(list of accounts, for money transfer);
                                     touchDisplayEmulatorController.accountSelectGUI(detail, true);
                                     break;
 
                                 case "Money Transfer Finish":
+                                    //touchDisplayEmulatorController.moneyTransferFinish((transfer account number)_(transfer amount));
                                     touchDisplayEmulatorController.moneyTransferFinish(detail);
                                     break;
 
                                 case "Cash Dispense":
+                                    //touchDisplayEmulatorController.cashDispensePage(total cash dispense);
                                     touchDisplayEmulatorController.cashDispensePage(detail);
                                     break;
 
                                 case "Deposit Result":
+                                    //touchDisplayEmulatorController.cashDepositFinish(total amount saved);
                                     touchDisplayEmulatorController.cashDepositFinish(detail);
                                     break;
 
@@ -251,6 +266,7 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     break;
 
                                 case "Cash Deposit with money":
+                                    //touchDisplayEmulatorController.cashDepositPage((number of $100 deposit) (number of $500 deposit) (number of $1000 deposit);
                                     touchDisplayEmulatorController.cashDepositPage(detail);
                                     break;
 
