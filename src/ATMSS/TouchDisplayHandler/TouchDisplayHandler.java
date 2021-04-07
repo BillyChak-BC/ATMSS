@@ -69,6 +69,14 @@ public class TouchDisplayHandler extends HWHandler {
                 }
                 break;
 
+            case Error:
+                handleErrorPage(msg.getDetails());
+                break;
+
+            case ErrorRedirect:
+                atmss.send(new Msg(id, mbox, Msg.Type.ErrorRedirect, ""));
+                break;
+
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
         }
@@ -111,5 +119,9 @@ public class TouchDisplayHandler extends HWHandler {
 
     protected void amountFieldChange(String typed) {
         log.info(id + ": Amount Field Change");
+    }
+
+    protected void handleErrorPage(String details) {
+        log.info(id + ": Error Message Received: " + details);
     }
 } // TouchDisplayHandler

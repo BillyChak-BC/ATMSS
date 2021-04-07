@@ -3,6 +3,8 @@ package ATMSS.TouchDisplayHandler.Emulator;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.MBox;
 import AppKickstarter.misc.Msg;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -28,8 +31,6 @@ public class TouchDisplayEmulatorController {
     public Label blankTopLabel;
     public Label blankScreenLabel;
     public Label blankAmountLabel;
-//    public PasswordField passwordField;
-//    public TextField blankAmountField;
     public Label menuLabel;
     public Label menuTopLabel;
     public HBox buttonHBox;
@@ -41,6 +42,8 @@ public class TouchDisplayEmulatorController {
 
     public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
+    private final Integer startTime = 4;
+    private Integer countDown = startTime;
     private static boolean loggedIn = false;
     private static StringBuilder blankAmountStringBuild = new StringBuilder();
     private static String operatingAcc = "";
@@ -118,10 +121,6 @@ public class TouchDisplayEmulatorController {
         currentPage = 0;
         loggedIn = false;
         operatingAcc = "";
-//        passwordField.setVisible(false);
-//        passwordField.setText("");
-//        blankAmountField.setVisible(false);
-//        blankAmountField.setText("0");
         eraseText();
         blankTopLabel.setText("Welcome to ATM system emulator");
         blankScreenLabel.setText("Please Insert ATM Card");
@@ -133,37 +132,19 @@ public class TouchDisplayEmulatorController {
         blankTopLabel.setText("Please Enter the PIN:");
         blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
         if (enterPIN) {
-            blankAmountStringBuild.append("*");
+            if (blankAmountStringBuild.length() < 9) {
+                blankAmountStringBuild.append("*");
+            }
             blankAmountLabel.setText(blankAmountStringBuild.toString());
         } else {
             eraseText();
         }
-//        passwordField.setText("");
-//        passwordField.setVisible(true);
     }
 
     public void eraseText(){
-//        passwordField.setText("");
-//        blankAmountField.setText("0");
         blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
         blankAmountLabel.setText("");
     }
-
-//    public void changePIN() {
-//        //it is not a matter what text it is going to append on the touchscreen
-//        //the pin will be all masked
-//        if (passwordField.getText().length() < 9) {
-//            passwordField.appendText("0");
-//        }
-//    }
-
-//    public void changeAmount(String typed) {
-//        if (blankAmountField.getText().equals("0") && !typed.equals(".")) {
-//            blankAmountField.setText(typed);
-//        } else {
-//            blankAmountField.appendText(typed);
-//        }
-//    }
 
     public void mainMenuBox() {
         blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
@@ -303,10 +284,6 @@ public class TouchDisplayEmulatorController {
 
     protected void moneyTransferPage(String transferAcc, String typed) {
         currentPage = 5;
-//        passwordField.setVisible(false);
-//        passwordField.setText("");
-//        blankAmountField.setVisible(true);
-//        blankAmountField.setText("0");
         if (!typed.equals("")) {
             blankAmountStringBuild.append(typed);
             blankAmountLabel.setText(blankAmountStringBuild.toString());
@@ -327,10 +304,6 @@ public class TouchDisplayEmulatorController {
 
     protected void cashWithdrawalPage(String amount) {
         currentPage = 6;
-//        passwordField.setVisible(false);
-//        passwordField.setText("");
-//        blankAmountField.setVisible(true);
-//        blankAmountField.setText("0");
         if (!amount.equals("")) {
             blankAmountStringBuild.append(amount);
             blankAmountLabel.setText(blankAmountStringBuild.toString());
@@ -431,4 +404,56 @@ public class TouchDisplayEmulatorController {
 
     }
 
+    protected void errorPage(String errorMsg) {
+        blankTopLabel.setText("Error");
+        String[] errorType = errorMsg.split("_");
+        blankScreenLabel.setText(errorType[1]);
+        countDown(errorType[0]);
+    }
+
+    private void countDown(String details) {
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(5);
+        if (timeline != null) {
+            timeline.stop();
+        }
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
+            countDown--;
+            blankAmountLabel.setText(countDown.toString());
+            if (countDown <= 0) {
+                timeline.stop();
+                touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.ErrorRedirect, ""));
+//                switch (currentPage) {
+//                    case 1:
+//                        //return to enter PIN or card retention
+//                        if (details.equals("Card Retained")) {
+//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+//                        } else {
+//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
+//                        }
+//                        break;
+//
+//                    case 3:
+//
+//                    case 4:
+//
+//                    case 5:
+//
+//                    case 6:
+//
+//                    case 7:
+//                        //return to main menu
+//                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+//                        break;
+//
+//                    default:
+//                        //error not resolved
+////                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Error, details));
+//                        break;
+//                }
+            }
+        });
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.playFromStart();
+    }
 } // TouchDisplayEmulatorController

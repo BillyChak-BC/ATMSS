@@ -41,6 +41,8 @@ public class DepositSlotEmulatorController {
     } // initialize
     
     public void buttonPressed(ActionEvent actionEvent) {
+    	//probability of unverified money notes
+		//detect unverified money notes
     	Button btn = (Button) actionEvent.getSource();
 
     	switch (btn.getText()) {

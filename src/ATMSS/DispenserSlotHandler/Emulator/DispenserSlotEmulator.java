@@ -56,7 +56,8 @@ public class DispenserSlotEmulator extends DispenserSlotHandler {
         StringTokenizer tokens = new StringTokenizer(denoms);
         int amtSum = 0;
         int count = 0;
-        
+
+        //should be done by ATMSS
         while (tokens.hasMoreTokens()) {
         	String token = tokens.nextToken();
         	if (count % 3 == 0) {

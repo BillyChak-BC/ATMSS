@@ -14,7 +14,7 @@
 	    <HBox layoutX="20.0" layoutY="63.0" prefHeight="30.0" prefWidth="310.0" AnchorPane.topAnchor="30.0">
 		    <children>
 			<Label text="Amount: " />
-			<TextField fx:id="amtField" prefWidth="258.0" AnchorPane.rightAnchor="20" />
+			<TextField fx:id="amtField" prefWidth="258.0" editable="false" AnchorPane.rightAnchor="20" />
 		    </children>
 		</HBox>
 		

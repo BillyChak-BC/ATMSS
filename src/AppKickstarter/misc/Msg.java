@@ -82,6 +82,7 @@ public class Msg {
     public enum Type {
         /** Terminate the running thread */	Terminate,
 	/** Generic error msg */		Error,
+        /** Redirect Page After Error */    ErrorRedirect,
 	/** Set a timer */			SetTimer,
 	/** Set a timer */			CancelTimer,
 	/** Timer clock ticks */		Tick,
@@ -94,6 +95,7 @@ public class Msg {
 	/** Card inserted */			CR_CardInserted,
 	/** Card removed */			CR_CardRemoved,
 	/** Eject card */			CR_EjectCard,
+        /** Retain card */      CR_RetainCard,
 	/** Key pressed */			KP_KeyPressed,
     /** Sending Cash Denominations */ Denom_sum, 
     /**Start Deposit */                Deposit, 
