@@ -28,8 +28,6 @@ public class TouchDisplayEmulatorController {
     public Label blankTopLabel;
     public Label blankScreenLabel;
     public Label blankAmountLabel;
-//    public PasswordField passwordField;
-//    public TextField blankAmountField;
     public Label menuLabel;
     public Label menuTopLabel;
     public HBox buttonHBox;
@@ -118,10 +116,6 @@ public class TouchDisplayEmulatorController {
         currentPage = 0;
         loggedIn = false;
         operatingAcc = "";
-//        passwordField.setVisible(false);
-//        passwordField.setText("");
-//        blankAmountField.setVisible(false);
-//        blankAmountField.setText("0");
         eraseText();
         blankTopLabel.setText("Welcome to ATM system emulator");
         blankScreenLabel.setText("Please Insert ATM Card");
@@ -133,37 +127,19 @@ public class TouchDisplayEmulatorController {
         blankTopLabel.setText("Please Enter the PIN:");
         blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
         if (enterPIN) {
-            blankAmountStringBuild.append("*");
+            if (blankAmountStringBuild.length() < 9) {
+                blankAmountStringBuild.append("*");
+            }
             blankAmountLabel.setText(blankAmountStringBuild.toString());
         } else {
             eraseText();
         }
-//        passwordField.setText("");
-//        passwordField.setVisible(true);
     }
 
     public void eraseText(){
-//        passwordField.setText("");
-//        blankAmountField.setText("0");
         blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
         blankAmountLabel.setText("");
     }
-
-//    public void changePIN() {
-//        //it is not a matter what text it is going to append on the touchscreen
-//        //the pin will be all masked
-//        if (passwordField.getText().length() < 9) {
-//            passwordField.appendText("0");
-//        }
-//    }
-
-//    public void changeAmount(String typed) {
-//        if (blankAmountField.getText().equals("0") && !typed.equals(".")) {
-//            blankAmountField.setText(typed);
-//        } else {
-//            blankAmountField.appendText(typed);
-//        }
-//    }
 
     public void mainMenuBox() {
         blankAmountStringBuild.delete(0, blankAmountStringBuild.length());
@@ -303,10 +279,6 @@ public class TouchDisplayEmulatorController {
 
     protected void moneyTransferPage(String transferAcc, String typed) {
         currentPage = 5;
-//        passwordField.setVisible(false);
-//        passwordField.setText("");
-//        blankAmountField.setVisible(true);
-//        blankAmountField.setText("0");
         if (!typed.equals("")) {
             blankAmountStringBuild.append(typed);
             blankAmountLabel.setText(blankAmountStringBuild.toString());
@@ -327,10 +299,6 @@ public class TouchDisplayEmulatorController {
 
     protected void cashWithdrawalPage(String amount) {
         currentPage = 6;
-//        passwordField.setVisible(false);
-//        passwordField.setText("");
-//        blankAmountField.setVisible(true);
-//        blankAmountField.setText("0");
         if (!amount.equals("")) {
             blankAmountStringBuild.append(amount);
             blankAmountLabel.setText(blankAmountStringBuild.toString());

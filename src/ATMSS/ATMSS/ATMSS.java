@@ -132,16 +132,19 @@ public class ATMSS extends AppThread {
 
                 case MoneyTransferResult:
                     log.info(id + ": Money Transfer from " + selectedAcc + " to " + transferAcc + ": $" + msg.getDetails());
+                    amountTyped = msg.getDetails();
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferResult, transferAcc + "_" + msg.getDetails()));
                     break;
 
                 case Dispense:
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
+                    amountTyped = msg.getDetails();
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
                     break;
 
                 case EnquiryResult:
+                    amountTyped = msg.getDetails();
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.EnquiryResult, msg.getDetails()));
                     break;
 
@@ -155,6 +158,7 @@ public class ATMSS extends AppThread {
                     break;
 
                 case DepositResult:
+                    amountTyped = msg.getDetails();
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DepositResult, msg.getDetails()));
                     break;
 
@@ -188,6 +192,10 @@ public class ATMSS extends AppThread {
 
                 case Terminate:
                     quit = true;
+                    break;
+
+                case Error:
+                    log.severe(id + ": " + msg);
                     break;
 
                 default:
@@ -382,7 +390,7 @@ public class ATMSS extends AppThread {
                         case "Continue Transaction and Print Advice":
                             //print advice
                             //reset the things and back to main menu
-                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" +amountTyped + "_" + "Success"));
+                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + "Success"));
                             halfRest();
                             touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
                             break;
@@ -396,7 +404,7 @@ public class ATMSS extends AppThread {
                         case "End Transaction and Print Advice":
                             //print advice
                             //eject card
-                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" +amountTyped + "_" + "Success"));
+                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + "Success"));
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable
