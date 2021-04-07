@@ -4,6 +4,7 @@ import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.MBox;
 import AppKickstarter.misc.Msg;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -23,12 +24,19 @@ public class CardReaderEmulatorController {
     private Logger log;
     private CardReaderEmulator cardReaderEmulator;
     private MBox cardReaderMBox;
+    public Button card1Btn;
+    public Button card2Btn;
+    public Button card3Btn;
     public TextField cardNumField1;
     public TextField cardNumField2;
     public TextField cardStatusField;
     public TextArea cardReaderTextArea;
     public Button insertBtn;
     public Button removeBtn;
+
+    private static Button defaultCardSelected;
+    private static ArrayList<String> retainedCard = new ArrayList<String>();
+    private String cardText;
 
     //------------------------------------------------------------
     // initialize
@@ -70,18 +78,21 @@ public class CardReaderEmulatorController {
 
         switch (btn.getText()) {
             case "Card 1":
+                defaultCardSelected = btn;
                 String cardNum1 = appKickstarter.getProperty("CardReader.Card1");
                 cardNumField1.setText(cardNum1.substring(0,4));
                 cardNumField2.setText(cardNum1.substring(5,9));
                 break;
 
             case "Card 2":
+                defaultCardSelected = btn;
                 String cardNum2 = appKickstarter.getProperty("CardReader.Card2");
                 cardNumField1.setText(cardNum2.substring(0,4));
                 cardNumField2.setText(cardNum2.substring(5,9));
                 break;
 
             case "Card 3":
+                defaultCardSelected = btn;
                 String cardNum3 = appKickstarter.getProperty("CardReader.Card3");
                 cardNumField1.setText(cardNum3.substring(0,4));
                 cardNumField2.setText(cardNum3.substring(5,9));
@@ -94,10 +105,17 @@ public class CardReaderEmulatorController {
 
             case "Insert Card":
                 // if (cardNumField.getText().length() != 0) {
-                String cardText;
                 cardText = cardNumField1.getText() + "-" + cardNumField2.getText();
+                if (cardText.equals("-")) {
+                    //no card selected
+                    cardReaderTextArea.appendText("Warning: No card is selected");
+                    break;
+                }
                 cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardInserted, cardText));
                 cardReaderTextArea.appendText("Sending " + cardText+"\n");
+                if (defaultCardSelected != null) {
+                    defaultCardSelected.setDisable(true);
+                }
 //		    cardStatusField.setText("Card Inserted");
                 // }
                 break;
@@ -109,8 +127,11 @@ public class CardReaderEmulatorController {
                     cardReaderTextArea.appendText("Removing card\n");
                     cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardRemoved, cardText));
                 }
+                if (defaultCardSelected != null) {
+                    defaultCardSelected.setDisable(false);
+                    defaultCardSelected = null;
+                }
                 break;
-
 
             default:
                 log.warning(id + ": unknown button: [" + btn.getText() + "]");
@@ -125,7 +146,9 @@ public class CardReaderEmulatorController {
         cardStatusField.setText(status);
         if (status.compareTo("Card Inserted") == 0) {
             insertBtn.setDisable(true);
+            removeBtn.setDisable(true);
         } else if (status.compareTo("Card Ejected") == 0) {
+            insertBtn.setDisable(true);
             removeBtn.setDisable(false);
         } else if (status.compareTo("Card Reader Empty") == 0) {
             insertBtn.setDisable(false);
@@ -144,4 +167,12 @@ public class CardReaderEmulatorController {
     public void appendTextArea(String status) {
         cardReaderTextArea.appendText(status+"\n");
     } // appendTextArea
+
+    protected void cardRetain() {
+        retainedCard.add(cardText);
+        if (defaultCardSelected != null) {
+            defaultCardSelected.setDisable(true);
+            defaultCardSelected = null;
+        }
+    }
 } // CardReaderEmulatorController

@@ -3,6 +3,8 @@ package ATMSS.TouchDisplayHandler.Emulator;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.MBox;
 import AppKickstarter.misc.Msg;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -39,6 +42,8 @@ public class TouchDisplayEmulatorController {
 
     public String[] funcAry = {"Cash Deposit", "Money Transfer", "Cash Withdrawal", "Account Balance Enquiry", "five", "six", "seven", "eight", "nine", "ten"};
 
+    private final Integer startTime = 4;
+    private Integer countDown = startTime;
     private static boolean loggedIn = false;
     private static StringBuilder blankAmountStringBuild = new StringBuilder();
     private static String operatingAcc = "";
@@ -399,4 +404,54 @@ public class TouchDisplayEmulatorController {
 
     }
 
+    protected void errorPage(String errorMsg) {
+        blankTopLabel.setText("Error");
+        blankScreenLabel.setText(errorMsg);
+        countDown(errorMsg);
+    }
+
+    private void countDown(String details) {
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(5);
+        if (timeline != null) {
+            timeline.stop();
+        }
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
+            countDown--;
+            blankAmountLabel.setText(countDown.toString());
+            if (countDown <= 0) {
+                timeline.stop();
+                switch (currentPage) {
+                    case 1:
+                        //return to enter PIN or card retention
+                        if (details.equals("Card Retained")) {
+                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                        } else {
+                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
+                        }
+                        break;
+
+                    case 3:
+
+                    case 4:
+
+                    case 5:
+
+                    case 6:
+
+                    case 7:
+                        //return to main menu
+                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                        break;
+
+                    default:
+                        //error not resolved
+//                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Error, details));
+                        break;
+                }
+            }
+        });
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.playFromStart();
+    }
 } // TouchDisplayEmulatorController

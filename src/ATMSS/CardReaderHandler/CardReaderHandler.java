@@ -32,6 +32,9 @@ public class CardReaderHandler extends HWHandler {
                 handleCardRemove();
                 break;
 
+            case CR_RetainCard:
+                handleCardRetain();
+                break;
 
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
@@ -58,5 +61,9 @@ public class CardReaderHandler extends HWHandler {
     protected void handleCardRemove() {
 	log.info(id + ": card removed");
     } // handleCardRemove
+
+    protected void handleCardRetain() {
+        log.info(id + ": card retained");
+    } // handleCardRetain
 
 } // CardReaderHandler

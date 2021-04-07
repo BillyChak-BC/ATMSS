@@ -94,6 +94,7 @@ public class Msg {
 	/** Card inserted */			CR_CardInserted,
 	/** Card removed */			CR_CardRemoved,
 	/** Eject card */			CR_EjectCard,
+        /** Retain card */      CR_RetainCard,
 	/** Key pressed */			KP_KeyPressed,
     /** Sending Cash Denominations */ Denom_sum, 
     /**Start Deposit */                Deposit, 

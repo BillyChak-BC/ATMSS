@@ -156,6 +156,11 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
 //        touchDisplayEmulatorController.changeAmount(typed);
     }
 
+    protected void handleErrorPage(String details) {
+        super.handleErrorPage(details);
+        reloadStage("TouchDisplayEmulator.fxml", "Error", details);
+    }
+
     //------------------------------------------------------------
     // reloadStage
     private void reloadStage(String fxmlFName, String detail) {
@@ -211,6 +216,10 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                         //touchDisplayEmulatorController.moneyTransferPage(transfer account, "");
                                         touchDisplayEmulatorController.moneyTransferPage(details[0], "");
                                     }
+                                    break;
+
+                                case "Error":
+                                    touchDisplayEmulatorController.errorPage(detail);
                                     break;
 
                                 default:

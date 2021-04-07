@@ -12,9 +12,9 @@
     <children>
 		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
 			<children>
-			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Card 1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
-			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Card 2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
-			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Card 3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+			<Button fx:id="card1Btn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Card 1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+			<Button fx:id="card2Btn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Card 2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+			<Button fx:id="card3Btn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Card 3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
 			<Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="70.0" text="Reset" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
 			</children>
 		</AnchorPane>
@@ -30,7 +30,7 @@
 		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="70.0">
 			<children>
 				<Button fx:id="insertBtn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Insert Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
-				<Button fx:id="removeBtn" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Remove Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
+				<Button fx:id="removeBtn" disable="true" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="150.0" text="Remove Card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0"><font><Font size="12.0" /></font></Button>
 			</children>
 		</AnchorPane>
 		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
