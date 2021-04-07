@@ -73,6 +73,10 @@ public class TouchDisplayHandler extends HWHandler {
                 handleErrorPage(msg.getDetails());
                 break;
 
+            case ErrorRedirect:
+                atmss.send(new Msg(id, mbox, Msg.Type.ErrorRedirect, ""));
+                break;
+
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
         }

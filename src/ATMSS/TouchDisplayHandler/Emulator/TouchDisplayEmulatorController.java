@@ -406,8 +406,9 @@ public class TouchDisplayEmulatorController {
 
     protected void errorPage(String errorMsg) {
         blankTopLabel.setText("Error");
-        blankScreenLabel.setText(errorMsg);
-        countDown(errorMsg);
+        String[] errorType = errorMsg.split("_");
+        blankScreenLabel.setText(errorType[1]);
+        countDown(errorType[0]);
     }
 
     private void countDown(String details) {
@@ -421,34 +422,35 @@ public class TouchDisplayEmulatorController {
             blankAmountLabel.setText(countDown.toString());
             if (countDown <= 0) {
                 timeline.stop();
-                switch (currentPage) {
-                    case 1:
-                        //return to enter PIN or card retention
-                        if (details.equals("Card Retained")) {
-                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "Welcome"));
-                        } else {
-                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
-                        }
-                        break;
-
-                    case 3:
-
-                    case 4:
-
-                    case 5:
-
-                    case 6:
-
-                    case 7:
-                        //return to main menu
-                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-                        break;
-
-                    default:
-                        //error not resolved
-//                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Error, details));
-                        break;
-                }
+                touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.ErrorRedirect, ""));
+//                switch (currentPage) {
+//                    case 1:
+//                        //return to enter PIN or card retention
+//                        if (details.equals("Card Retained")) {
+//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+//                        } else {
+//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
+//                        }
+//                        break;
+//
+//                    case 3:
+//
+//                    case 4:
+//
+//                    case 5:
+//
+//                    case 6:
+//
+//                    case 7:
+//                        //return to main menu
+//                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+//                        break;
+//
+//                    default:
+//                        //error not resolved
+////                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Error, details));
+//                        break;
+//                }
             }
         });
         timeline.getKeyFrames().add(keyFrame);

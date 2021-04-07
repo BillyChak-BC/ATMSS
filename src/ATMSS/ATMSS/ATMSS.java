@@ -97,13 +97,13 @@ public class ATMSS extends AppThread {
                             //jump to the page saying card is retained
                             //instruct card reader retain card
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Card Retained"));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Card Retained"));
                             allReset();
                         } else {        //situation that enter the wrong PIN
                             //give error message
                             pin = "";
                             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Wrong PIN\n\nPlease ensure you enter the right PIN"));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Wrong PIN\n\nPlease ensure you enter the right PIN"));
                         }
                     }
                     break;
@@ -117,6 +117,7 @@ public class ATMSS extends AppThread {
                     //if !operating account = "" && msg.getDetails() has no "/", return error
                     if (!selectedAcc.equals("") && !msg.getDetails().contains("/")) {       //only for money transfer at this moment
                         //this card has only one account and cannot do money transfer
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "This card has only one account\n\nCannot do money transfer"));
                     } else {
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, transaction + "_" + msg.getDetails()));
                     }
@@ -201,6 +202,30 @@ public class ATMSS extends AppThread {
 
                 case Error:
                     log.severe(id + ": " + msg);
+                    break;
+
+                case ErrorRedirect:
+                    switch (transaction) {
+                        case "":
+                            if (errorCount >= 3) {
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                                allReset();
+                            } else {
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
+                            }
+                            break;
+
+                        case "Cash Deposit":
+
+                        case "Money Transfer":
+
+                        case "Cash Withdrawal":
+
+                        case "Account Balance Enquiry":
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                            halfRest();
+                            break;
+                    }
                     break;
 
                 default:

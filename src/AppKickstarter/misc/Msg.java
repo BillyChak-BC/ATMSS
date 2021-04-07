@@ -82,6 +82,7 @@ public class Msg {
     public enum Type {
         /** Terminate the running thread */	Terminate,
 	/** Generic error msg */		Error,
+        /** Redirect Page After Error */    ErrorRedirect,
 	/** Set a timer */			SetTimer,
 	/** Set a timer */			CancelTimer,
 	/** Timer clock ticks */		Tick,
