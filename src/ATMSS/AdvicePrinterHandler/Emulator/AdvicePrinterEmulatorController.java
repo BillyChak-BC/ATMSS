@@ -69,6 +69,8 @@ public class AdvicePrinterEmulatorController {
     public void clearAdvice() {
     	Advice = "";
     }
+
+    //run out of paper
     
     //------------------------------------------------------------
     // appendTextArea

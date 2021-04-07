@@ -1,6 +1,5 @@
 package ATMSS.ATMSS;
 
-import ATMSS.TouchDisplayHandler.Emulator.TouchDisplayEmulatorController;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.*;
 import AppKickstarter.timer.Timer;
@@ -95,7 +94,8 @@ public class ATMSS extends AppThread {
                         errorCount++;
                         if (errorCount >= 3) {
                             //instruct retain
-                        } else {
+                        } else {        //situation that enter the wrong PIN
+                            //give error message
                             pin = "";
                             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
@@ -109,7 +109,12 @@ public class ATMSS extends AppThread {
                     break;
 
                 case ReceiveAccount:
-                    touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, transaction + "_" + msg.getDetails()));
+                    //if !operating account = "" && msg.getDetails() has no "/", return error
+                    if (!selectedAcc.equals("") && !msg.getDetails().contains("/")) {       //only for money transfer at this moment
+                        //this card has only one account and cannot do money transfer
+                    } else {
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, transaction + "_" + msg.getDetails()));
+                    }
                     break;
 
                 case Selected_Acc:
@@ -141,6 +146,7 @@ public class ATMSS extends AppThread {
                     break;
 
                 case Denom_sum:
+                    //receive money notes, update the money notes inventory
                     String[] denom = msg.getDetails().split(" ");
                     amountTyped = (Integer.parseInt(denom[0]) * 100 + Integer.parseInt(denom[1]) * 500 + Integer.parseInt(denom[2]) * 1000) + "";
                     log.info("CashDeposit Denominations: " + amountTyped);
@@ -293,15 +299,6 @@ public class ATMSS extends AppThread {
                 }
             }
         }
-
-
-//        else if (msg.getDetails().compareToIgnoreCase("1") == 0) {
-//			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "BlankScreen"));
-//		} else if (msg.getDetails().compareToIgnoreCase("2") == 0) {
-//			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-//		} else if (msg.getDetails().compareToIgnoreCase("3") == 0) {
-//			touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Confirmation"));
-//		}
     } // processKeyPressed
 
 

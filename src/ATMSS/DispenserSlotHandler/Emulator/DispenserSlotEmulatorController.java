@@ -92,4 +92,6 @@ public class DispenserSlotEmulatorController {
     	return dispense;
     }
 
+    //check inventory is needed
+
 }
