@@ -423,34 +423,6 @@ public class TouchDisplayEmulatorController {
             if (countDown <= 0) {
                 timeline.stop();
                 touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.ErrorRedirect, ""));
-//                switch (currentPage) {
-//                    case 1:
-//                        //return to enter PIN or card retention
-//                        if (details.equals("Card Retained")) {
-//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "Welcome"));
-//                        } else {
-//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
-//                        }
-//                        break;
-//
-//                    case 3:
-//
-//                    case 4:
-//
-//                    case 5:
-//
-//                    case 6:
-//
-//                    case 7:
-//                        //return to main menu
-//                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-//                        break;
-//
-//                    default:
-//                        //error not resolved
-////                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Error, details));
-//                        break;
-//                }
             }
         });
         timeline.getKeyFrames().add(keyFrame);

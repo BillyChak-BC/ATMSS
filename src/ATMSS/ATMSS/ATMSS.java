@@ -269,6 +269,7 @@ public class ATMSS extends AppThread {
                 log.info("pin: " + pin);
                 //send variables cardNum and pin to BAMS for login
             } else {
+                //"00" is not allowed in enter PIN
                 if (pin.length() < 9) {
                     switch (msg.getDetails()) {
                         case "1":
@@ -280,18 +281,13 @@ public class ATMSS extends AppThread {
                         case "7":
                         case "8":
                         case "9":
-                        case "00":  //?
                         case "0":
                             pin += msg.getDetails();
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
                             break;
                         default:
                             break;
                     }
-                    if (msg.getDetails().equals("00")) {
-                        // Run two times if entering "00"
-                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
-                    }
-                    touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
                 }
             }
         } else if (getAmount) {     //stage of accepting amount input, e.g. cash withdraw and money transfer
@@ -382,7 +378,6 @@ public class ATMSS extends AppThread {
                             //check balance from BAMS
                             String enquiryDetails = cardNum + " " + selectedAcc;
                             bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.AccountEnquiry, enquiryDetails));
-//                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
                             break;
                         default:
                             //do nothing
