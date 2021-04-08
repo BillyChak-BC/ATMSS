@@ -38,7 +38,6 @@ public class bamsThreadHandler extends AppThread{
                         testLogin(bams, msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
-                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
@@ -49,7 +48,6 @@ public class bamsThreadHandler extends AppThread{
                         getAcc(msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
-                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
@@ -60,7 +58,6 @@ public class bamsThreadHandler extends AppThread{
                         cashDeposit(msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
-                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
@@ -71,7 +68,6 @@ public class bamsThreadHandler extends AppThread{
                         cashWithdraw(msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
-                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
@@ -82,7 +78,6 @@ public class bamsThreadHandler extends AppThread{
                         moneyTransfer(msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
-                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
@@ -93,7 +88,6 @@ public class bamsThreadHandler extends AppThread{
                         accEnquiry(msg.getDetails());
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
-                        //pop up window talk about whats wrong
                     } catch (IOException e) {
 
                     }
