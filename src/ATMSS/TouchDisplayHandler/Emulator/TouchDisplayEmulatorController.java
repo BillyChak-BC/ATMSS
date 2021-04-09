@@ -124,13 +124,14 @@ public class TouchDisplayEmulatorController {
         eraseText();
         blankTopLabel.setText("Welcome to ATM system emulator");
         blankScreenLabel.setText("Please Insert ATM Card");
+        //show which money notes available on welcome page
     }
 
     public void enterPINPage(boolean enterPIN) {
         currentPage = 1;
         log.warning(id + ": At this moment, the program will give a lot of errors or no respond after sending the PIN for validation");
         blankTopLabel.setText("Please Enter the PIN:");
-        blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
+        blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n\"00\" cannot be used at this page\n\n");
         if (enterPIN) {
             if (blankAmountStringBuild.length() < 9) {
                 blankAmountStringBuild.append("*");
@@ -423,34 +424,6 @@ public class TouchDisplayEmulatorController {
             if (countDown <= 0) {
                 timeline.stop();
                 touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.ErrorRedirect, ""));
-//                switch (currentPage) {
-//                    case 1:
-//                        //return to enter PIN or card retention
-//                        if (details.equals("Card Retained")) {
-//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "Welcome"));
-//                        } else {
-//                            touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
-//                        }
-//                        break;
-//
-//                    case 3:
-//
-//                    case 4:
-//
-//                    case 5:
-//
-//                    case 6:
-//
-//                    case 7:
-//                        //return to main menu
-//                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-//                        break;
-//
-//                    default:
-//                        //error not resolved
-////                        touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.Error, details));
-//                        break;
-//                }
             }
         });
         timeline.getKeyFrames().add(keyFrame);

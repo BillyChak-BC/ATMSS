@@ -43,7 +43,7 @@ public class AdvicePrinterEmulatorController {
                 if (paperInventory > 0) {
                     DispenserSlotTextArea.setText("");
                     paperInventory--;
-                    if (paperInventory <= 0) {
+                    if (paperInventory <= 0) {      //run out of paper
                         //send msg to ATMSS that advice printer run out of paper
                         AdvicePrinterMBox.send(new Msg(id, AdvicePrinterMBox, Msg.Type.Error, "Advice Printer run out of paper"));
                     }
@@ -67,8 +67,6 @@ public class AdvicePrinterEmulatorController {
     public void clearAdvice() {
         Advice = "";
     }
-
-    //run out of paper
 
     //------------------------------------------------------------
     // appendTextArea

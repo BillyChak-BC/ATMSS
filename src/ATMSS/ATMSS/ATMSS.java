@@ -83,23 +83,23 @@ public class ATMSS extends AppThread {
                     //if card inserted proceed to ask pin (send msg to ask for PIN)
                     break;
 
-                case LoggedIn: //BAMSHandler send msg back and indicate success
-                    if (msg.getDetails().equals("Success")) {
+                case LoggedIn: //BAMSHandler send msg back and indicate login success or fail
+                    if (msg.getDetails().equals("Success")) {       //success
                         //if success login return some boolean variable that enable all methods that need login to be true to act
                         loggedIn = true;
                         getPin = false; //on login success, no need pin anymore
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success")); //change screen to menu to select account
                         //send verification success notification to touchscreen display so that screen is changed
-                    } else if (msg.getDetails().equals("Fail")) {
+                    } else if (msg.getDetails().equals("Fail")) {   //fail
                         errorCount++;
-                        if (errorCount >= 3) {
+                        if (errorCount >= 3) {      //if error PIN >= 3, retain card
                             log.info(id + ": enter wrong PIN three times, retain the card");
                             //jump to the page saying card is retained
                             //instruct card reader retain card
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Card Retained"));
                             allReset();
-                        } else {        //situation that enter the wrong PIN
+                        } else {        //situation that enter the wrong PIN for one or two times
                             //give error message
                             pin = "";
                             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
@@ -108,25 +108,25 @@ public class ATMSS extends AppThread {
                     }
                     break;
 
-                case GetAccount:
+                case GetAccount:        //send BAMSHandler msg and ask for the accounts info of the card
                     bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.GetAccount, cardNum));
 //				touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, msg.getDetails()));
                     break;
 
-                case ReceiveAccount:
+                case ReceiveAccount:    //receive accounts info of specific card from BAMS
                     //if !operating account = "" && msg.getDetails() has no "/", return error
                     if (!selectedAcc.equals("") && !msg.getDetails().contains("/")) {       //only for money transfer at this moment
                         //this card has only one account and cannot do money transfer
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "This card has only one account\n\nCannot do money transfer"));
-                    } else {
+                    } else {        //initial account selection at this moment
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, transaction + "_" + msg.getDetails()));
                     }
                     break;
 
-                case Selected_Acc:
-                    if (transaction.equals("")) {
+                case Selected_Acc:      //receive input of selected account
+                    if (transaction.equals("")) {       //choose which account to operate
                         selectedAcc = msg.getDetails();        //on logout please clear this value
-                    } else {
+                    } else {            //choose account to transfer money
                         if (!selectedAcc.equals("")) {
                             transferAcc = msg.getDetails();
                             getAmount = true;
@@ -136,25 +136,26 @@ public class ATMSS extends AppThread {
                     }
                     break;
 
-                case MoneyTransferResult:
+                case MoneyTransferResult:           //Receive result about money transfer from BAMS
                     log.info(id + ": Money Transfer from " + selectedAcc + " to " + transferAcc + ": $" + msg.getDetails());
                     amountTyped = msg.getDetails();
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferResult, transferAcc + "_" + msg.getDetails()));
                     break;
 
-                case Dispense:
+                case Dispense:          //Receive msg from BAMS that allow withdraw and dispense money
+                    //may not have enough money in the account
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
                     break;
 
-                case EnquiryResult:
+                case EnquiryResult:     //Account enquiry result from BAMS
                     amountTyped = msg.getDetails();
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.EnquiryResult, msg.getDetails()));
                     break;
 
-                case Denom_sum:
+                case Denom_sum:         //receive cash from deposit slot
                     //receive money notes, update the money notes inventory
                     String[] denom = msg.getDetails().split(" ");
                     amountTyped = (Integer.parseInt(denom[0]) * 100 + Integer.parseInt(denom[1]) * 500 + Integer.parseInt(denom[2]) * 1000) + "";
@@ -163,7 +164,7 @@ public class ATMSS extends AppThread {
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));
                     break;
 
-                case DepositResult:
+                case DepositResult:     //receive deposit result from BAMS
                     amountTyped = msg.getDetails();
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DepositResult, msg.getDetails()));
                     break;
@@ -200,13 +201,13 @@ public class ATMSS extends AppThread {
                     quit = true;
                     break;
 
-                case Error:
+                case Error:     //receive error that cannot fix by itself
                     log.severe(id + ": " + msg);
                     break;
 
-                case ErrorRedirect:
+                case ErrorRedirect:         //redirect error page to another page
                     switch (transaction) {
-                        case "":
+                        case "":            //In enter PIN page
                             if (errorCount >= 3) {
                                 touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
                                 allReset();
@@ -244,13 +245,13 @@ public class ATMSS extends AppThread {
     private void processKeyPressed(Msg msg) {
         // *** The following is an example only!! ***
         log.info(id + ": " + msg.getDetails() + " is pressed");
-        if (msg.getDetails().compareToIgnoreCase("Cancel") == 0) {
+        if (msg.getDetails().compareToIgnoreCase("Cancel") == 0) {      //terminate whole transaction and eject card
             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
             //should be a screen showing thank you first
             allReset();        //if transaction canceled, reset pin variable
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
-        } else if (getPin) {
+        } else if (getPin) {        //stage of accepting PIN
             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
             // Set maximum password length to 9
             if (msg.getDetails().compareToIgnoreCase("Erase") == 0) {
@@ -268,6 +269,7 @@ public class ATMSS extends AppThread {
                 log.info("pin: " + pin);
                 //send variables cardNum and pin to BAMS for login
             } else {
+                //"00" is not allowed in enter PIN
                 if (pin.length() < 9) {
                     switch (msg.getDetails()) {
                         case "1":
@@ -279,21 +281,16 @@ public class ATMSS extends AppThread {
                         case "7":
                         case "8":
                         case "9":
-                        case "00":
                         case "0":
                             pin += msg.getDetails();
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
                             break;
                         default:
                             break;
                     }
-                    if (msg.getDetails().equals("00")) {
-                        // Run two times if entering "00"
-                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
-                    }
-                    touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "enterPIN"));
                 }
             }
-        } else if (getAmount) {
+        } else if (getAmount) {     //stage of accepting amount input, e.g. cash withdraw and money transfer
             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
             if (msg.getDetails().compareToIgnoreCase("Erase") == 0) {
                 amountTyped = "";
@@ -304,7 +301,7 @@ public class ATMSS extends AppThread {
                 }
             } else if (msg.getDetails().compareToIgnoreCase("Enter") == 0) {
                 //send amountTyped to BAMS
-                if (amountTyped.equals("")) {
+                if (amountTyped.equals("")) {       //prevent enter nothing
                     amountTyped = "0";
                 }
                 if (transaction.equals("Cash Withdrawal")) {
@@ -346,7 +343,7 @@ public class ATMSS extends AppThread {
         // *** process mouse click here!!! ***
         if (loggedIn) {
             switch (transaction) {
-                case "":
+                case "":        //main menu page
                     transaction = msg.getDetails();
 
                     switch (transaction) {
@@ -374,15 +371,16 @@ public class ATMSS extends AppThread {
                             //alert keypad
                             getAmount = true;
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
+                            keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
                             break;
                         case "Account Balance Enquiry":
                             //set transaction to true
-                            //check balance
+                            //check balance from BAMS
                             String enquiryDetails = cardNum + " " + selectedAcc;
                             bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.AccountEnquiry, enquiryDetails));
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, transaction));
                             break;
                         default:
+                            //do nothing
                             transaction = "";
                             break;
                     }
@@ -394,7 +392,7 @@ public class ATMSS extends AppThread {
                             bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Deposit, cardNum + " " + selectedAcc + " " + amountTyped));
                             break;
 
-                        case "Cancel":
+                        case "Cancel":          //reinput amount, need to eject the money?
                             //set transaction to true
                             amountTyped = "";
                             depositTimerID = Timer.setTimer(id, mbox, 15000);
@@ -416,11 +414,17 @@ public class ATMSS extends AppThread {
                 case "Account Balance Enquiry":
 
                 default:
+                    String status = "";
+                    if (amountTyped.equals("-1") || amountTyped.equals("")) {
+                        status = "Fail";
+                    } else {
+                        status = "Success";
+                    }
                     switch (msg.getDetails()) {
                         case "Continue Transaction and Print Advice":
                             //print advice
                             //reset the things and back to main menu
-                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + "Success"));
+                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + status));
                             halfRest();
                             touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
                             break;
@@ -434,7 +438,7 @@ public class ATMSS extends AppThread {
                         case "End Transaction and Print Advice":
                             //print advice
                             //eject card
-                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + "Success"));
+                            AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + status));
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable
@@ -458,6 +462,7 @@ public class ATMSS extends AppThread {
         }
     } // processMouseClicked
 
+    //for end transaction use
     private void allReset() {
         loggedIn = false;
         cardNum = "";
@@ -471,6 +476,7 @@ public class ATMSS extends AppThread {
         getAmount = false;
     }
 
+    //for continue transaction and return to main menu use
     private void halfRest() {
         transaction = "";
         transferAcc = "";
