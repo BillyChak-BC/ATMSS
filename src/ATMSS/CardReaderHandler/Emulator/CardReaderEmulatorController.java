@@ -135,6 +135,12 @@ public class CardReaderEmulatorController {
                     defaultCardSelected.setDisable(false);
                     defaultCardSelected = null;
                 }
+
+                // Confirm that card button can be pressed even if the card is removed.
+                card1Btn.setDisable(false);
+                card2Btn.setDisable(false);
+                card3Btn.setDisable(false);
+
                 break;
 
             default:
