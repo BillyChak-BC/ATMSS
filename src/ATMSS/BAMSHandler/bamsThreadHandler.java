@@ -39,7 +39,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
-                        log.severe(id + "Network connection problem occurs");
+                        log.severe(id + ": Network connection problem occurs");
                     }
                     break;
 
@@ -49,7 +49,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
-                        log.severe(id + "Network connection problem occurs");
+                        log.severe(id + ": Network connection problem occurs");
                     }
                     break;
 
@@ -59,7 +59,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
-                        log.severe(id + "Network connection problem occurs");
+                        log.severe(id + ": Network connection problem occurs");
                     }
                     break;
 
@@ -69,7 +69,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
-                        log.severe(id + "Network connection problem occurs");
+                        log.severe(id + ": Network connection problem occurs");
                     }
                     break;
 
@@ -79,7 +79,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
-                        log.severe(id + "Network connection problem occurs");
+                        log.severe(id + ": Network connection problem occurs");
                     }
                     break;
 
@@ -89,7 +89,7 @@ public class bamsThreadHandler extends AppThread{
                     } catch (BAMSInvalidReplyException e) {
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
-                        log.severe(id + "Network connection problem occurs");
+                        log.severe(id + ": Network connection problem occurs");
                     }
                     break;
 

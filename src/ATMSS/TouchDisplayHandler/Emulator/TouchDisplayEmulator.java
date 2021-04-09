@@ -141,6 +141,11 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         reloadStage("TouchDisplayMainMenu.fxml", "Cash Dispense", amount);
     }
 
+    protected void cashDispenseFinish(String amount) {
+        super.cashDispenseFinish(amount);
+        reloadStage("TouchDisplayMainMenu.fxml", "Cash Dispense Finish", amount);
+    }
+
     protected void accountEnquiry(String amount) {
         super.accountEnquiry(amount);
         reloadStage("TouchDisplayMainMenu.fxml", "Account Enquiry", amount);
@@ -254,8 +259,13 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                                     break;
 
                                 case "Cash Dispense":
-                                    //touchDisplayEmulatorController.cashDispensePage(total cash dispense);
-                                    touchDisplayEmulatorController.cashDispensePage(detail);
+                                    //touchDisplayEmulatorController.cashDispensePage(total cash dispense, money is not taken);
+                                    touchDisplayEmulatorController.cashDispensePage(detail, false);
+                                    break;
+
+                                case "Cash Dispense Finish":
+                                    //touchDisplayEmulatorController.cashDispensePage(total cash dispense, money is taken);
+                                    touchDisplayEmulatorController.cashDispensePage(detail, true);
                                     break;
 
                                 case "Deposit Result":

@@ -147,11 +147,19 @@ public class ATMSS extends AppThread {
                     //may not have enough money in the account
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
-                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));        //process the notes to dispense
+                    String amountDispense = denomDispenseCalculate(msg.getDetails());
+                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, amountDispense));        //process the notes to dispense
                     BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Dispenser Slot Opening!"));
                     dispenseTimerID = Timer.setTimer(id, mbox, 15000);
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, "OpenSlot")); //this is supposed to open slot
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
+                    break;
+
+                case DispenseFinish:
+                    //stop dispense slot timer
+                    Timer.cancelTimer(id, mbox, dispenseTimerID);
+                    //update touch display
+                    touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DispenseFinish, msg.getDetails()));
                     break;
 
                 case EnquiryResult:     //Account enquiry result from BAMS
@@ -311,8 +319,16 @@ public class ATMSS extends AppThread {
                 if (amountTyped.equals("")) {       //prevent enter nothing
                     amountTyped = "0";
                 }
+                //look at which transaction it is
                 if (transaction.equals("Cash Withdrawal")) {
-                    bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.CashWithdraw, cardNum + " " + selectedAcc + " " + amountTyped));
+                    //only amount that is divisible by 100 can be withdrawn
+                    if (Integer.parseInt(amountTyped) % 100 == 0 && Integer.parseInt(amountTyped) > 0) {    //check if amount is divisible by 100 and larger than 0
+                        //send bams withdraw request
+                        bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.CashWithdraw, cardNum + " " + selectedAcc + " " + amountTyped));
+                    } else {
+                        //return error and reject withdraw request
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Withdraw Amount should be divisible by 100"));
+                    }
                 } else if (transaction.equals("Money Transfer")) {
                     bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferRequest, cardNum + " " + selectedAcc + " " + transferAcc + " " + amountTyped));
                 }
@@ -334,9 +350,10 @@ public class ATMSS extends AppThread {
                     default:
                         break;
                 }
-                if (transaction.equals("Money Transfer")) {
+                //identify which transaction it is
+                if (transaction.equals("Money Transfer")) {     //it is money transfer
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TextTyped, transferAcc + "_" + msg.getDetails()));
-                } else {
+                } else {        //it is cash withdrawal
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TextTyped, msg.getDetails()));
                 }
             }
@@ -397,6 +414,7 @@ public class ATMSS extends AppThread {
                 case "Cash Deposit":
                     switch (msg.getDetails()) {
                         case "Confirm Amount":
+                            //confirm the amount input and send bams deposit request
                             bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Deposit, cardNum + " " + selectedAcc + " " + amountTyped));
                             break;
 
@@ -423,6 +441,7 @@ public class ATMSS extends AppThread {
 
                 default:
                     String status = "";
+                    //see the resulting amount success or fail
                     if (amountTyped.equals("-1") || amountTyped.equals("")) {
                         status = "Fail";
                     } else {
@@ -494,5 +513,19 @@ public class ATMSS extends AppThread {
         amountTyped = "";
         getPin = false;
         getAmount = false;
+    }
+
+    private String denomDispenseCalculate(String amount) {
+        String denom100 = "";
+        String denom500 = "";
+        String denom1000 = "";
+        int amountWithdraw = Integer.parseInt(amount);
+        denom1000 = (amountWithdraw / 1000) + "";
+        amountWithdraw -= Integer.parseInt(denom1000) * 1000;
+        denom500 = (amountWithdraw / 500) + "";
+        amountWithdraw -= Integer.parseInt(denom500) * 500;
+        denom100 = (amountWithdraw / 100) + "";
+        amountWithdraw -= Integer.parseInt(denom100) * 100;
+        return "" + denom100 + " " + denom500 + " " + denom1000;
     }
 } // CardReaderHandler

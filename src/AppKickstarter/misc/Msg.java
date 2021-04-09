@@ -116,5 +116,6 @@ public class Msg {
         /** Typed text*/            TextTyped,
         /** Send Money Transfer Request*/       MoneyTransferRequest,
         /** Receive Money Transfer Result*/     MoneyTransferResult,
+        /** Cash Dispense has been taken */     DispenseFinish,
     } // Type
 } // Msg
