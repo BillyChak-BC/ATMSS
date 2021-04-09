@@ -218,6 +218,7 @@ public class ATMSS extends AppThread {
 
                 case Error:     //receive error that cannot fix by itself
                     log.severe(id + ": " + msg);
+                    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Error, "Error occurred!"));
                     break;
 
                 case ErrorRedirect:         //redirect error page to another page
