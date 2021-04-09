@@ -147,11 +147,19 @@ public class ATMSS extends AppThread {
                     //may not have enough money in the account
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
-                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));        //process the notes to dispense
+                    String amountDispense = denomDispenseCalculate(msg.getDetails());
+                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, amountDispense));        //process the notes to dispense
                     BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Dispenser Slot Opening!"));
                     dispenseTimerID = Timer.setTimer(id, mbox, 15000);
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, "OpenSlot")); //this is supposed to open slot
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
+                    break;
+
+                case DispenseFinish:
+                    //stop dispense slot timer
+                    Timer.cancelTimer(id, mbox, dispenseTimerID);
+                    //update touch display
+                    touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DispenseFinish, msg.getDetails()));
                     break;
 
                 case EnquiryResult:     //Account enquiry result from BAMS
@@ -505,5 +513,19 @@ public class ATMSS extends AppThread {
         amountTyped = "";
         getPin = false;
         getAmount = false;
+    }
+
+    private String denomDispenseCalculate(String amount) {
+        String denom100 = "";
+        String denom500 = "";
+        String denom1000 = "";
+        int amountWithdraw = Integer.parseInt(amount);
+        denom1000 = (amountWithdraw / 1000) + "";
+        amountWithdraw -= Integer.parseInt(denom1000) * 1000;
+        denom500 = (amountWithdraw / 500) + "";
+        amountWithdraw -= Integer.parseInt(denom500) * 500;
+        denom100 = (amountWithdraw / 100) + "";
+        amountWithdraw -= Integer.parseInt(denom100) * 100;
+        return "" + denom100 + " " + denom500 + " " + denom1000;
     }
 } // CardReaderHandler

@@ -55,6 +55,10 @@ public class TouchDisplayHandler extends HWHandler {
                 cashDispense(msg.getDetails());
                 break;
 
+            case DispenseFinish:
+                cashDispenseFinish(msg.getDetails());
+                break;
+
             case EnquiryResult:
                 accountEnquiry(msg.getDetails());
                 break;
@@ -111,6 +115,10 @@ public class TouchDisplayHandler extends HWHandler {
 
     protected void cashDispense(String amount) {
         log.info(id + "cash dispense");
+    }
+
+    protected void cashDispenseFinish(String amount) {
+        log.info(id + "cash dispense finish");
     }
 
     protected void accountEnquiry(String amount) {

@@ -315,11 +315,13 @@ public class TouchDisplayEmulatorController {
         blankScreenLabel.setText("Please enter the amount you want to withdraw\n\nPlease press Enter button after entering the amount\n\nPlease press Erase button if you type wrong");
     }
 
-    protected void cashDispensePage(String amount) {
+    protected void cashDispensePage(String amount, boolean taken) {
         currentPage = 6;
         menuTopLabel.setText("Operating Account Number: " + operatingAcc);
-        menuLabel.setText("Total amount dispensed: $" + amount);
-        transactionFinalPage();
+        menuLabel.setText("Total amount dispensed: $" + amount + "\n\nPlease take away your money before your next action");
+        if (taken) {
+            transactionFinalPage();
+        }
     }
 
     protected void accountEnquiryMenu(String amount) {

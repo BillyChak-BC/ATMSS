@@ -22,9 +22,9 @@ public class DispenserSlotEmulatorController {
     private MBox DispenserSlotMBox;
     
     private boolean dispense = false;
-//    private int denom100 = 0;					//this might not be necessary, since the denominations are being sent to dispenser to pr
-//    private int denom500 = 0;					//we do not need to keep track or modify the values
-//    private int denom1000 = 0;
+    private int denom100 = 10000;					//this might not be necessary, since the denominations are being sent to dispenser to pr
+    private int denom500 = 10000;					//we do not need to keep track or modify the values
+    private int denom1000 = 10000;                  //we need to keep track of the money notes inventory
 
     public TextField amtField;
     public TextField DispenserSlotStatusField;
@@ -48,8 +48,8 @@ public class DispenserSlotEmulatorController {
     	    case "Withdraw":
     	    	if (dispense && (amtField.getText().length() != 0)) {
     	    		DispenserSlotTextArea.appendText("Withdrawing " + amtField.getText()+"\n");
-        	    	amtField.setText("");
-        	    	DispenserSlotMBox.send(new Msg(id, DispenserSlotMBox, Msg.Type.Deposit, ("CloseSlot")));		//when finish withdraw close the slot
+        	    	DispenserSlotMBox.send(new Msg(id, DispenserSlotMBox, Msg.Type.DispenseFinish, amtField.getText()));		//when finish withdraw close the slot
+                    amtField.setText("");
         	    	//denom100 = denom500 = denom1000 = 0;
     	    	}else {
     	    		DispenserSlotTextArea.appendText("Slot not open! Unable to withdraw!\n");
