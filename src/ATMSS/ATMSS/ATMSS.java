@@ -13,6 +13,7 @@ public class ATMSS extends AppThread {
     private int pollingTime;
     private int atmssTimerID = -1;
     private int depositTimerID = -1;
+    private int dispenseTimerID = -1;
 
     private boolean loggedIn = false;
     private String transaction = "";        //would it be better to store as a String compared to boolean?
@@ -146,7 +147,10 @@ public class ATMSS extends AppThread {
                     //may not have enough money in the account
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
-                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
+                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, msg.getDetails()));        //process the notes to dispense
+                    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Dispenser Slot Opening!"));
+                    dispenseTimerID = Timer.setTimer(id, mbox, 15000);
+                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, "OpenSlot")); //this is supposed to open slot
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Dispense, msg.getDetails()));
                     break;
 
@@ -189,6 +193,9 @@ public class ATMSS extends AppThread {
                         DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
                         //touchdisplay update
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, "0 0 0"));
+                    }else if (timerID ==dispenseTimerID){
+                        dispenseTimerID = -1;
+                        DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
                     }
 
                     break;
@@ -355,6 +362,7 @@ public class ATMSS extends AppThread {
                             DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));  //alert deposit slot
 
                             DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "OpenSlot")); //open deposit slot
+                            BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Deposit Slot Opened!"));
 
                             break;
                         case "Money Transfer":
@@ -425,6 +433,8 @@ public class ATMSS extends AppThread {
                             //print advice
                             //reset the things and back to main menu
                             AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + status));
+                            BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Printed advice can be collected!"));
+
                             halfRest();
                             touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
                             break;
@@ -439,6 +449,7 @@ public class ATMSS extends AppThread {
                             //print advice
                             //eject card
                             AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Print, selectedAcc + "_" + transaction + "_" + transferAcc + "_" + amountTyped + "_" + status));
+                            BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Printed advice can be collected!"));
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable

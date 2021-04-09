@@ -44,9 +44,22 @@ public class BuzzerEmulator extends BuzzerHandler {
 
     protected void alert(String msg) {
         super.alert(msg);
-        myStage.toFront();//move the stage to the front
-        buzzerEmulatorController.sound();
-        //shake the stage
-        buzzerEmulatorController.appendTextArea(msg);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                myStage.toFront();//move the stage to the front
+                buzzerEmulatorController.sound();
+                buzzerEmulatorController.appendTextArea(msg);
+                //shake the stage
+//				for (int i = 0; i < 10; i++) {
+//					myStage.setX(myStage.getX()+10);
+//					myStage.setX(myStage.getX()-10);
+//					myStage.setX(myStage.getX()-10);
+//					myStage.setX(myStage.getX()+10);
+//				}
+            }
+        });
+
+
     }
 }
