@@ -97,12 +97,14 @@ public class ATMSS extends AppThread {
                             log.info(id + ": enter wrong PIN three times, retain the card");
                             //jump to the page saying card is retained
                             //instruct card reader retain card
+                            BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Incorrect pin thrice! Card retained!"));
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Card Retained"));
                             allReset();
                         } else {        //situation that enter the wrong PIN for one or two times
                             //give error message
                             pin = "";
+                            BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Incorrect pin! Please try again!"));
                             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Wrong PIN\n\nPlease ensure you enter the right PIN"));
                         }
