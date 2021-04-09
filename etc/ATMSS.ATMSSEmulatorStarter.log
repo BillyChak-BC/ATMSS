@@ -1,98 +1,198 @@
-210409-11:18:03 [INFO] -- 
-210409-11:18:03 [INFO] -- 
-210409-11:18:03 [INFO] -- ============================================================
-210409-11:18:03 [INFO] -- ATMSSStarter: Application Starting...
-210409-11:18:06 [INFO] -- DispenserSlotHandler: starting...
-210409-11:18:06 [INFO] -- CardReaderHandler: starting...
-210409-11:18:06 [INFO] -- KeypadHandler: starting...
-210409-11:18:06 [INFO] -- timer: starting...
-210409-11:18:06 [INFO] -- BuzzerHandler: starting...
-210409-11:18:06 [INFO] -- TouchDisplayHandler: starting...
-210409-11:18:06 [INFO] -- DepositSlotHandler: starting...
-210409-11:18:06 [INFO] -- BAMSThreadHandler: starting...
-210409-11:18:06 [INFO] -- ATMSS: starting...
-210409-11:18:06 [INFO] -- AdvicePrinterHandler: starting...
-210409-11:18:12 [INFO] -- CardReaderHandler: card inserted
-210409-11:18:12 [INFO] -- CardInserted: 4107-7014
-210409-11:18:12 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:12 [INFO] -- TouchDisplayHandler: update display -- PIN Required
-210409-11:18:12 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:12 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:15 [INFO] -- KeyPressed: 4
-210409-11:18:15 [INFO] -- ATMSS: 4 is pressed
-210409-11:18:15 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:15 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:15 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:15 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:15 [INFO] -- KeyPressed: 5
-210409-11:18:15 [INFO] -- ATMSS: 5 is pressed
-210409-11:18:15 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:15 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:15 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:16 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:16 [INFO] -- KeyPressed: 6
-210409-11:18:16 [INFO] -- ATMSS: 6 is pressed
-210409-11:18:16 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:16 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:16 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:16 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:17 [INFO] -- KeyPressed: 1
-210409-11:18:17 [INFO] -- ATMSS: 1 is pressed
-210409-11:18:17 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:17 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:17 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:17 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:18 [INFO] -- KeyPressed: 2
-210409-11:18:18 [INFO] -- ATMSS: 2 is pressed
-210409-11:18:18 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:18 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:18 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:18 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:18 [INFO] -- KeyPressed: 3
-210409-11:18:18 [INFO] -- ATMSS: 3 is pressed
-210409-11:18:18 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:18 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:18 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:18 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:19 [INFO] -- KeyPressed: 7
-210409-11:18:19 [INFO] -- ATMSS: 7 is pressed
-210409-11:18:19 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:19 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:19 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:19 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:19 [INFO] -- KeyPressed: 8
-210409-11:18:19 [INFO] -- ATMSS: 8 is pressed
-210409-11:18:19 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:19 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:19 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:19 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:19 [INFO] -- KeyPressed: 9
-210409-11:18:19 [INFO] -- ATMSS: 9 is pressed
-210409-11:18:19 [INFO] -- KeypadHandler: alert user-- 
-210409-11:18:19 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210409-11:18:19 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:19 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:24 [INFO] -- KeyPressed: Cancel
-210409-11:18:24 [INFO] -- ATMSS: Cancel is pressed
-210409-11:18:24 [INFO] -- CardReaderHandler: card ejected
-210409-11:18:24 [INFO] -- TouchDisplayHandler: update display -- erasePIN
-210409-11:18:24 [INFO] -- TouchDisplayHandler: update display -- Welcome
-210409-11:18:24 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:24 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
-210409-11:18:24 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210409-11:18:27 [INFO] -- CardReaderHandler: card removed
-210409-11:18:31 [INFO] -- 
-210409-11:18:31 [INFO] -- 
-210409-11:18:31 [INFO] -- ============================================================
-210409-11:18:31 [INFO] -- ATMSSStarter: Application Stopping...
-210409-11:18:31 [INFO] -- ATMSS: terminating...
-210409-11:18:31 [INFO] -- DispenserSlotHandler: terminating...
-210409-11:18:31 [INFO] -- timer: received terminate!
-210409-11:18:31 [INFO] -- timer: terminating...
-210409-11:18:31 [INFO] -- CardReaderHandler: terminating...
-210409-11:18:31 [INFO] -- TouchDisplayHandler: terminating...
-210409-11:18:31 [INFO] -- KeypadHandler: terminating...
-210409-11:18:31 [INFO] -- BuzzerHandler: terminating...
-210409-11:18:31 [INFO] -- AdvicePrinterHandler: terminating...
-210409-11:18:31 [INFO] -- DepositSlotHandler: terminating...
-210409-11:18:31 [INFO] -- BAMSThreadHandler: terminating...
+210409-14:08:32 [INFO] -- 
+210409-14:08:32 [INFO] -- 
+210409-14:08:32 [INFO] -- ============================================================
+210409-14:08:32 [INFO] -- ATMSSStarter: Application Starting...
+210409-14:08:35 [INFO] -- BAMSThreadHandler: starting...
+210409-14:08:35 [INFO] -- BuzzerHandler: starting...
+210409-14:08:35 [INFO] -- AdvicePrinterHandler: starting...
+210409-14:08:35 [INFO] -- DispenserSlotHandler: starting...
+210409-14:08:35 [INFO] -- DepositSlotHandler: starting...
+210409-14:08:35 [INFO] -- TouchDisplayHandler: starting...
+210409-14:08:35 [INFO] -- KeypadHandler: starting...
+210409-14:08:35 [INFO] -- CardReaderHandler: starting...
+210409-14:08:35 [INFO] -- timer: starting...
+210409-14:08:35 [INFO] -- ATMSS: starting...
+210409-14:08:41 [INFO] -- CardReaderHandler: card inserted
+210409-14:08:41 [INFO] -- CardInserted: 4107-7014
+210409-14:08:41 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:41 [INFO] -- TouchDisplayHandler: update display -- PIN Required
+210409-14:08:41 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:41 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:45 [INFO] -- KeyPressed: 4
+210409-14:08:45 [INFO] -- ATMSS: 4 is pressed
+210409-14:08:45 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:45 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:45 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:45 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:45 [INFO] -- KeyPressed: 5
+210409-14:08:45 [INFO] -- ATMSS: 5 is pressed
+210409-14:08:45 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:45 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:45 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:45 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:45 [INFO] -- KeyPressed: 6
+210409-14:08:45 [INFO] -- ATMSS: 6 is pressed
+210409-14:08:45 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:45 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:45 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:45 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:46 [INFO] -- KeyPressed: 1
+210409-14:08:46 [INFO] -- ATMSS: 1 is pressed
+210409-14:08:46 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:46 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:46 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:46 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:46 [INFO] -- KeyPressed: 2
+210409-14:08:46 [INFO] -- ATMSS: 2 is pressed
+210409-14:08:46 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:46 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:46 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:46 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:47 [INFO] -- KeyPressed: 3
+210409-14:08:47 [INFO] -- ATMSS: 3 is pressed
+210409-14:08:47 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:47 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:47 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:47 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:47 [INFO] -- KeyPressed: 7
+210409-14:08:47 [INFO] -- ATMSS: 7 is pressed
+210409-14:08:47 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:47 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:47 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:47 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:48 [INFO] -- KeyPressed: 8
+210409-14:08:48 [INFO] -- ATMSS: 8 is pressed
+210409-14:08:48 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:48 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:48 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:48 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:48 [INFO] -- KeyPressed: 9
+210409-14:08:48 [INFO] -- ATMSS: 9 is pressed
+210409-14:08:48 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:48 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210409-14:08:48 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:48 [WARNING] -- TouchDisplayHandler: At this moment, the program will give a lot of errors or no respond after sending the PIN for validation
+210409-14:08:49 [INFO] -- KeyPressed: Enter
+210409-14:08:49 [INFO] -- ATMSS: Enter is pressed
+210409-14:08:49 [INFO] -- ATMSS : verifying cardnum and pin
+210409-14:08:49 [INFO] -- pin: 456123789
+210409-14:08:49 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:51 [INFO] -- BAMSThreadHandler : successful login!
+210409-14:08:51 [INFO] -- TouchDisplayHandler: changing login status
+210409-14:08:51 [INFO] -- TouchDisplayHandler: select account
+210409-14:08:51 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:08:52 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210409-14:08:52 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:08:53 [INFO] -- MouseCLicked: Account Balance Enquiry
+210409-14:08:54 [INFO] -- TouchDisplayHandler: account enquiry
+210409-14:08:54 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:08:55 [INFO] -- MouseCLicked: Continue Transaction
+210409-14:08:55 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210409-14:08:55 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:08:56 [INFO] -- MouseCLicked: Cash Withdrawal
+210409-14:08:56 [INFO] -- TouchDisplayHandler: update display -- Cash Withdrawal
+210409-14:08:56 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:56 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:58 [INFO] -- KeyPressed: 1
+210409-14:08:58 [INFO] -- ATMSS: 1 is pressed
+210409-14:08:58 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:08:58 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:58 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:58 [INFO] -- KeyPressed: 00
+210409-14:08:58 [INFO] -- ATMSS: 00 is pressed
+210409-14:08:58 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:58 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:08:58 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:58 [INFO] -- KeyPressed: 00
+210409-14:08:58 [INFO] -- ATMSS: 00 is pressed
+210409-14:08:58 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:08:58 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:58 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:08:59 [INFO] -- KeyPressed: 00
+210409-14:08:59 [INFO] -- ATMSS: 00 is pressed
+210409-14:08:59 [INFO] -- KeypadHandler: alert user-- 
+210409-14:08:59 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:08:59 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:02 [INFO] -- KeyPressed: Erase
+210409-14:09:02 [INFO] -- ATMSS: Erase is pressed
+210409-14:09:02 [INFO] -- KeypadHandler: alert user-- 
+210409-14:09:02 [INFO] -- TouchDisplayHandler: update display -- Cash Withdrawal
+210409-14:09:02 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:03 [INFO] -- KeyPressed: 1
+210409-14:09:03 [INFO] -- ATMSS: 1 is pressed
+210409-14:09:03 [INFO] -- KeypadHandler: alert user-- 
+210409-14:09:03 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:09:03 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:04 [INFO] -- KeyPressed: 00
+210409-14:09:04 [INFO] -- ATMSS: 00 is pressed
+210409-14:09:04 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:09:04 [INFO] -- KeypadHandler: alert user-- 
+210409-14:09:04 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:04 [INFO] -- KeyPressed: 00
+210409-14:09:04 [INFO] -- ATMSS: 00 is pressed
+210409-14:09:04 [INFO] -- KeypadHandler: alert user-- 
+210409-14:09:04 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:09:04 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:05 [INFO] -- KeyPressed: 0
+210409-14:09:05 [INFO] -- ATMSS: 0 is pressed
+210409-14:09:05 [INFO] -- TouchDisplayHandler: Amount Field Change
+210409-14:09:05 [INFO] -- KeypadHandler: alert user-- 
+210409-14:09:05 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:08 [INFO] -- KeyPressed: Enter
+210409-14:09:08 [INFO] -- ATMSS: Enter is pressed
+210409-14:09:08 [INFO] -- KeypadHandler: alert user-- 
+210409-14:09:08 [INFO] -- ATMSS: Cash Dispense: $-1
+210409-14:09:08 [INFO] -- TouchDisplayHandlercash dispense
+210409-14:09:08 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:09:11 [INFO] -- MouseCLicked: Continue Transaction and Print Advice
+210409-14:09:11 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210409-14:09:11 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:09:11 [INFO] -- AdvicePrinterHandler: advice printed
+210409-14:09:13 [INFO] -- MouseCLicked: Account Balance Enquiry
+210409-14:09:13 [INFO] -- TouchDisplayHandler: account enquiry
+210409-14:09:13 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:09:14 [INFO] -- MouseCLicked: Continue Transaction
+210409-14:09:14 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210409-14:09:14 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:09:18 [INFO] -- MouseCLicked: Cash Deposit
+210409-14:09:18 [INFO] -- TouchDisplayHandler: update display -- Cash Deposit
+210409-14:09:18 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
+210409-14:09:18 [INFO] -- DepositSlotHandler: alert user-- 
+210409-14:09:18 [INFO] -- DepositSlotHandlerOpening Deposit Slot
+210409-14:09:22 [INFO] -- DepositSlotHandlerClosing Deposit Slot
+210409-14:09:22 [INFO] -- CashDeposit Denominations: 2000
+210409-14:09:22 [INFO] -- TouchDisplayHandler: cash deposit
+210409-14:09:22 [INFO] -- DepositSlotHandlerClosing Deposit Slot
+210409-14:09:22 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
+210409-14:09:24 [INFO] -- MouseCLicked: Confirm Amount
+210409-14:09:24 [INFO] -- TouchDisplayHandlerCash Deposit Result
+210409-14:09:24 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210409-14:09:26 [INFO] -- MouseCLicked: End Transaction and Print Advice
+210409-14:09:26 [INFO] -- AdvicePrinterHandler: advice printed
+210409-14:09:26 [INFO] -- CardReaderHandler: card ejected
+210409-14:09:26 [INFO] -- TouchDisplayHandler: update display -- Welcome
+210409-14:09:26 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210409-14:09:35 [INFO] -- Poll: TimesUp 51521 0
+210409-14:09:35 [INFO] -- PollAck: KeypadHandler is up!
+210409-14:09:35 [INFO] -- PollAck: CardReaderHandler is up!
+210409-14:09:35 [INFO] -- PollAck: TouchDisplayHandler is up!
+210409-14:09:35 [INFO] -- PollAck: DepositSlotHandler is up!
+210409-14:09:35 [INFO] -- PollAck: DispenserSlotHandler is up!
+210409-14:09:35 [INFO] -- PollAck: AdvicePrinterHandler is up!
+210409-14:09:35 [INFO] -- PollAck: BuzzerHandler is up!
+210409-14:09:42 [INFO] -- CardReaderHandler: card removed
+210409-14:09:45 [INFO] -- 
+210409-14:09:45 [INFO] -- 
+210409-14:09:45 [INFO] -- ============================================================
+210409-14:09:45 [INFO] -- ATMSSStarter: Application Stopping...
+210409-14:09:45 [INFO] -- ATMSS: terminating...
+210409-14:09:45 [INFO] -- CardReaderHandler: terminating...
+210409-14:09:45 [INFO] -- TouchDisplayHandler: terminating...
+210409-14:09:45 [INFO] -- DispenserSlotHandler: terminating...
+210409-14:09:45 [INFO] -- timer: received terminate!
+210409-14:09:45 [INFO] -- timer: terminating...
+210409-14:09:45 [INFO] -- DepositSlotHandler: terminating...
+210409-14:09:45 [INFO] -- KeypadHandler: terminating...
+210409-14:09:45 [INFO] -- BuzzerHandler: terminating...
+210409-14:09:45 [INFO] -- AdvicePrinterHandler: terminating...
+210409-14:09:45 [INFO] -- BAMSThreadHandler: terminating...
