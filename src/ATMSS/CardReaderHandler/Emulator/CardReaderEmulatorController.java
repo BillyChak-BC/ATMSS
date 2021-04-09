@@ -110,12 +110,13 @@ public class CardReaderEmulatorController {
                     //no card selected
                     cardReaderTextArea.appendText("Warning: No card is selected");
                     break;
+                }else if(!cardText.matches(".*[a-z].*")){
+                    cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardInserted, cardText));
+                    cardReaderTextArea.appendText("Sending " + cardText + "\n");
+                }else{
+                    cardReaderTextArea.appendText("Warning: Only numbers");
+                    break;
                 }
-                cardNumField1.setEditable(false);
-                cardNumField2.setEditable(false);
-                cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardInserted, cardText));
-                cardReaderTextArea.appendText("Sending " + cardText+"\n");
-                //simulate the situation that the card is inserted to the card reader, user cannot get the card inserted
                 if (defaultCardSelected != null) {
                     defaultCardSelected.setDisable(true);
                 }
@@ -129,11 +130,10 @@ public class CardReaderEmulatorController {
 
                     cardReaderTextArea.appendText("Removing card\n");
                     cardReaderMBox.send(new Msg(id, cardReaderMBox, Msg.Type.CR_CardRemoved, cardText));
-                    if (defaultCardSelected != null) {
-                        //the card return to the hand of user
-                        defaultCardSelected.setDisable(false);
-                        defaultCardSelected = null;
-                    }
+                }
+                if (defaultCardSelected != null) {
+                    defaultCardSelected.setDisable(false);
+                    defaultCardSelected = null;
                 }
                 break;
 
@@ -149,15 +149,12 @@ public class CardReaderEmulatorController {
     public void updateCardStatus(String status) {
         cardStatusField.setText(status);
         if (status.compareTo("Card Inserted") == 0) {
-            //card is inserted, card reader slot is locked, neither insert card nor remove can be done
             insertBtn.setDisable(true);
             removeBtn.setDisable(true);
         } else if (status.compareTo("Card Ejected") == 0) {
-            //card is ejected, card reader eject a card, only remove the ejected card is allowed
             insertBtn.setDisable(true);
             removeBtn.setDisable(false);
         } else if (status.compareTo("Card Reader Empty") == 0) {
-            //card reader slot is empty, no card can be removed, only card insertion can be done
             insertBtn.setDisable(false);
             removeBtn.setDisable(true);
         }
@@ -166,9 +163,8 @@ public class CardReaderEmulatorController {
     public void clearCardNum(){
         cardNumField1.setText("");
         cardNumField2.setText("");
-        cardNumField1.setEditable(true);
-        cardNumField2.setEditable(true);
     }
+
 
     //------------------------------------------------------------
     // appendTextArea
