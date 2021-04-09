@@ -7,6 +7,7 @@ amount   DOUBLE
 username VARCHAR(255)
 accNo    VARCHAR(255) NOT NULL PRIMARY_KEY
 FK: fk_Card_cardNo cardNo REFERENCES Card(cardNo)
+/*need to add chkAmount constraint: check that the amount before insert or update is NOT less than 0*/
 
 Card
 cardNo   VARCHAR(255) NOT NULL PRIMARY_KEY
