@@ -57,7 +57,10 @@ public class CardReaderEmulator extends CardReaderHandler {
     protected void handleCardInsert() {
         // fixme
 	super.handleCardInsert();
-	cardReaderEmulatorController.appendTextArea("Card Inserted");
+		Platform.runLater(() -> {
+			cardReaderEmulatorController.appendTextArea("Card Inserted");
+		});
+
 	cardReaderEmulatorController.updateCardStatus("Card Inserted");
     } // handleCardInsert
 
