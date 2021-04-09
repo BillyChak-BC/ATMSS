@@ -124,13 +124,14 @@ public class TouchDisplayEmulatorController {
         eraseText();
         blankTopLabel.setText("Welcome to ATM system emulator");
         blankScreenLabel.setText("Please Insert ATM Card");
+        //show which money notes available on welcome page
     }
 
     public void enterPINPage(boolean enterPIN) {
         currentPage = 1;
         log.warning(id + ": At this moment, the program will give a lot of errors or no respond after sending the PIN for validation");
         blankTopLabel.setText("Please Enter the PIN:");
-        blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n");
+        blankScreenLabel.setText("Please Press Enter Button after Entering PIN\n\nPlease Press Erase Button If You Type Wrong\n\nPlease Press Cancel If You Want to Cancel Transaction\n\n\"00\" cannot be used at this page\n\n");
         if (enterPIN) {
             if (blankAmountStringBuild.length() < 9) {
                 blankAmountStringBuild.append("*");
