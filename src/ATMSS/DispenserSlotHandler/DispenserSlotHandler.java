@@ -30,6 +30,18 @@ public class DispenserSlotHandler extends HWHandler {
                 handleDenomsUpdate(msg.getDetails());
                 break;
 
+            case DenomsInventoryCheck:
+                if (msg.getDetails().equals("")) {
+                    handleDenomsInventoryCheck();
+                } else {
+                    atmss.send(new Msg(id, mbox, Msg.Type.DenomsInventoryCheck, msg.getDetails()));
+                }
+                break;
+
+            case Error:
+                atmss.send(new Msg(id, mbox, Msg.Type.Error, msg.getDetails()));
+                break;
+
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
         }
@@ -49,5 +61,9 @@ public class DispenserSlotHandler extends HWHandler {
 
     protected void handleDenomsUpdate(String details) {
         log.info(id + ": denoms increase: " + details);
+    }
+
+    protected void handleDenomsInventoryCheck() {
+        log.info(id + ": denoms inventory check");
     }
 }

@@ -153,7 +153,7 @@ public class ATMSS extends AppThread {
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
                     String amountDispense = denomDispenseCalculate(msg.getDetails());
-                    denomsToChange = amountDispense;
+                    denomsToChange = amountDispense;        //format: "0 0 0"
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, amountDispense));        //process the notes to dispense
                     BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Dispenser Slot Opening!"));
                     dispenseTimerID = Timer.setTimer(id, mbox, 15000);
@@ -180,6 +180,7 @@ public class ATMSS extends AppThread {
 
                 case Denom_sum:         //receive cash from deposit slot
                     //receive money notes, update the money notes inventory
+                    denomsToChange = msg.getDetails();
                     String[] denom = msg.getDetails().split(" ");
                     amountTyped = (Integer.parseInt(denom[0]) * 100 + Integer.parseInt(denom[1]) * 500 + Integer.parseInt(denom[2]) * 1000) + "";
                     log.info("CashDeposit Denominations: " + amountTyped);
@@ -189,6 +190,12 @@ public class ATMSS extends AppThread {
 
                 case DepositResult:     //receive deposit result from BAMS
                     amountTyped = msg.getDetails();
+                    if ((int) Double.parseDouble(amountTyped) > -1) {
+                        DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.DenomsInventoryUpdate, denomsToChange));
+                        updateDenomsInventory(denomsToChange, true);
+                        log.info(id + ": denoms change: increase: " + denomsToChange);
+                        log.info(id + ": denoms: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
+                    }
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DepositResult, msg.getDetails()));
                     break;
 
@@ -233,6 +240,17 @@ public class ATMSS extends AppThread {
                     quit = true;
                     break;
 
+                case DenomsInventoryCheck:
+                    String denomsKeeping = denom100 + " " + denom500 + " " + denom1000;
+                    if (!denomsKeeping.equals(msg.getDetails())) {
+                        StringTokenizer denomsToken = new StringTokenizer(msg.getDetails());
+                        denom100 = Integer.parseInt(denomsToken.nextToken());
+                        denom500 = Integer.parseInt(denomsToken.nextToken());
+                        denom1000 = Integer.parseInt(denomsToken.nextToken());
+                        log.warning(id + ": Denoms inventory keeping incorrect");
+                    }
+                    break;
+
                 case Error:     //receive error that cannot fix by itself
                     log.severe(id + ": " + msg);
                     BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Error, "Error occurred!"));
@@ -245,6 +263,7 @@ public class ATMSS extends AppThread {
                                 touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
                                 allReset();
                             } else {
+                                getPin = true;
                                 touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
                             }
                             break;
@@ -303,6 +322,7 @@ public class ATMSS extends AppThread {
 
                 log.info(id + " : verifying cardnum and pin");
                 bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Verify, cardNum + " " + pin));
+                getPin = false;
 
                 log.info("pin: " + pin);
                 //send variables cardNum and pin to BAMS for login
@@ -355,6 +375,7 @@ public class ATMSS extends AppThread {
                 } else if (transaction.equals("Money Transfer")) {
                     bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferRequest, cardNum + " " + selectedAcc + " " + transferAcc + " " + amountTyped));
                 }
+                getAmount = false;
             } else {
                 switch (msg.getDetails()) {
                     case "1":
@@ -603,6 +624,7 @@ public class ATMSS extends AppThread {
                 count++;
             }
         }
+        DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.DenomsInventoryCheck, ""));
     }
 
 }

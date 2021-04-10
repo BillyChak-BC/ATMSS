@@ -3,17 +3,14 @@ package ATMSS.CardReaderHandler.Emulator;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.MBox;
 import AppKickstarter.misc.Msg;
-
-import java.util.ArrayList;
-import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
+
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 //======================================================================
@@ -78,21 +75,27 @@ public class CardReaderEmulatorController {
 
         switch (btn.getText()) {
             case "Card 1":
-                defaultCardSelected = btn;
+                if (cardStatusField.getText().equals("Card Reader Empty")) {
+                    defaultCardSelected = btn;
+                }
                 String cardNum1 = appKickstarter.getProperty("CardReader.Card1");
                 cardNumField1.setText(cardNum1.substring(0,4));
                 cardNumField2.setText(cardNum1.substring(5,9));
                 break;
 
             case "Card 2":
-                defaultCardSelected = btn;
+                if (cardStatusField.getText().equals("Card Reader Empty")) {
+                    defaultCardSelected = btn;
+                }
                 String cardNum2 = appKickstarter.getProperty("CardReader.Card2");
                 cardNumField1.setText(cardNum2.substring(0,4));
                 cardNumField2.setText(cardNum2.substring(5,9));
                 break;
 
             case "Card 3":
-                defaultCardSelected = btn;
+                if (cardStatusField.getText().equals("Card Reader Empty")) {
+                    defaultCardSelected = btn;
+                }
                 String cardNum3 = appKickstarter.getProperty("CardReader.Card3");
                 cardNumField1.setText(cardNum3.substring(0,4));
                 cardNumField2.setText(cardNum3.substring(5,9));
@@ -101,6 +104,9 @@ public class CardReaderEmulatorController {
             case "Reset":
                 cardNumField1.setText("");
                 cardNumField2.setText("");
+                if (cardStatusField.getText().equals("Card Reader Empty")) {
+                    defaultCardSelected = null;
+                }
                 break;
 
             case "Insert Card":
@@ -137,9 +143,9 @@ public class CardReaderEmulatorController {
                 }
 
                 // Confirm that card button can be pressed even if the card is removed.
-                card1Btn.setDisable(false);
-                card2Btn.setDisable(false);
-                card3Btn.setDisable(false);
+//                card1Btn.setDisable(false);
+//                card2Btn.setDisable(false);
+//                card3Btn.setDisable(false);
 
                 break;
 

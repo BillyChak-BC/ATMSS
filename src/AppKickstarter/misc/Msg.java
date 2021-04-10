@@ -118,5 +118,6 @@ public class Msg {
         /** Receive Money Transfer Result*/     MoneyTransferResult,
         /** Cash Dispense has been taken */     DispenseFinish,
         /** Update denoms inventory */          DenomsInventoryUpdate,
+        /** Denoms inventory check */       DenomsInventoryCheck,
     } // Type
 } // Msg
