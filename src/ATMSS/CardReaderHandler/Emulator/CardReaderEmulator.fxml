@@ -35,7 +35,7 @@
 		</AnchorPane>
 		<AnchorPane prefHeight="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
 			<children>
-			<TextField fx:id="cardStatusField" editable="false" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+			<TextField fx:id="cardStatusField" editable="false" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" text="Card Reader Empty"/>
 			</children>
 		</AnchorPane>
     </children>
