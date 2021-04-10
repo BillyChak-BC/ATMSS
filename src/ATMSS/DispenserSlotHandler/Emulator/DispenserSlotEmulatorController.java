@@ -123,7 +123,16 @@ public class DispenserSlotEmulatorController {
     }
 
     protected void checkDenomsInventory() {
-
+        DispenserSlotMBox.send(new Msg(id, DispenserSlotMBox, Msg.Type.DenomsInventoryCheck, "" + denom100 + " " + denom500 + " " + denom1000));
+        if (denom100 <= 0) {
+            DispenserSlotMBox.send(new Msg(id, DispenserSlotMBox, Msg.Type.Error, "run out of $100 money notes"));
+        }
+        if (denom500 <= 0) {
+            DispenserSlotMBox.send(new Msg(id, DispenserSlotMBox, Msg.Type.Error, "run out of $500 money notes"));
+        }
+        if (denom1000 <= 0) {
+            DispenserSlotMBox.send(new Msg(id, DispenserSlotMBox, Msg.Type.Error, "run out of $1000 money notes"));
+        }
     }
 
     //check inventory is needed

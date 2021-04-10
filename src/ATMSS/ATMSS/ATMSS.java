@@ -191,8 +191,8 @@ public class ATMSS extends AppThread {
                 case DepositResult:     //receive deposit result from BAMS
                     amountTyped = msg.getDetails();
                     if ((int) Double.parseDouble(amountTyped) > -1) {
-                        updateDenomsInventory(denomsToChange, true);
                         DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.DenomsInventoryUpdate, denomsToChange));
+                        updateDenomsInventory(denomsToChange, true);
                         log.info(id + ": denoms change: increase: " + denomsToChange);
                         log.info(id + ": denoms: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
                     }
@@ -238,6 +238,17 @@ public class ATMSS extends AppThread {
 
                 case Terminate:
                     quit = true;
+                    break;
+
+                case DenomsInventoryCheck:
+                    String denomsKeeping = denom100 + " " + denom500 + " " + denom1000;
+                    if (!denomsKeeping.equals(msg.getDetails())) {
+                        StringTokenizer denomsToken = new StringTokenizer(msg.getDetails());
+                        denom100 = Integer.parseInt(denomsToken.nextToken());
+                        denom500 = Integer.parseInt(denomsToken.nextToken());
+                        denom1000 = Integer.parseInt(denomsToken.nextToken());
+                        log.warning(id + ": Denoms inventory keeping incorrect");
+                    }
                     break;
 
                 case Error:     //receive error that cannot fix by itself
@@ -610,6 +621,7 @@ public class ATMSS extends AppThread {
                 count++;
             }
         }
+        DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.DenomsInventoryCheck, ""));
     }
 
 }

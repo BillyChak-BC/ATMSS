@@ -74,4 +74,9 @@ public class DispenserSlotEmulator extends DispenserSlotHandler {
         super.handleDenomsUpdate(details);
         DispenserSlotEmulatorController.updateDenomsInventory(details, true);
     }
+
+    protected void handleDenomsInventoryCheck() {
+        super.handleDenomsInventoryCheck();
+        DispenserSlotEmulatorController.checkDenomsInventory();
+    }
 }
