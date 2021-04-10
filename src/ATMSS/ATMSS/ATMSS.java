@@ -263,6 +263,7 @@ public class ATMSS extends AppThread {
                                 touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
                                 allReset();
                             } else {
+                                getPin = true;
                                 touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "PIN Required"));
                             }
                             break;
@@ -321,6 +322,7 @@ public class ATMSS extends AppThread {
 
                 log.info(id + " : verifying cardnum and pin");
                 bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Verify, cardNum + " " + pin));
+                getPin = false;
 
                 log.info("pin: " + pin);
                 //send variables cardNum and pin to BAMS for login
@@ -373,6 +375,7 @@ public class ATMSS extends AppThread {
                 } else if (transaction.equals("Money Transfer")) {
                     bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferRequest, cardNum + " " + selectedAcc + " " + transferAcc + " " + amountTyped));
                 }
+                getAmount = false;
             } else {
                 switch (msg.getDetails()) {
                     case "1":
