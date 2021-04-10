@@ -16,10 +16,14 @@ public class ATMSS extends AppThread {
     private int dispenseTimerID = -1;
 
     private boolean loggedIn = false;
-    private String transaction = "";        //would it be better to store as a String compared to boolean?
+    private String transaction = "";
     private static String cardNum = "";
     private static String selectedAcc = "";
     private static String transferAcc = "";
+    private static int denom100 = 10000;
+    private static int denom500 = 10000;
+    private static int denom1000 = 10000;
+    private static String denomsToChange = "";
     private String pin = "";
     private String amountTyped = "";
     private boolean getPin = false;
@@ -99,14 +103,13 @@ public class ATMSS extends AppThread {
                             //instruct card reader retain card
                             BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Incorrect pin thrice! Card retained!"));
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Card Retained"));
-                            allReset();
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Card Retained"));
                         } else {        //situation that enter the wrong PIN for one or two times
                             //give error message
                             pin = "";
                             BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Incorrect pin! Please try again!"));
                             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Wrong PIN\n\nPlease ensure you enter the right PIN"));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Wrong PIN\n\nPlease ensure you enter the right PIN"));
                         }
                     }
                     break;
@@ -120,7 +123,7 @@ public class ATMSS extends AppThread {
                     //if !operating account = "" && msg.getDetails() has no "/", return error
                     if (!selectedAcc.equals("") && !msg.getDetails().contains("/")) {       //only for money transfer at this moment
                         //this card has only one account and cannot do money transfer
-                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "This card has only one account\n\nCannot do money transfer"));
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "This card has only one account\n\nCannot do money transfer"));
                     } else {        //initial account selection at this moment
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_SelectAccount, transaction + "_" + msg.getDetails()));
                     }
@@ -150,6 +153,7 @@ public class ATMSS extends AppThread {
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
                     String amountDispense = denomDispenseCalculate(msg.getDetails());
+                    denomsToChange = amountDispense;
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, amountDispense));        //process the notes to dispense
                     BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Dispenser Slot Opening!"));
                     dispenseTimerID = Timer.setTimer(id, mbox, 15000);
@@ -158,10 +162,15 @@ public class ATMSS extends AppThread {
                     break;
 
                 case DispenseFinish:
+                    DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, "CloseSlot"));
                     //stop dispense slot timer
                     Timer.cancelTimer(id, mbox, dispenseTimerID);
                     //update touch display
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DispenseFinish, msg.getDetails()));
+                    //update money notes inventory
+                    updateDenomsInventory(denomsToChange, false);
+                    log.info(id + ": denoms change: decrease: " + denomsToChange);
+                    log.info(id + ": denoms: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
                     break;
 
                 case EnquiryResult:     //Account enquiry result from BAMS
@@ -203,9 +212,15 @@ public class ATMSS extends AppThread {
                         DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
                         //touchdisplay update
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, "0 0 0"));
-                    }else if (timerID ==dispenseTimerID){
+                    } else if (timerID == dispenseTimerID) {
+                        //emergency situation: retain card, logout, retain money
+                        log.warning(id + ": dispenser time out, $" + amountTyped + " and card " + cardNum + " has been retained");
                         dispenseTimerID = -1;
-                        DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
+                        DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Dispense, "CloseSlot"));
+                        DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.DenomsInventoryUpdate, denomsToChange));
+                        cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Dispenser slot time out"));
+                        log.info(id + ": denoms inventory: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
                     }
 
                     break;
@@ -239,6 +254,11 @@ public class ATMSS extends AppThread {
                         case "Money Transfer":
 
                         case "Cash Withdrawal":
+                            if (msg.getDetails().equals("Dispenser slot time out")) {
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                                allReset();
+                                break;
+                            }
 
                         case "Account Balance Enquiry":
                             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
@@ -330,7 +350,7 @@ public class ATMSS extends AppThread {
                         bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.CashWithdraw, cardNum + " " + selectedAcc + " " + amountTyped));
                     } else {
                         //return error and reject withdraw request
-                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, transaction + "_" + "Withdraw Amount should be divisible by 100"));
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Withdraw Amount should be divisible by 100"));
                     }
                 } else if (transaction.equals("Money Transfer")) {
                     bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.MoneyTransferRequest, cardNum + " " + selectedAcc + " " + transferAcc + " " + amountTyped));
@@ -507,6 +527,7 @@ public class ATMSS extends AppThread {
         amountTyped = "";
         getPin = false;
         getAmount = false;
+        denomsToChange = "";
     }
 
     //for continue transaction and return to main menu use
@@ -516,19 +537,72 @@ public class ATMSS extends AppThread {
         amountTyped = "";
         getPin = false;
         getAmount = false;
+        denomsToChange = "";
     }
 
     private String denomDispenseCalculate(String amount) {
-        String denom100 = "";
-        String denom500 = "";
-        String denom1000 = "";
+        String denoms100 = "0";
+        String denoms500 = "0";
+        String denoms1000 = "0";
         int amountWithdraw = Integer.parseInt(amount);
-        denom1000 = (amountWithdraw / 1000) + "";
-        amountWithdraw -= Integer.parseInt(denom1000) * 1000;
-        denom500 = (amountWithdraw / 500) + "";
-        amountWithdraw -= Integer.parseInt(denom500) * 500;
-        denom100 = (amountWithdraw / 100) + "";
-        amountWithdraw -= Integer.parseInt(denom100) * 100;
-        return "" + denom100 + " " + denom500 + " " + denom1000;
+        if (denom1000 > 0 && amountWithdraw > 0) {
+            if (denom1000 * 1000 > amountWithdraw) {
+                denoms1000 = (amountWithdraw / 1000) + "";
+                amountWithdraw -= Integer.parseInt(denoms1000) * 1000;
+            } else {
+                denoms1000 = denom1000 + "";
+                amountWithdraw -= denom1000 * 1000;
+            }
+        }
+        if (denom500 > 0 && amountWithdraw > 0) {
+            if (denom500 * 500 > amountWithdraw) {
+                denoms500 = (amountWithdraw / 500) + "";
+                amountWithdraw -= Integer.parseInt(denoms500) * 500;
+            } else {
+                denoms500 = denom500 + "";
+                amountWithdraw -= denom500 * 500;
+            }
+        }
+        if (denom100 > 0 && amountWithdraw > 0) {
+            if (denom100 * 100 > amountWithdraw) {
+                denoms100 = (amountWithdraw / 100) + "";
+                amountWithdraw -= Integer.parseInt(denoms100) * 100;
+            } else {
+                denoms100 = denom100 + "";
+                amountWithdraw -= denom100 * 100;
+            }
+        }
+        return "" + denoms100 + " " + denoms500 + " " + denoms1000;
     }
-} // CardReaderHandler
+
+    private void updateDenomsInventory(String denoms, boolean increase) {
+        StringTokenizer tokens = new StringTokenizer(denoms);
+        int count = 0;
+        if (increase) {
+            while (tokens.hasMoreTokens()) {
+                String token = tokens.nextToken();
+                if (count % 3 == 0) {
+                    denom100 += Integer.parseInt(token);
+                } else if (count % 3 == 1) {
+                    denom500 += Integer.parseInt(token);
+                } else if (count % 3 == 2) {
+                    denom1000 += Integer.parseInt(token);
+                }
+                count++;
+            }
+        } else {
+            while (tokens.hasMoreTokens()) {
+                String token = tokens.nextToken();
+                if (count % 3 == 0) {
+                    denom100 -= Integer.parseInt(token);
+                } else if (count % 3 == 1) {
+                    denom500 -= Integer.parseInt(token);
+                } else if (count % 3 == 2) {
+                    denom1000 -= Integer.parseInt(token);
+                }
+                count++;
+            }
+        }
+    }
+
+}

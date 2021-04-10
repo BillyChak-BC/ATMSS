@@ -26,6 +26,10 @@ public class DispenserSlotHandler extends HWHandler {
                 atmss.send(new Msg(id, mbox, Msg.Type.DispenseFinish, msg.getDetails()));
                 break;
 
+            case DenomsInventoryUpdate:
+                handleDenomsUpdate(msg.getDetails());
+                break;
+
             default:
                 log.warning(id + ": unknown message type: [" + msg + "]");
         }
@@ -37,10 +41,13 @@ public class DispenserSlotHandler extends HWHandler {
 
     protected void handleDispense(String msg) {
         if (msg.equals("OpenSlot")) {
-            log.info(id + "Opening Dispenser Slot");            //atmss sends open command
+            log.info(id + ": Opening Dispenser Slot");            //atmss sends open command
         } else if (msg.equals("CloseSlot")) {
-            log.info(id + "Closing Dispenser Slot");            //emulator or the hardware sends the close command
+            log.info(id + ": Closing Dispenser Slot");            //emulator or the hardware sends the close command
         }
     }
 
+    protected void handleDenomsUpdate(String details) {
+        log.info(id + ": denoms increase: " + details);
+    }
 }

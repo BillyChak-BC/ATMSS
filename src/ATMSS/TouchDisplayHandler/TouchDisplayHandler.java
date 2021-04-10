@@ -78,7 +78,7 @@ public class TouchDisplayHandler extends HWHandler {
                 break;
 
             case ErrorRedirect:
-                atmss.send(new Msg(id, mbox, Msg.Type.ErrorRedirect, ""));
+                atmss.send(new Msg(id, mbox, Msg.Type.ErrorRedirect, msg.getDetails()));
                 break;
 
             default:
