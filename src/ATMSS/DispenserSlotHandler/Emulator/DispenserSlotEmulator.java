@@ -31,9 +31,9 @@ public class DispenserSlotEmulator extends DispenserSlotHandler {
         Parent root;
         myStage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        String fxmlName = "DispenserSlotEmulator.fxml";        //Sean:      create a DepositSlotEmulator.fxml
+        String fxmlName = "DispenserSlotEmulator.fxml";
         loader.setLocation(DispenserSlotEmulator.class.getResource(fxmlName));
-        root = loader.load();       //error?
+        root = loader.load();
         DispenserSlotEmulatorController = (DispenserSlotEmulatorController) loader.getController();
         DispenserSlotEmulatorController.initialize(id, atmssStarter, log, this);
         myStage.initStyle(StageStyle.DECORATED);
@@ -50,42 +50,28 @@ public class DispenserSlotEmulator extends DispenserSlotHandler {
   //------------------------------------------------------------
     // handleCardInsert
     protected void handleDispenseCash(String denoms) {
-        // fixme
         super.handleDispenseCash(denoms);
-        DispenserSlotEmulatorController.appendTextArea("Cash Dispensed");
-        StringTokenizer tokens = new StringTokenizer(denoms);
-        int amtSum = 0;
-        int count = 0;
-
-        //should be done by ATMSS
-        while (tokens.hasMoreTokens()) {
-        	String token = tokens.nextToken();
-        	if (count % 3 == 0) {
-        		amtSum = amtSum + Integer.parseInt(token)*100;
-        		DispenserSlotEmulatorController.appendTextArea(token+" $100 note(s) dispensed.");
-        	}else if (count % 3 == 1) {
-        		amtSum = amtSum + Integer.parseInt(token)*500;
-        		DispenserSlotEmulatorController.appendTextArea(token+" $500 note(s) dispensed.");
-        	}else if (count % 3 == 2) {
-        		amtSum = amtSum + Integer.parseInt(token)*1000;
-        		DispenserSlotEmulatorController.appendTextArea(token+" $1000 note(s) dispensed.");
-        	}
-        	count++;
-        }
-        
-        DispenserSlotEmulatorController.updateAmtField(""+amtSum);
+        DispenserSlotEmulatorController.updateDenomsInventory(denoms, false);
     } // handleDepositCash
 
     protected void handleDispense(String msg) {
-    	if (DispenserSlotEmulatorController.setTransactionStatus()) { 		//if is set to true, means deposit slot open
-    		super.handleDispense(msg);
-    		DispenserSlotEmulatorController.updateCardStatus("Dispenser Slot is open");
-    	}else if (!DispenserSlotEmulatorController.setTransactionStatus()) {
-    		super.handleDispense(msg);
-    		DispenserSlotEmulatorController.updateCardStatus("Dispenser Slot is closed");
-    	}
+        if (msg.equals("OpenSlot") && !DispenserSlotEmulatorController.getTransactionStatus()) {
+            log.info(id + ": Opening Dispenser Slot");            //atmss sends open command
+            DispenserSlotEmulatorController.setTransactionStatus();
+            DispenserSlotEmulatorController.updateCardStatus("Dispenser slot is open");
+        } else if (msg.equals("CloseSlot") && DispenserSlotEmulatorController.getTransactionStatus()) {
+            log.info(id + ": Closing Dispenser Slot");            //emulator or the hardware sends the close command
+            DispenserSlotEmulatorController.updateAmtField("");
+            DispenserSlotEmulatorController.setTransactionStatus();
+            DispenserSlotEmulatorController.updateCardStatus("Dispenser slot is closed");
+        }
     }
 
 //    //------------------------------------------------------------
 
+
+    protected void handleDenomsUpdate(String details) {
+        super.handleDenomsUpdate(details);
+        DispenserSlotEmulatorController.updateDenomsInventory(details, true);
+    }
 }

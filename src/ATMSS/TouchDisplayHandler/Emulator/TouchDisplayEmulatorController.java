@@ -408,9 +408,8 @@ public class TouchDisplayEmulatorController {
 
     protected void errorPage(String errorMsg) {
         blankTopLabel.setText("Error");
-        String[] errorType = errorMsg.split("_");
-        blankScreenLabel.setText(errorType[1]);
-        countDown(errorType[0]);
+        blankScreenLabel.setText(errorMsg);
+        countDown(errorMsg);
     }
 
     private void countDown(String details) {
@@ -424,7 +423,7 @@ public class TouchDisplayEmulatorController {
             blankAmountLabel.setText(countDown.toString());
             if (countDown <= 0) {
                 timeline.stop();
-                touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.ErrorRedirect, ""));
+                touchDisplayMBox.send(new Msg(id, touchDisplayMBox, Msg.Type.ErrorRedirect, details));
             }
         });
         timeline.getKeyFrames().add(keyFrame);
