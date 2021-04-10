@@ -149,7 +149,12 @@ public class TouchDisplayEmulatorController {
             blankAmountStringBuild.append(denomsAvailable);
         }
         if (detail.length > 1) {
-            blankAmountStringBuild.append("\n\n").append(detail[1]);
+            blankAmountStringBuild.append("\n\nComponents not working: ");
+            StringTokenizer malTokens = new StringTokenizer(detail[1]);
+            blankAmountStringBuild.append(malTokens.nextToken());
+            while (malTokens.hasMoreTokens()) {
+                blankAmountStringBuild.append(", ").append(malTokens.nextToken());
+            }
         }
         blankTopLabel.setText("Welcome to ATM system emulator");
         blankScreenLabel.setText(blankAmountStringBuild.toString());

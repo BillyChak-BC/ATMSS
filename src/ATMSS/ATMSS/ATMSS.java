@@ -29,6 +29,7 @@ public class ATMSS extends AppThread {
     private boolean getPin = false;
     private boolean getAmount = false;
     private int errorCount = 0;
+    private static String malfunctions = "";
 
     private MBox cardReaderMBox;
     private MBox keypadMBox;
@@ -253,14 +254,50 @@ public class ATMSS extends AppThread {
 
                 case Error:     //receive error that cannot fix by itself
                     log.severe(id + ": " + msg);
-                    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Error, "Error occurred!"));
+                    switch (msg.getSender()) {
+                        case "AdvicePrinterHandler":
+                            //non-critical situation
+                            if (malfunctions.equals("")) {
+                                malfunctions = "AdvicePrinter";
+                            } else {
+                                malfunctions += " AdvicePrinter";
+                            }
+                            break;
+
+                        case "BuzzerHandler":
+                            //non-critical situation
+                            if (malfunctions.equals("")) {
+                                malfunctions = "Buzzer";
+                            } else {
+                                malfunctions += " Buzzer";
+                            }
+                            break;
+
+                        case "BAMSThreadHandler":
+
+                        case "CardReaderHandler":
+
+                        case "DepositSlotHandler":
+
+                        case "DispenserSlotHandler":
+                            if (msg.getDetails().contains("run out of")) {
+                                break;
+                            }
+
+                        case "KeypadHandler":
+
+                        case "TouchDisplayHandler":
+                            //critical situation --> out of service
+                            break;
+                    }
+//                    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Error, "Error occurred!"));
                     break;
 
                 case ErrorRedirect:         //redirect error page to another page
                     switch (transaction) {
                         case "":            //In enter PIN page
                             if (errorCount >= 3) {
-                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
                                 allReset();
                             } else {
                                 getPin = true;
@@ -274,7 +311,7 @@ public class ATMSS extends AppThread {
 
                         case "Cash Withdrawal":
                             if (msg.getDetails().equals("Dispenser slot time out")) {
-                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
                                 allReset();
                                 break;
                             }
@@ -307,7 +344,7 @@ public class ATMSS extends AppThread {
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
             //should be a screen showing thank you first
             allReset();        //if transaction canceled, reset pin variable
-            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
+            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
         } else if (getPin) {        //stage of accepting PIN
             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
             // Set maximum password length to 9
@@ -516,7 +553,7 @@ public class ATMSS extends AppThread {
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
                             break;
 
                         case "End Transaction":
@@ -524,7 +561,7 @@ public class ATMSS extends AppThread {
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
                             break;
 
                         default:
