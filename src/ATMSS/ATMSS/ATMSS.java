@@ -153,7 +153,7 @@ public class ATMSS extends AppThread {
                     log.info(id + ": Cash Dispense: $" + msg.getDetails());
                     amountTyped = msg.getDetails();
                     String amountDispense = denomDispenseCalculate(msg.getDetails());
-                    denomsToChange = amountDispense;
+                    denomsToChange = amountDispense;        //format: "0 0 0"
                     DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Denom_sum, amountDispense));        //process the notes to dispense
                     BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Alert, "Dispenser Slot Opening!"));
                     dispenseTimerID = Timer.setTimer(id, mbox, 15000);
@@ -180,6 +180,7 @@ public class ATMSS extends AppThread {
 
                 case Denom_sum:         //receive cash from deposit slot
                     //receive money notes, update the money notes inventory
+                    denomsToChange = msg.getDetails();
                     String[] denom = msg.getDetails().split(" ");
                     amountTyped = (Integer.parseInt(denom[0]) * 100 + Integer.parseInt(denom[1]) * 500 + Integer.parseInt(denom[2]) * 1000) + "";
                     log.info("CashDeposit Denominations: " + amountTyped);
@@ -189,6 +190,12 @@ public class ATMSS extends AppThread {
 
                 case DepositResult:     //receive deposit result from BAMS
                     amountTyped = msg.getDetails();
+                    if ((int) Double.parseDouble(amountTyped) > -1) {
+                        updateDenomsInventory(denomsToChange, true);
+                        DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.DenomsInventoryUpdate, denomsToChange));
+                        log.info(id + ": denoms change: increase: " + denomsToChange);
+                        log.info(id + ": denoms: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
+                    }
                     touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.DepositResult, msg.getDetails()));
                     break;
 

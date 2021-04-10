@@ -1,166 +1,176 @@
-210410-17:23:37 [INFO] -- 
-210410-17:23:37 [INFO] -- 
-210410-17:23:37 [INFO] -- ============================================================
-210410-17:23:37 [INFO] -- ATMSSStarter: Application Starting...
-210410-17:23:39 [INFO] -- CardReaderHandler: starting...
-210410-17:23:39 [INFO] -- KeypadHandler: starting...
-210410-17:23:39 [INFO] -- timer: starting...
-210410-17:23:39 [INFO] -- BuzzerHandler: starting...
-210410-17:23:39 [INFO] -- DispenserSlotHandler: starting...
-210410-17:23:39 [INFO] -- ATMSS: starting...
-210410-17:23:39 [INFO] -- DepositSlotHandler: starting...
-210410-17:23:39 [INFO] -- BAMSThreadHandler: starting...
-210410-17:23:39 [INFO] -- TouchDisplayHandler: starting...
-210410-17:23:39 [INFO] -- AdvicePrinterHandler: starting...
-210410-17:23:43 [INFO] -- CardReaderHandler: card inserted
-210410-17:23:43 [INFO] -- CardInserted: 4107-7014
-210410-17:23:43 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:43 [INFO] -- TouchDisplayHandler: update display -- PIN Required
-210410-17:23:43 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:47 [INFO] -- KeyPressed: 4
-210410-17:23:47 [INFO] -- ATMSS: 4 is pressed
-210410-17:23:47 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:47 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:47 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:47 [INFO] -- KeyPressed: 5
-210410-17:23:47 [INFO] -- ATMSS: 5 is pressed
-210410-17:23:47 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:47 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:47 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:48 [INFO] -- KeyPressed: 6
-210410-17:23:48 [INFO] -- ATMSS: 6 is pressed
-210410-17:23:48 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:48 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:48 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:48 [INFO] -- KeyPressed: 1
-210410-17:23:48 [INFO] -- ATMSS: 1 is pressed
-210410-17:23:48 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:48 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:48 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:49 [INFO] -- KeyPressed: 2
-210410-17:23:49 [INFO] -- ATMSS: 2 is pressed
-210410-17:23:49 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:49 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:49 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:49 [INFO] -- KeyPressed: 3
-210410-17:23:49 [INFO] -- ATMSS: 3 is pressed
-210410-17:23:49 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:49 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:49 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:50 [INFO] -- KeyPressed: 7
-210410-17:23:50 [INFO] -- ATMSS: 7 is pressed
-210410-17:23:50 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:50 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:50 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:50 [INFO] -- KeyPressed: 8
-210410-17:23:50 [INFO] -- ATMSS: 8 is pressed
-210410-17:23:50 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:50 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:50 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:51 [INFO] -- KeyPressed: 9
-210410-17:23:51 [INFO] -- ATMSS: 9 is pressed
-210410-17:23:51 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:51 [INFO] -- TouchDisplayHandler: update display -- enterPIN
-210410-17:23:51 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:23:52 [INFO] -- KeyPressed: Enter
-210410-17:23:52 [INFO] -- ATMSS: Enter is pressed
-210410-17:23:52 [INFO] -- ATMSS : verifying cardnum and pin
-210410-17:23:52 [INFO] -- KeypadHandler: alert user-- 
-210410-17:23:52 [INFO] -- pin: 456123789
-210410-17:23:53 [INFO] -- BAMSThreadHandler : successful login!
-210410-17:23:53 [INFO] -- TouchDisplayHandler: changing login status
-210410-17:23:53 [INFO] -- TouchDisplayHandler: select account
-210410-17:23:53 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:23:54 [INFO] -- TouchDisplayHandler: update display -- MainMenu
-210410-17:23:54 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:23:55 [INFO] -- MouseCLicked: Account Balance Enquiry
-210410-17:23:55 [INFO] -- TouchDisplayHandler: account enquiry
-210410-17:23:55 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:23:56 [INFO] -- MouseCLicked: Continue Transaction
-210410-17:23:56 [INFO] -- TouchDisplayHandler: update display -- MainMenu
-210410-17:23:56 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:23:57 [INFO] -- MouseCLicked: Cash Deposit
-210410-17:23:57 [INFO] -- TouchDisplayHandler: update display -- Cash Deposit
-210410-17:23:57 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
-210410-17:23:57 [INFO] -- BuzzerHandler: alert -- Deposit Slot Opened!
-210410-17:23:57 [INFO] -- DepositSlotHandler: alert user-- 
-210410-17:23:57 [INFO] -- DepositSlotHandlerOpening Deposit Slot
-210410-17:24:01 [INFO] -- DepositSlotHandlerClosing Deposit Slot
-210410-17:24:01 [INFO] -- DepositSlotHandlerClosing Deposit Slot
-210410-17:24:01 [INFO] -- CashDeposit Denominations: 3000
-210410-17:24:01 [INFO] -- TouchDisplayHandler: cash deposit
-210410-17:24:01 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
-210410-17:24:02 [INFO] -- MouseCLicked: Confirm Amount
-210410-17:24:02 [INFO] -- TouchDisplayHandlerCash Deposit Result
-210410-17:24:02 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:24:03 [INFO] -- MouseCLicked: Continue Transaction
-210410-17:24:03 [INFO] -- TouchDisplayHandler: update display -- MainMenu
-210410-17:24:03 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:24:03 [INFO] -- MouseCLicked: Account Balance Enquiry
-210410-17:24:04 [INFO] -- TouchDisplayHandler: account enquiry
-210410-17:24:04 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:24:04 [INFO] -- MouseCLicked: Continue Transaction
-210410-17:24:04 [INFO] -- TouchDisplayHandler: update display -- MainMenu
-210410-17:24:04 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:24:05 [INFO] -- MouseCLicked: Cash Withdrawal
-210410-17:24:05 [INFO] -- TouchDisplayHandler: update display -- Cash Withdrawal
-210410-17:24:05 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:24:05 [INFO] -- KeypadHandler: alert user-- 
-210410-17:24:07 [INFO] -- KeyPressed: 1
-210410-17:24:07 [INFO] -- ATMSS: 1 is pressed
-210410-17:24:07 [INFO] -- KeypadHandler: alert user-- 
-210410-17:24:07 [INFO] -- TouchDisplayHandler: Amount Field Change
-210410-17:24:07 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:24:08 [INFO] -- KeyPressed: 00
-210410-17:24:08 [INFO] -- ATMSS: 00 is pressed
-210410-17:24:08 [INFO] -- TouchDisplayHandler: Amount Field Change
-210410-17:24:08 [INFO] -- KeypadHandler: alert user-- 
-210410-17:24:08 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:24:09 [INFO] -- KeyPressed: 0
-210410-17:24:09 [INFO] -- ATMSS: 0 is pressed
-210410-17:24:09 [INFO] -- TouchDisplayHandler: Amount Field Change
-210410-17:24:09 [INFO] -- KeypadHandler: alert user-- 
-210410-17:24:09 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:24:09 [INFO] -- KeyPressed: Enter
-210410-17:24:09 [INFO] -- ATMSS: Enter is pressed
-210410-17:24:09 [INFO] -- KeypadHandler: alert user-- 
-210410-17:24:10 [INFO] -- ATMSS: Cash Dispense: $1000
-210410-17:24:10 [INFO] -- BuzzerHandler: alert -- Dispenser Slot Opening!
-210410-17:24:10 [INFO] -- TouchDisplayHandlercash dispense
-210410-17:24:10 [INFO] -- DispenserSlotHandler: cash dispensed
-210410-17:24:10 [INFO] -- DispenserSlotHandler: denoms inventory: $100: 10000, $500: 10000, $1000: 9999
-210410-17:24:10 [INFO] -- DispenserSlotHandler: Opening Dispenser Slot
-210410-17:24:10 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
-210410-17:24:25 [WARNING] -- ATMSS: dispenser time out, $1000 and card 4107-7014 has been retained
-210410-17:24:25 [INFO] -- ATMSS: denoms inventory: $100: 10000 $500: 10000 $1000: 10000
-210410-17:24:25 [INFO] -- CardReaderHandler: card retained
-210410-17:24:25 [INFO] -- TouchDisplayHandler: Error Message Received: Dispenser slot time out
-210410-17:24:25 [INFO] -- DispenserSlotHandler: Closing Dispenser Slot
-210410-17:24:25 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:24:25 [INFO] -- DispenserSlotHandler: denoms increase: 0 0 1
-210410-17:24:25 [INFO] -- DispenserSlotHandler: denoms inventory: $100: 10000, $500: 10000, $1000: 10000
-210410-17:24:29 [INFO] -- TouchDisplayHandler: update display -- Welcome
-210410-17:24:29 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
-210410-17:24:39 [INFO] -- Poll: TimesUp 41490 0
-210410-17:24:39 [INFO] -- PollAck: CardReaderHandler is up!
-210410-17:24:39 [INFO] -- PollAck: KeypadHandler is up!
-210410-17:24:39 [INFO] -- PollAck: TouchDisplayHandler is up!
-210410-17:24:39 [INFO] -- PollAck: DepositSlotHandler is up!
-210410-17:24:39 [INFO] -- PollAck: DispenserSlotHandler is up!
-210410-17:24:39 [INFO] -- PollAck: AdvicePrinterHandler is up!
-210410-17:24:39 [INFO] -- PollAck: BuzzerHandler is up!
-210410-17:24:48 [INFO] -- 
-210410-17:24:48 [INFO] -- 
-210410-17:24:48 [INFO] -- ============================================================
-210410-17:24:48 [INFO] -- ATMSSStarter: Application Stopping...
-210410-17:24:48 [INFO] -- ATMSS: terminating...
-210410-17:24:48 [INFO] -- CardReaderHandler: terminating...
-210410-17:24:48 [INFO] -- DepositSlotHandler: terminating...
-210410-17:24:48 [INFO] -- DispenserSlotHandler: terminating...
-210410-17:24:48 [INFO] -- timer: received terminate!
-210410-17:24:48 [INFO] -- timer: terminating...
-210410-17:24:48 [INFO] -- BAMSThreadHandler: terminating...
-210410-17:24:48 [INFO] -- TouchDisplayHandler: terminating...
-210410-17:24:48 [INFO] -- AdvicePrinterHandler: terminating...
-210410-17:24:48 [INFO] -- BuzzerHandler: terminating...
-210410-17:24:48 [INFO] -- KeypadHandler: terminating...
+210410-18:09:30 [INFO] -- 
+210410-18:09:30 [INFO] -- 
+210410-18:09:30 [INFO] -- ============================================================
+210410-18:09:30 [INFO] -- ATMSSStarter: Application Starting...
+210410-18:09:32 [INFO] -- CardReaderHandler: starting...
+210410-18:09:32 [INFO] -- timer: starting...
+210410-18:09:32 [INFO] -- AdvicePrinterHandler: starting...
+210410-18:09:32 [INFO] -- TouchDisplayHandler: starting...
+210410-18:09:32 [INFO] -- KeypadHandler: starting...
+210410-18:09:32 [INFO] -- DispenserSlotHandler: starting...
+210410-18:09:32 [INFO] -- DepositSlotHandler: starting...
+210410-18:09:32 [INFO] -- BAMSThreadHandler: starting...
+210410-18:09:32 [INFO] -- BuzzerHandler: starting...
+210410-18:09:32 [INFO] -- ATMSS: starting...
+210410-18:09:37 [INFO] -- CardReaderHandler: card inserted
+210410-18:09:37 [INFO] -- CardInserted: 4107-7014
+210410-18:09:37 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:37 [INFO] -- TouchDisplayHandler: update display -- PIN Required
+210410-18:09:37 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:41 [INFO] -- KeyPressed: 4
+210410-18:09:41 [INFO] -- ATMSS: 4 is pressed
+210410-18:09:41 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:41 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:41 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:42 [INFO] -- KeyPressed: 5
+210410-18:09:42 [INFO] -- ATMSS: 5 is pressed
+210410-18:09:42 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:42 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:42 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:42 [INFO] -- KeyPressed: 6
+210410-18:09:42 [INFO] -- ATMSS: 6 is pressed
+210410-18:09:42 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:42 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:42 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:43 [INFO] -- KeyPressed: 1
+210410-18:09:43 [INFO] -- ATMSS: 1 is pressed
+210410-18:09:43 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:43 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:43 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:43 [INFO] -- KeyPressed: 2
+210410-18:09:43 [INFO] -- ATMSS: 2 is pressed
+210410-18:09:43 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:43 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:43 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:44 [INFO] -- KeyPressed: 3
+210410-18:09:44 [INFO] -- ATMSS: 3 is pressed
+210410-18:09:44 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:44 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:44 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:44 [INFO] -- KeyPressed: 7
+210410-18:09:44 [INFO] -- ATMSS: 7 is pressed
+210410-18:09:44 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:44 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:44 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:45 [INFO] -- KeyPressed: 8
+210410-18:09:45 [INFO] -- ATMSS: 8 is pressed
+210410-18:09:45 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:45 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:45 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:45 [INFO] -- KeyPressed: 9
+210410-18:09:45 [INFO] -- ATMSS: 9 is pressed
+210410-18:09:45 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:45 [INFO] -- TouchDisplayHandler: update display -- enterPIN
+210410-18:09:45 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:47 [INFO] -- KeyPressed: Enter
+210410-18:09:47 [INFO] -- ATMSS: Enter is pressed
+210410-18:09:47 [INFO] -- ATMSS : verifying cardnum and pin
+210410-18:09:47 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:47 [INFO] -- pin: 456123789
+210410-18:09:48 [INFO] -- BAMSThreadHandler : successful login!
+210410-18:09:48 [INFO] -- TouchDisplayHandler: changing login status
+210410-18:09:48 [INFO] -- TouchDisplayHandler: select account
+210410-18:09:48 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:09:49 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210410-18:09:49 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:09:50 [INFO] -- MouseCLicked: Account Balance Enquiry
+210410-18:09:50 [INFO] -- TouchDisplayHandler: account enquiry
+210410-18:09:50 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:09:52 [INFO] -- MouseCLicked: Continue Transaction
+210410-18:09:52 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210410-18:09:52 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:09:54 [INFO] -- MouseCLicked: Cash Withdrawal
+210410-18:09:54 [INFO] -- TouchDisplayHandler: update display -- Cash Withdrawal
+210410-18:09:54 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:54 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:09:59 [INFO] -- KeyPressed: 2
+210410-18:09:59 [INFO] -- ATMSS: 2 is pressed
+210410-18:09:59 [INFO] -- KeypadHandler: alert user-- 
+210410-18:09:59 [INFO] -- TouchDisplayHandler: Amount Field Change
+210410-18:09:59 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:10:00 [INFO] -- KeyPressed: 00
+210410-18:10:00 [INFO] -- ATMSS: 00 is pressed
+210410-18:10:00 [INFO] -- KeypadHandler: alert user-- 
+210410-18:10:00 [INFO] -- TouchDisplayHandler: Amount Field Change
+210410-18:10:00 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:10:00 [INFO] -- KeyPressed: 0
+210410-18:10:00 [INFO] -- ATMSS: 0 is pressed
+210410-18:10:00 [INFO] -- KeypadHandler: alert user-- 
+210410-18:10:00 [INFO] -- TouchDisplayHandler: Amount Field Change
+210410-18:10:00 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:10:01 [INFO] -- KeyPressed: Enter
+210410-18:10:01 [INFO] -- ATMSS: Enter is pressed
+210410-18:10:01 [INFO] -- KeypadHandler: alert user-- 
+210410-18:10:01 [INFO] -- ATMSS: Cash Dispense: $2000
+210410-18:10:01 [INFO] -- TouchDisplayHandlercash dispense
+210410-18:10:01 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:01 [INFO] -- BuzzerHandler: alert -- Dispenser Slot Opening!
+210410-18:10:01 [INFO] -- DispenserSlotHandler: cash dispensed
+210410-18:10:01 [INFO] -- DispenserSlotHandler: denoms inventory: $100: 10000, $500: 10000, $1000: 9998
+210410-18:10:01 [INFO] -- DispenserSlotHandler: Opening Dispenser Slot
+210410-18:10:06 [INFO] -- DispenserSlotHandler: Closing Dispenser Slot
+210410-18:10:06 [INFO] -- ATMSS: denoms change: decrease: 0 0 2
+210410-18:10:06 [INFO] -- ATMSS: denoms: $100: 10000 $500: 10000 $1000: 9998
+210410-18:10:06 [INFO] -- TouchDisplayHandlercash dispense finish
+210410-18:10:06 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:08 [INFO] -- MouseCLicked: Continue Transaction
+210410-18:10:08 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210410-18:10:08 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:10 [INFO] -- MouseCLicked: Account Balance Enquiry
+210410-18:10:10 [INFO] -- TouchDisplayHandler: account enquiry
+210410-18:10:10 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:11 [INFO] -- MouseCLicked: Continue Transaction
+210410-18:10:11 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210410-18:10:11 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:11 [INFO] -- MouseCLicked: Cash Deposit
+210410-18:10:11 [INFO] -- TouchDisplayHandler: update display -- Cash Deposit
+210410-18:10:11 [INFO] -- BuzzerHandler: alert -- Deposit Slot Opened!
+210410-18:10:11 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
+210410-18:10:11 [INFO] -- DepositSlotHandler: alert user-- 
+210410-18:10:11 [INFO] -- DepositSlotHandlerOpening Deposit Slot
+210410-18:10:20 [INFO] -- DepositSlotHandlerClosing Deposit Slot
+210410-18:10:20 [INFO] -- CashDeposit Denominations: 3600
+210410-18:10:20 [INFO] -- DepositSlotHandlerClosing Deposit Slot
+210410-18:10:20 [INFO] -- TouchDisplayHandler: cash deposit
+210410-18:10:20 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayConfirmation.fxml
+210410-18:10:21 [INFO] -- MouseCLicked: Confirm Amount
+210410-18:10:22 [INFO] -- ATMSS: denoms change: increase: 1 1 3
+210410-18:10:22 [INFO] -- ATMSS: denoms: $100: 10001 $500: 10001 $1000: 10001
+210410-18:10:22 [INFO] -- DispenserSlotHandler: denoms increase: 1 1 3
+210410-18:10:22 [INFO] -- TouchDisplayHandlerCash Deposit Result
+210410-18:10:22 [INFO] -- DispenserSlotHandler: denoms inventory: $100: 10001, $500: 10001, $1000: 10001
+210410-18:10:22 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:25 [INFO] -- MouseCLicked: Continue Transaction
+210410-18:10:25 [INFO] -- TouchDisplayHandler: update display -- MainMenu
+210410-18:10:25 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:26 [INFO] -- MouseCLicked: Account Balance Enquiry
+210410-18:10:27 [INFO] -- TouchDisplayHandler: account enquiry
+210410-18:10:27 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayMainMenu.fxml
+210410-18:10:32 [INFO] -- MouseCLicked: End Transaction
+210410-18:10:32 [INFO] -- TouchDisplayHandler: update display -- Welcome
+210410-18:10:32 [INFO] -- TouchDisplayHandler: loading fxml: TouchDisplayEmulator.fxml
+210410-18:10:32 [INFO] -- CardReaderHandler: card ejected
+210410-18:10:32 [INFO] -- Poll: TimesUp 73221 0
+210410-18:10:32 [INFO] -- PollAck: TouchDisplayHandler is up!
+210410-18:10:32 [INFO] -- PollAck: DepositSlotHandler is up!
+210410-18:10:32 [INFO] -- PollAck: DispenserSlotHandler is up!
+210410-18:10:32 [INFO] -- PollAck: BuzzerHandler is up!
+210410-18:10:32 [INFO] -- PollAck: AdvicePrinterHandler is up!
+210410-18:10:32 [INFO] -- PollAck: KeypadHandler is up!
+210410-18:10:32 [INFO] -- PollAck: CardReaderHandler is up!
+210410-18:10:43 [INFO] -- CardReaderHandler: card removed
+210410-18:10:46 [INFO] -- 
+210410-18:10:46 [INFO] -- 
+210410-18:10:46 [INFO] -- ============================================================
+210410-18:10:46 [INFO] -- ATMSSStarter: Application Stopping...
+210410-18:10:46 [INFO] -- ATMSS: terminating...
+210410-18:10:46 [INFO] -- CardReaderHandler: terminating...
+210410-18:10:46 [INFO] -- AdvicePrinterHandler: terminating...
+210410-18:10:46 [INFO] -- BAMSThreadHandler: terminating...
+210410-18:10:46 [INFO] -- BuzzerHandler: terminating...
+210410-18:10:46 [INFO] -- timer: received terminate!
+210410-18:10:46 [INFO] -- timer: terminating...
+210410-18:10:46 [INFO] -- KeypadHandler: terminating...
+210410-18:10:46 [INFO] -- DepositSlotHandler: terminating...
+210410-18:10:46 [INFO] -- TouchDisplayHandler: terminating...
+210410-18:10:46 [INFO] -- DispenserSlotHandler: terminating...
