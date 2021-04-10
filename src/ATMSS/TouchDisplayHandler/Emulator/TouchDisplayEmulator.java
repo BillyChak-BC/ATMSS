@@ -64,8 +64,6 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
         switch (msgDetails[0]) {
             case "BlankScreen":
 
-            case "Welcome":
-
             case "PIN Required":
 
             case "enterPIN":
@@ -79,6 +77,9 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
             case "erasePIN":
                 reloadStage("TouchDisplayEmulator.fxml", msgDetails[0]);
                 break;
+
+            case "Welcome":
+                //reloadStage("TouchDisplayEmulator.fxml", "Welcome", "Welcome_" + denom100 + " " + denom500 + " " + denom1000)
 
             case "Money Transfer":
                 //reloadStage("TouchDisplayEmulator.fxml", "Money Transfer", transfer account number)
@@ -191,7 +192,8 @@ public class TouchDisplayEmulator extends TouchDisplayHandler {
                         case "TouchDisplayEmulator.fxml":
                             switch (page) {
                                 case "Welcome":
-                                    touchDisplayEmulatorController.welcomePage();
+                                    //touchDisplayEmulatorController.welcomePage(Denoms);
+                                    touchDisplayEmulatorController.welcomePage(detail);
                                     break;
 
 //                                case "eraseAmount":
