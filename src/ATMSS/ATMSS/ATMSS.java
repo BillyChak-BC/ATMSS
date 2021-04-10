@@ -260,7 +260,7 @@ public class ATMSS extends AppThread {
                     switch (transaction) {
                         case "":            //In enter PIN page
                             if (errorCount >= 3) {
-                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
                                 allReset();
                             } else {
                                 getPin = true;
@@ -274,7 +274,7 @@ public class ATMSS extends AppThread {
 
                         case "Cash Withdrawal":
                             if (msg.getDetails().equals("Dispenser slot time out")) {
-                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
                                 allReset();
                                 break;
                             }
@@ -307,7 +307,7 @@ public class ATMSS extends AppThread {
             touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "erasePIN"));
             //should be a screen showing thank you first
             allReset();        //if transaction canceled, reset pin variable
-            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
         } else if (getPin) {        //stage of accepting PIN
             keypadMBox.send(new Msg(id, mbox, Msg.Type.Alert, ""));
             // Set maximum password length to 9
@@ -516,7 +516,7 @@ public class ATMSS extends AppThread {
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
                             break;
 
                         case "End Transaction":
@@ -524,7 +524,7 @@ public class ATMSS extends AppThread {
                             cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_EjectCard, ""));
                             //should be a screen showing thank you first
                             allReset();        //if transaction canceled, reset pin variable
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome"));
+                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000));
                             break;
 
                         default:
