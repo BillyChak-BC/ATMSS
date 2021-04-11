@@ -4,6 +4,8 @@ import ATMSS.AdvicePrinterHandler.Emulator.AdvicePrinterEmulator;
 import ATMSS.DepositSlotHandler.Emulator.DepositSlotEmulator;
 import ATMSS.DispenserSlotHandler.Emulator.DispenserSlotEmulator;
 import ATMSS.CardReaderHandler.Emulator.CardReaderEmulator;
+import ATMSS.ErrorSimulatorHandler.Emulator.ErrorSimulatorEmulator;
+import ATMSS.ErrorSimulatorHandler.ErrorSimulatorHandler;
 import ATMSS.TouchDisplayHandler.Emulator.TouchDisplayEmulator;
 import ATMSS.BuzzerHandler.Emulator.BuzzerEmulator;
 
@@ -66,6 +68,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 			DispenserSlotEmulator DispenserSlotEmulator = null;
 			AdvicePrinterEmulator AdvicePrinterEmulator = null;
 			BuzzerEmulator BuzzerEmulator = null;
+			ErrorSimulatorEmulator ErrorSimulatorEmulator= null;
 
 			bamsThreadHandler bamsThreadHandler =null;
 
@@ -80,6 +83,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 				DispenserSlotEmulator = new DispenserSlotEmulator("DispenserSlotHandler", atmssEmulatorStarter);
 				AdvicePrinterEmulator = new AdvicePrinterEmulator("AdvicePrinterHandler", atmssEmulatorStarter);
 				BuzzerEmulator = new BuzzerEmulator("BuzzerHandler", atmssEmulatorStarter);
+				ErrorSimulatorEmulator = new ErrorSimulatorEmulator("ErrorSimulatorHandler", atmssEmulatorStarter);
 				bamsThreadHandler = new bamsThreadHandler("BAMSThreadHandler", atmssEmulatorStarter);
 
 				// start emulator GUIs
@@ -89,6 +93,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 				DepositSlotEmulator.start();
 				DispenserSlotEmulator.start();
 				AdvicePrinterEmulator.start();
+				ErrorSimulatorEmulator.start();
 				BuzzerEmulator.start();
 			} catch (Exception e) {
 				System.out.println("Emulators: start failed");
@@ -105,6 +110,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 			atmssEmulatorStarter.setDispenserSlotHandler(DispenserSlotEmulator);
 			atmssEmulatorStarter.setAdvicePrinterHandler(AdvicePrinterEmulator);
 			atmssEmulatorStarter.setBuzzerHandler(BuzzerEmulator);
+			atmssEmulatorStarter.setErrorSimulatorHandler(ErrorSimulatorEmulator);
 			atmssEmulatorStarter.setBAMSThreadHandler(bamsThreadHandler);
 
 	    // start threads
@@ -117,6 +123,7 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 			new Thread(DispenserSlotEmulator).start();
 			new Thread(AdvicePrinterEmulator).start();
 			new Thread(BuzzerEmulator).start();
+			new Thread(ErrorSimulatorEmulator).start();
 			new Thread(bamsThreadHandler).start();
 		} // start
     } // Emulators
@@ -154,6 +161,8 @@ public class ATMSSEmulatorStarter extends ATMSSStarter {
 	private void setBuzzerHandler(BuzzerHandler buzzerHandler){
     	this.BuzzerHandler = buzzerHandler;
 	}
+
+	private void setErrorSimulatorHandler(ErrorSimulatorHandler ErrorSimulatorHandler){this.ErrorSimulatorHandler = ErrorSimulatorHandler;}
 
 	private void setBAMSThreadHandler(bamsThreadHandler bamsThreadHandler){
     	this.bamsThreadHandler = bamsThreadHandler;

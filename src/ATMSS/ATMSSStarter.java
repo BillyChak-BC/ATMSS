@@ -1,5 +1,6 @@
 package ATMSS;
 
+import ATMSS.ErrorSimulatorHandler.ErrorSimulatorHandler;
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.Msg;
 import AppKickstarter.timer.Timer;
@@ -32,6 +33,7 @@ public class ATMSSStarter extends AppKickstarter {
     protected AdvicePrinterHandler AdvicePrinterHandler;
     protected BuzzerHandler BuzzerHandler;
     protected bamsThreadHandler bamsThreadHandler;
+    protected ErrorSimulatorHandler ErrorSimulatorHandler;
 
 
     //------------------------------------------------------------
@@ -76,6 +78,7 @@ public class ATMSSStarter extends AppKickstarter {
 			AdvicePrinterHandler = new AdvicePrinterHandler("AdvicePrinterHandler", this);
 			BuzzerHandler = new BuzzerHandler("BuzzerHandler", this);
 			bamsThreadHandler = new bamsThreadHandler("BAMSThreadHandler", this);
+			ErrorSimulatorHandler = new ErrorSimulatorHandler("ErrorSimulatorHandler", this);
 
 		} catch (Exception e) {
 			System.out.println("AppKickstarter: startApp failed");
@@ -94,6 +97,7 @@ public class ATMSSStarter extends AppKickstarter {
 		new Thread(AdvicePrinterHandler).start();
 		new Thread(BuzzerHandler).start();
 		new Thread(bamsThreadHandler).start();
+		new Thread(ErrorSimulatorHandler).start();
     } // startHandlers
 
 
@@ -113,6 +117,7 @@ public class ATMSSStarter extends AppKickstarter {
 		AdvicePrinterHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		BuzzerHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		bamsThreadHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
+		ErrorSimulatorHandler.getMBox().send(new Msg(id, null,Msg.Type.Terminate, "Terminate now!" ));
 		timer.getMBox().send(new Msg(id, null, Msg.Type.Terminate, "Terminate now!"));
     } // stopApp
 } // ATM.ATMSSStarter

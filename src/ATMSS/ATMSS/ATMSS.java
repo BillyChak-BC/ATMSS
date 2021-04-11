@@ -40,6 +40,7 @@ public class ATMSS extends AppThread {
     private MBox AdvicePrinterMBox;
     private MBox BuzzerMBox;
     private MBox bamsThreadMBox;
+    private MBox ErrorSimulatorMBox;
 
     //------------------------------------------------------------
     // ATMSS
@@ -63,6 +64,7 @@ public class ATMSS extends AppThread {
         DispenserSlotMBox = appKickstarter.getThread("DispenserSlotHandler").getMBox();
         AdvicePrinterMBox = appKickstarter.getThread("AdvicePrinterHandler").getMBox();
         BuzzerMBox = appKickstarter.getThread("BuzzerHandler").getMBox();
+        ErrorSimulatorMBox = appKickstarter.getThread("ErrorSimulatorHandler").getMBox();
         bamsThreadMBox = appKickstarter.getThread("BAMSThreadHandler").getMBox();
 
         for (boolean quit = false; !quit; ) {

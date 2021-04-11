@@ -33,7 +33,7 @@ public class ErrorSimulatorEmulator extends ErrorSimulatorHandler {
         ErrorSimulatorEmulatorController.initialize(id, atmssStarter, log, this);
         myStage.initStyle(StageStyle.DECORATED);
         myStage.setScene(new Scene(root, 300, 300));
-        myStage.setTitle("Buzzer");
+        myStage.setTitle("Simulator");
         myStage.setResizable(false);
         myStage.setOnCloseRequest((WindowEvent event) -> {
             atmssStarter.stopApp();
