@@ -8,6 +8,7 @@ import AppKickstarter.misc.*;
 // HWHandler
 public class HWHandler extends AppThread {
     protected MBox atmss = null;
+    protected static boolean operate = true;
 
     //------------------------------------------------------------
     // HWHandler
@@ -26,6 +27,14 @@ public class HWHandler extends AppThread {
             Msg msg = mbox.receive();		//for this specific HW's MBox receive //this is based on the inheritance property from appthread and Handlers
 
             log.fine(id + ": message received: [" + msg + "].");
+            if (msg.getSender().equals("ATMSS")) {
+                if (msg.getDetails().equals("Out of Service")) {
+                    operate = false;
+                }
+            }
+            if (!operate && !msg.getType().equals(Msg.Type.Terminate)) {
+                continue;
+            }
 
             switch (msg.getType()) {
                 case Poll:
