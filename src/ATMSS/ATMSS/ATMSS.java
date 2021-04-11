@@ -14,6 +14,7 @@ public class ATMSS extends AppThread {
     private int atmssTimerID = -1;
     private int depositTimerID = -1;
     private int dispenseTimerID = -1;
+    private int BAMSResponseTimerID = -1;
 
     private boolean loggedIn = false;
     private String transaction = "";
@@ -52,6 +53,7 @@ public class ATMSS extends AppThread {
     // run
     public void run() {
         atmssTimerID = Timer.setTimer(id, mbox, pollingTime);
+        BAMSResponseTimerID = Timer.setTimer(id, mbox, 16000);
         log.info(id + ": starting...");
 
         cardReaderMBox = appKickstarter.getThread("CardReaderHandler").getMBox();
@@ -232,12 +234,20 @@ public class ATMSS extends AppThread {
                         cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Dispenser slot time out"));
                         log.info(id + ": denoms inventory: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
+                    }else if (timerID == BAMSResponseTimerID){
+                        log.severe(id + " : Unable to receive response from BAMS within acceptable time frame!");
+                        //some error msg, change touch display etc.
                     }
 
                     break;
 
                 case PollAck:
                     log.info("PollAck: " + msg.getDetails());
+                    break;
+                case BAMSAck:
+                    Timer.cancelTimer(id, mbox, BAMSResponseTimerID);
+                    BAMSResponseTimerID = Timer.setTimer(id, mbox, BAMSResponseTimerID, 16000);
+                    log.info("BAMSAck: " + msg.getDetails());
                     break;
 
                 case Terminate:

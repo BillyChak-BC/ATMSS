@@ -2,6 +2,7 @@ package ATMSS.BAMSHandler;
 
 import AppKickstarter.AppKickstarter;
 import AppKickstarter.misc.*;
+import AppKickstarter.timer.Timer;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -13,6 +14,7 @@ public class bamsThreadHandler extends AppThread{
     private BAMSHandler bams = null;
     private final String urlPrefix = "http://cslinux0.comp.hkbu.edu.hk/comp4107_20-21_grp11/";    //http://cslinux0.comp.hkbu.edu.hk/~comp4107/test/
     private static String credential = "";
+    private int BAMSTimerID = -1;
 
     public bamsThreadHandler(String id, AppKickstarter appKickstarter) {
         super(id, appKickstarter);
@@ -20,6 +22,7 @@ public class bamsThreadHandler extends AppThread{
     }
 
     public void run() {
+        BAMSTimerID = Timer.setTimer(id, mbox, 15000);
         atmss = appKickstarter.getThread("ATMSS").getMBox();
         log.info(id + ": starting...");
 
@@ -95,17 +98,37 @@ public class bamsThreadHandler extends AppThread{
                     }
                     break;
 
-                case Poll:
-                    try {
-                        networkPoll(bams);
-                        atmss.send(new Msg(id, mbox, Msg.Type.PollAck, id + " is up!"));
-                    } catch (BAMSInvalidReplyException e) {
-                        //a network poll don't care what it replies
-                        break;
-                    } catch (IOException e) {
-                        //only care whether it replies or not
-                        log.severe(id + ": Network connection problem occurs");
-                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
+//                case Poll:
+//                    try {
+//                        networkPoll(bams);
+//                        atmss.send(new Msg(id, mbox, Msg.Type.PollAck, id + " is up!"));
+//                    } catch (BAMSInvalidReplyException e) {
+//                        //a network poll don't care what it replies
+//                        break;
+//                    } catch (IOException e) {
+//                        //only care whether it replies or not
+//                        log.severe(id + ": Network connection problem occurs");
+//                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
+//                    }
+//                    break;
+
+                case TimesUp:
+                    StringTokenizer tokens = new StringTokenizer(msg.getDetails());
+                    String msgtype = tokens.nextToken();
+                    int timerID = Integer.parseInt(tokens.nextToken());
+                    if (timerID == BAMSTimerID){
+                        BAMSTimerID = Timer.setTimer(id, mbox, 15000);
+                        try {
+                            networkPoll(bams);
+                            atmss.send(new Msg(id, mbox, Msg.Type.BAMSAck, id + " is up!"));
+                        } catch (BAMSInvalidReplyException e) {
+                            //a network poll don't care what it replies
+                            break;
+                        } catch (IOException e) {
+                            //only care whether it replies or not
+                            log.severe(id + ": Network connection problem occurs");
+                            atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
+                        }
                     }
                     break;
 
