@@ -25,6 +25,7 @@ public class ErrorSimulatorHandler extends HWHandler {
 
         if (stringToken.length < 3){
             log.info(id + ": incorrect simulation length" + msg);
+            return;
         }
 
         switch(stringToken[0]){
@@ -47,11 +48,11 @@ public class ErrorSimulatorHandler extends HWHandler {
                     case "TouchDisplayHandler":
                         break;
                     default:
-                        log.info(id+ " :Error Simulator does not recognize second keyword");
+                        log.info(id+ " :Error Simulator does not recognize second keyword!");
                 }
                 break;
             default:
-                log.info(id+ " : Error Simulator does not recognize first keyword");
+                log.info(id+ " : Error Simulator does not recognize first keyword!");
         }
     }
 
