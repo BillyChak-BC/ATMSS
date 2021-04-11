@@ -119,5 +119,6 @@ public class Msg {
         /** Cash Dispense has been taken */     DispenseFinish,
         /** Update denoms inventory */          DenomsInventoryUpdate,
         /** Denoms inventory check */       DenomsInventoryCheck,
+        /** BAMS Poll Acknowledgement*/           BAMSAck,
     } // Type
 } // Msg
