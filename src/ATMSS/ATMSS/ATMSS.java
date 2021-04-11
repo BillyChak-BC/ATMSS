@@ -53,7 +53,7 @@ public class ATMSS extends AppThread {
     // run
     public void run() {
         atmssTimerID = Timer.setTimer(id, mbox, pollingTime);
-        BAMSResponseTimerID = Timer.setTimer(id, mbox, 16000);
+        BAMSResponseTimerID = Timer.setTimer(id, mbox, 17000);
         log.info(id + ": starting...");
 
         cardReaderMBox = appKickstarter.getThread("CardReaderHandler").getMBox();
@@ -69,6 +69,10 @@ public class ATMSS extends AppThread {
             Msg msg = mbox.receive();
 
             log.fine(id + ": message received: [" + msg + "].");
+            if (!msg.getType().equals(Msg.Type.TimesUp) || !msg.getType().equals(Msg.Type.PollAck)) {
+                Timer.cancelTimer(id, mbox, BAMSResponseTimerID);
+                BAMSResponseTimerID = Timer.setTimer(id, mbox, BAMSResponseTimerID, 17000);
+            }
 
             switch (msg.getType()) {
                 case TD_MouseClicked:
@@ -217,9 +221,6 @@ public class ATMSS extends AppThread {
                         DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
                         AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
                         BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-                        if (loggedIn) {     //only send network poll to bams when login is false
-                            bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
-                        }
                     } else if (timerID == depositTimerID) {
                         depositTimerID = -1;
                         DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));
@@ -234,9 +235,12 @@ public class ATMSS extends AppThread {
                         cardReaderMBox.send(new Msg(id, mbox, Msg.Type.CR_RetainCard, ""));
                         touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, "Dispenser slot time out"));
                         log.info(id + ": denoms inventory: $100: " + denom100 + " $500: " + denom500 + " $1000: " + denom1000);
-                    }else if (timerID == BAMSResponseTimerID){
+                    } else if (timerID == BAMSResponseTimerID) {
                         log.severe(id + " : Unable to receive response from BAMS within acceptable time frame!");
                         //some error msg, change touch display etc.
+                        //this situation should happen when loggedIn is false
+                        malfunctions = "Out of Service";
+                        touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
                     }
 
                     break;
@@ -244,9 +248,10 @@ public class ATMSS extends AppThread {
                 case PollAck:
                     log.info("PollAck: " + msg.getDetails());
                     break;
+
                 case BAMSAck:
                     Timer.cancelTimer(id, mbox, BAMSResponseTimerID);
-                    BAMSResponseTimerID = Timer.setTimer(id, mbox, BAMSResponseTimerID, 16000);
+                    BAMSResponseTimerID = Timer.setTimer(id, mbox, BAMSResponseTimerID, 17000);
                     log.info("BAMSAck: " + msg.getDetails());
                     break;
 

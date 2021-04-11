@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.StringTokenizer;
 import java.util.logging.*;
 
-public class bamsThreadHandler extends AppThread{
+public class bamsThreadHandler extends AppThread {
     protected MBox atmss = null;
     private BAMSHandler bams = null;
     private final String urlPrefix = "http://cslinux0.comp.hkbu.edu.hk/comp4107_20-21_grp11/";    //http://cslinux0.comp.hkbu.edu.hk/~comp4107/test/
@@ -26,10 +26,14 @@ public class bamsThreadHandler extends AppThread{
         atmss = appKickstarter.getThread("ATMSS").getMBox();
         log.info(id + ": starting...");
 
-        for (boolean quit = false; !quit;) {
-            Msg msg = mbox.receive();		//for this specific HW's MBox receive //this is based on the inheritance property from appthread and Handlers
+        for (boolean quit = false; !quit; ) {
+            Msg msg = mbox.receive();        //for this specific HW's MBox receive //this is based on the inheritance property from appthread and Handlers
 
             log.fine(id + ": message received: [" + msg + "].");
+            if (!msg.getType().equals(Msg.Type.TimesUp)) {
+                Timer.cancelTimer(id, mbox, BAMSTimerID);
+                BAMSTimerID = Timer.setTimer(id, mbox, BAMSTimerID, 15000);
+            }
 
             switch (msg.getType()) {
                 case Verify:
@@ -98,25 +102,11 @@ public class bamsThreadHandler extends AppThread{
                     }
                     break;
 
-//                case Poll:
-//                    try {
-//                        networkPoll(bams);
-//                        atmss.send(new Msg(id, mbox, Msg.Type.PollAck, id + " is up!"));
-//                    } catch (BAMSInvalidReplyException e) {
-//                        //a network poll don't care what it replies
-//                        break;
-//                    } catch (IOException e) {
-//                        //only care whether it replies or not
-//                        log.severe(id + ": Network connection problem occurs");
-//                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
-//                    }
-//                    break;
-
                 case TimesUp:
                     StringTokenizer tokens = new StringTokenizer(msg.getDetails());
                     String msgtype = tokens.nextToken();
                     int timerID = Integer.parseInt(tokens.nextToken());
-                    if (timerID == BAMSTimerID){
+                    if (timerID == BAMSTimerID) {
                         BAMSTimerID = Timer.setTimer(id, mbox, 15000);
                         try {
                             networkPoll(bams);
@@ -167,11 +157,11 @@ public class bamsThreadHandler extends AppThread{
         credential = bams.login(cardnum, pin);    //login returns string //456123789
         System.out.println("cred: " + credential);
         System.out.println();
-        if (credential.equals("ERROR")){
-            log.info(id+" : incorrect cardnum or pin!");
+        if (credential.equals("ERROR")) {
+            log.info(id + " : incorrect cardnum or pin!");
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Fail"));
-        }else{
-            log.info(id+" : successful login!");
+        } else {
+            log.info(id + " : successful login!");
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success"));
         }
     } // testLogin
