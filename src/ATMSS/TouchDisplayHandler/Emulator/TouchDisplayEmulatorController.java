@@ -129,31 +129,35 @@ public class TouchDisplayEmulatorController {
         eraseText();
         String[] detail = details.split("/");
         StringTokenizer denomsTokens = new StringTokenizer(detail[0]);
-        String denomsAvailable = "\n\nMoney Notes Denominations available: ";
-        int count = 0;
-        for (int i = 0; denomsTokens.hasMoreTokens(); i++) {
-            String token = denomsTokens.nextToken();
-            if (Integer.parseInt(token) > 0) {
-                if (i == 0) {
-                    denomsAvailable += "$100, ";
-                } else if (i == 1) {
-                    denomsAvailable += "$500, ";
-                } else if (i == 2) {
-                    denomsAvailable += "$1000, ";
+        if (detail.length > 1 && detail[1].equals("Out of Service")) {
+            blankAmountStringBuild.append(detail[1]);
+        } else {
+            String denomsAvailable = "\n\nMoney Notes Denominations available: ";
+            int count = 0;
+            for (int i = 0; denomsTokens.hasMoreTokens(); i++) {
+                String token = denomsTokens.nextToken();
+                if (Integer.parseInt(token) > 0) {
+                    if (i == 0) {
+                        denomsAvailable += "$100, ";
+                    } else if (i == 1) {
+                        denomsAvailable += "$500, ";
+                    } else if (i == 2) {
+                        denomsAvailable += "$1000, ";
+                    }
+                    count++;
                 }
-                count++;
             }
-        }
-        blankAmountStringBuild.append("Please Insert ATM Card");
-        if (count > 0) {
-            blankAmountStringBuild.append(denomsAvailable);
-        }
-        if (detail.length > 1) {
-            blankAmountStringBuild.append("\n\nComponents not working: ");
-            StringTokenizer malTokens = new StringTokenizer(detail[1]);
-            blankAmountStringBuild.append(malTokens.nextToken());
-            while (malTokens.hasMoreTokens()) {
-                blankAmountStringBuild.append(", ").append(malTokens.nextToken());
+            blankAmountStringBuild.append("Please Insert ATM Card");
+            if (count > 0) {
+                blankAmountStringBuild.append(denomsAvailable);
+            }
+            if (detail.length > 1) {
+                blankAmountStringBuild.append("\n\nComponents not working: ");
+                StringTokenizer malTokens = new StringTokenizer(detail[1]);
+                blankAmountStringBuild.append(malTokens.nextToken());
+                while (malTokens.hasMoreTokens()) {
+                    blankAmountStringBuild.append(", ").append(malTokens.nextToken());
+                }
             }
         }
         blankTopLabel.setText("Welcome to ATM system emulator");

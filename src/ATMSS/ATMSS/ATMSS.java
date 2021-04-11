@@ -278,8 +278,6 @@ public class ATMSS extends AppThread {
 
                         case "BAMSThreadHandler":
 
-                        case "CardReaderHandler":
-
                         case "DepositSlotHandler":
 
                         case "DispenserSlotHandler":
@@ -288,9 +286,23 @@ public class ATMSS extends AppThread {
                             }
 
                         case "KeypadHandler":
+                            //redirect to welcome page and show maintenance
+                            //critical situation --> out of service
+                            if (loggedIn) {
+                                //send touchdisplay a error display
+                                //then return the card (and advice)
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.Error, msg.getDetails() + "\n\nPlease take back your card"));
+                                malfunctions = "Out of Service";
+                            }
+                            break;
+
+                        case "CardReaderHandler":
+                            //send touchdisplay a error display and ask user to contact the bank
+                            //critical situation --> out of service
+                            break;
 
                         case "TouchDisplayHandler":
-                            //critical situation --> out of service
+                            //shut down directly
                             break;
                     }
 //                    BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Error, "Error occurred!"));
@@ -320,8 +332,13 @@ public class ATMSS extends AppThread {
                             }
 
                         case "Account Balance Enquiry":
-                            touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
-                            halfRest();
+                            if (malfunctions.equals("Out of Service")) {
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "Welcome_" + denom100 + " " + denom500 + " " + denom1000 + "/" + malfunctions));
+                                allReset();
+                            } else {
+                                touchDisplayMBox.send(new Msg(id, mbox, Msg.Type.TD_UpdateDisplay, "MainMenu"));
+                                halfRest();
+                            }
                             break;
                     }
                     break;
