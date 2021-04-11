@@ -215,6 +215,9 @@ public class ATMSS extends AppThread {
                         DispenserSlotMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
                         AdvicePrinterMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
                         BuzzerMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+                        if (loggedIn) {     //only send network poll to bams when login is false
+                            bamsThreadMBox.send(new Msg(id, mbox, Msg.Type.Poll, ""));
+                        }
                     } else if (timerID == depositTimerID) {
                         depositTimerID = -1;
                         DepositSlotMBox.send(new Msg(id, mbox, Msg.Type.Deposit, "CloseSlot"));

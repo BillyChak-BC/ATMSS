@@ -29,10 +29,6 @@ public class bamsThreadHandler extends AppThread{
             log.fine(id + ": message received: [" + msg + "].");
 
             switch (msg.getType()) {
-                //not needed because atmss does not poll bams
-//                case Poll:
-//                    atmss.send(new Msg(id, mbox, Msg.Type.PollAck, id + " is up!"));
-//                    break;
                 case Verify:
                     try {
                         testLogin(bams, msg.getDetails());
@@ -40,6 +36,7 @@ public class bamsThreadHandler extends AppThread{
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
                         log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
                     }
                     break;
 
@@ -50,6 +47,7 @@ public class bamsThreadHandler extends AppThread{
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
                         log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
                     }
                     break;
 
@@ -60,6 +58,7 @@ public class bamsThreadHandler extends AppThread{
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
                         log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
                     }
                     break;
 
@@ -70,6 +69,7 @@ public class bamsThreadHandler extends AppThread{
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
                         log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
                     }
                     break;
 
@@ -80,6 +80,7 @@ public class bamsThreadHandler extends AppThread{
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
                         log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
                     }
                     break;
 
@@ -90,6 +91,21 @@ public class bamsThreadHandler extends AppThread{
                         log.severe(id + ": " + msg.getType() + ": " + e.getMessage());
                     } catch (IOException e) {
                         log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
+                    }
+                    break;
+
+                case Poll:
+                    try {
+                        networkPoll(bams);
+                        atmss.send(new Msg(id, mbox, Msg.Type.PollAck, id + " is up!"));
+                    } catch (BAMSInvalidReplyException e) {
+                        //a network poll don't care what it replies
+                        break;
+                    } catch (IOException e) {
+                        //only care whether it replies or not
+                        log.severe(id + ": Network connection problem occurs");
+                        atmss.send(new Msg(id, mbox, Msg.Type.Error, "Network connection problem"));
                     }
                     break;
 
@@ -136,6 +152,10 @@ public class bamsThreadHandler extends AppThread{
             atmss.send(new Msg(id, mbox, Msg.Type.LoggedIn, "Success"));
         }
     } // testLogin
+
+    protected void networkPoll(BAMSHandler bams) throws IOException, BAMSInvalidReplyException {
+        String result = bams.login("0000-1000", "012387937");
+    }
 
 
     //------------------------------------------------------------
