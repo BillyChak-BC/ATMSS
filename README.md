@@ -72,4 +72,12 @@ comp4107_grp11@% | utf8 | utf8_general_ci | utf8_general_ci |
 
 Description: Can only insert the record with same card number (cardNo) 4 times only,
 will show error in the fifth time.
+
+trigger2
+
+| trigger2 | UPDATE | Account | begin if new.amount < 0 then signal sqlstate '45000' 
+set message_text = 'not enough money to withdraw!!'; end if; end | BEFORE | NULL | 
+STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION | comp4107_grp11@% | utf8 | utf8_general_ci | utf8_general_ci |
+
+Description: Can't update the amount less than 0, otherwise will show error.
 ```
